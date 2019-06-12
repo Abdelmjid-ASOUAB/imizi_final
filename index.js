@@ -59,7 +59,7 @@ app.post('/upload', (req, res) => {
   
     const file = req.files.file;
   
-    file.mv(`${__dirname}/client/public/uploades/h@h.h`, err => {
+    file.mv(`${__dirname}/client/public/uploades/${file.name}`, err => {
       if (err) {
         console.error(err);
         return res.status(500).send(err);
@@ -74,7 +74,9 @@ app.get('/register',(req,res)=>{
     const GET_LOG_Q= 'INSERT INTO `consultant`(`nom`, `prenom`, `email`, `pwd`, `tel`) VALUES ("'+nom+'","'+prenom+'","'+email+'","'+pwd+'","'+tel+'")';
     connection.query(GET_LOG_Q,(err,result)=>{
         if(err){
-            return res.send(err);
+            return res.send({
+                success: err
+            });
         }else{
             return res.send({
                 success: true

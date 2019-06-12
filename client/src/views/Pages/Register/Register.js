@@ -4,20 +4,43 @@ import sample from '../Login/video.webm';
 import logo from '../../Icons/logo-orange.png';
 import { Formik } from "formik";
 import * as Yup from "yup";
-import {  FormGroup, FormControl } from "react-bootstrap";
+import {  FormGroup, FormControl ,Alert,Form} from "react-bootstrap";
 import axios from 'axios'
 
 class Register extends Component {
 
   state = {
-    auth: true,
+    nom:'',
+    prenom:'',
+    email:'',
+    pwd:'',
+    tel:'',
+    seniorite:'',
+    availability:'',
+    auth: false,
+    next:true,
     file:'',
     fileName:'Choose CV File',
-    uploadedFile:{}
+    uploadedFile:{},
+    deplicact:false
+
   }
   _handelFormSubmit(value) {
-    console.log(value);
-    this.getRegester(value);
+   // console.log(value);
+   // this.getRegester(value);
+    this.setState({
+    nom:value.nom,
+    prenom:value.prenom,
+    email:value.email,
+    pwd:value.password,
+    tel:value.tel,
+    });
+this.setState({
+  next:true
+});
+console.log(this.state);
+
+
   }
 
   getRegester= v =>{
@@ -32,6 +55,12 @@ class Register extends Component {
             console.log(this.state.auth);
           })
 
+        }else if (response.success.errno === 1062){
+         
+            console.log("deplicact Email");
+            this.setState({ "deplicact":true}, () => {
+              console.log(this.state.deplicact);
+            })
         }
         }
         )
@@ -52,7 +81,7 @@ class Register extends Component {
     e.preventDefault();
     const formData = new FormData();
     formData.append('file',this.state.file);
-    
+
    try {
     const res = await axios.post('http://localhost:4000/upload', formData, {
       headers: {
@@ -68,16 +97,53 @@ class Register extends Component {
    }
 }
 
+renderError(ee){
+  if(this.state.deplicact===true){
+    return(<Alert variant="danger "   dismissible>
+    <p> Email ${ee} Duplicate entry </p>
+   
+  </Alert>)
+  }
+}
+
   render() {
+    
     let log1=   
      <form onSubmit={this.fileSubmit}>
        
   <div className="input-group-prepend" style={{marginBottom:30,fontSize:20}}>
   <b>   Uploading Your CV </b>
-
   </div>
+  <div className="input-group-prepend" >
+ 
+  <Form.Group as={Col} controlId="formGridState" onChange={e=>
+console.log(e.value)
+}>
+      <Form.Label>Seniorite</Form.Label>
+      <Form.Control as="select">
+        <option>Choose  your seniority</option>
+        <option>Expert [+10 years]</option>
+        <option>Senior [5 to 10 years]</option>
+        <option>intermediate [3 to  5 years]</option>
+        <option>beginner 0 to  5 years]</option>
+
+      </Form.Control>
+    </Form.Group>
+    <Form.Group as={Col} controlId="formGridState">
+      <Form.Label>availability</Form.Label>
+      <Form.Control as="select">
+      <option>Choose  your availability</option>
+        <option>immediate</option>
+        <option>In 2 weeks</option>
+        <option>1 month</option>
+        <option>+ 1 month</option>
+
+      </Form.Control>
+    </Form.Group>
+  </div>
+
     <div className="input-group">
-    
+  
   
   <div className="custom-file">
     <input
@@ -96,11 +162,12 @@ class Register extends Component {
       type="submit"
       className="btn btn-primary btn-block mt-4"
       value="upload"
+      accept=".pdf"
     />
 </div>
 </form>
 
-    if(this.state.auth===false){
+    if(this.state.next===false){
  log1 = <Formik
           initialValues={{prenom:"",nom:"" ,email: "",tel:"+212", password: "" }}
           onSubmit={this._handelFormSubmit.bind(this)}
@@ -124,6 +191,7 @@ class Register extends Component {
             touched
           }) => (
             <div>
+             
               <FormGroup>
                 <FormControl
                   isInvalid={errors.prenom && touched.prenom}
@@ -204,6 +272,7 @@ class Register extends Component {
               >
                 Login
               </Button>
+              {this.renderError()}
             </div>
           )}
         />
@@ -219,7 +288,7 @@ class Register extends Component {
         <Container>
           
         <Row className="justify-content-center">
-        <img src={logo} style={{zIndex:"1", height:80,margin:10}} />
+        <img src={logo} style={{zIndex:"1", height:40,margin:10}} />
 
           </Row>
           <Row className="justify-content-center">
