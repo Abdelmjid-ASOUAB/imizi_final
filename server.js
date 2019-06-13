@@ -10,6 +10,7 @@ app.use(cors());
 
 
 const Select_All_user ='SELECT * FROM consultant';
+
 const connection = mysql.createConnection({
     host:'localhost',
     user:'root',
@@ -70,9 +71,11 @@ app.post('/upload', (req, res) => {
   });
   
 app.get('/register',(req,res)=>{
-    const {nom,prenom,tel,email, pwd,} = req.query;
-    const GET_LOG_Q= 'INSERT INTO `consultant`(`nom`, `prenom`, `email`, `pwd`, `tel`) VALUES ("'+nom+'","'+prenom+'","'+email+'","'+pwd+'","'+tel+'")';
+    const {nom,prenom,tel,email, pwd,seniorite,availability} = req.query;
+    const GET_LOG_Q= 'INSERT INTO `consultant`(`nom`, `prenom`, `email`, `pwd`, `tel`,  `seniorite`, `disponibilité`) VALUES ("'+nom+'","'+prenom+'","'+email+'","'+pwd+'","'+tel+'","'+seniorite+'","'+availability+'")';
     connection.query(GET_LOG_Q,(err,result)=>{
+        console.log(GET_LOG_Q);
+        
         if(err){
             return res.send({
                 success: err
@@ -80,6 +83,39 @@ app.get('/register',(req,res)=>{
         }else{
             return res.send({
                 success: true
+            });
+        }
+    })  
+});
+
+
+//MISSION
+app.get('/getmission',(req,res)=>{
+    const Select_All_Mission ='SELECT * FROM mission';
+    connection.query(Select_All_Mission,(err,result)=>{
+        if(err){
+            return err;
+        }else{
+            return res.json({
+                data:result
+            });
+        }
+    })  
+});
+
+
+
+app.get('/searchmission',(req,res)=>{
+    const {title,description} = req.query;
+    let Search_Mission="SELECT * FROM mission where Titel LIKE '%"+title+"%' or description	LIKE '%"+description+"%'";
+    connection.query(Search_Mission,(err,result)=>{
+        if(err){
+            return err;
+        }else{
+            console.log(Search_Mission);
+            
+            return res.json({
+                data:result
             });
         }
     })  

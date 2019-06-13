@@ -1,7 +1,10 @@
-import React, { Component, Suspense } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import * as router from 'react-router-dom';
-import { Container, Row } from 'reactstrap';
+import React, { Component, Suspense } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
+import * as router from "react-router-dom";
+import { Container, Row } from "reactstrap";
+import MainMission from "./mainPage/mainMission";
+import MainMessage from "./mainPage/mainMessage";
+import MainSetting from "./mainPage/mainSetting";
 
 import {
   AppAside,
@@ -13,27 +16,41 @@ import {
   AppSidebarHeader,
   AppSidebarMinimizer,
   AppBreadcrumb2 as AppBreadcrumb,
-  AppSidebarNav2 as AppSidebarNav,
-} from '@coreui/react';
+  AppSidebarNav2 as AppSidebarNav
+} from "@coreui/react";
 // sidebar nav config
-import navigation from '../../_nav';
+import navigation from "../../_nav";
 // routes config
-import routes from '../../routes';
+import routes from "../../routes";
 
-const DefaultAside = React.lazy(() => import('./DefaultAside'));
-const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
-const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
+const DefaultAside = React.lazy(() => import("./DefaultAside"));
+const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
+const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
 
 class DefaultLayout extends Component {
+  loading = () => (
+    <div className="animated fadeIn pt-1 text-center">Loading...</div>
+  );
 
-  loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
+    state = {
+      page:0
+    }
 
   signOut(e) {
-    e.preventDefault()
-    this.props.history.push('/login')
+    e.preventDefault();
+    this.props.history.push("/login");
   }
 
   render() {
+    let selectPage = <MainMission />;
+    if (this.state.page === 0) {
+      selectPage = <MainMission />;
+    } else if (this.state.page === 1) {
+      selectPage = <MainMessage />;
+    } else if (this.state.page === 2) {
+      selectPage = <MainSetting />;
+    }
+
     return (
       <div className="app">
         <AppHeader fixed>
@@ -47,22 +64,48 @@ class DefaultLayout extends Component {
             <AppSidebarForm />
             <Suspense>
               <Container>
-                <Row>
-                  hsjs
-            </Row>
-                <Row>
-                  hsjs
-            </Row><Row>
-                  hsjs
-            </Row>
+                <Row
+                  style={{
+                    marginTop: 20,
+                    marginLeft: 10,
+                    marginBottom: 10,
+                    fontWeight: "bold"
+                  }}
+                  onClick={e => this.setState({
+                    page : 0
+                  })}
+                >
+                  All Missions
+                </Row>
+             
+                <Row
+                  style={{ marginTop: 20, marginLeft: 10, marginBottom: 10 }}
+                  onClick={e => this.setState({
+                    page: 1
+                  })}
+                >
+                  Messages
+                </Row>
+                <Row
+                  style={{ marginTop: 20, marginLeft: 10, marginBottom: 10 }} onClick={e => this.setState({
+                    page: 2
+                  })}
+                >
+                  Sitting
+                </Row>
               </Container>
             </Suspense>
             <AppSidebarFooter />
             <AppSidebarMinimizer />
           </AppSidebar>
-          <main className="main">
-            hh
-          </main>
+          <Container>
+          <Row className="justify-content-center">
+            
+          {selectPage}
+          </Row >
+            
+          </Container>
+          
           <AppAside fixed>
             <Suspense fallback={this.loading()}>
               <DefaultAside />
