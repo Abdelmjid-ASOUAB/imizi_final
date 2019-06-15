@@ -1,42 +1,26 @@
 import React, { Fragment, Component } from "react";
 import { Form, Button, Card } from "react-bootstrap";
-import moment from 'moment';
-
-class MainMission extends Component {
+import moment from "moment";
+import { Container, Row } from "reactstrap";
+import addMission from "./AddMission";
+import AddMisison from "./AddMission";
+class MyMission extends Component {
   state = {
     mission: [],
-    search: ""
+    search: "",
+    addMission:false
   };
   constructor(props) {
     super(props);
-    this.getMission();
 
-    // Don't call this.setState() here!
-    if(localStorage.getItem('compte')=='client'){
-        console.log("CLIENT");
-        
-        this.getMissionByEmail();
-
-    }else  if(localStorage.getItem('compte')=='consultant'){
-      console.log("CONSULTANT");
-     
-    }
-    
+    this.getMissionByEmail();
   }
 
-  getMission = v => {
-    fetch("http://localhost:4000/getmission")
-      .then(response => response.json())
-      .then(response =>
-        this.setState({
-          mission: response.data
-        })
-      )
-      .catch(err => console.error(err));
-  };
-
   getMissionByEmail = v => {
-    fetch("http://localhost:4000/missionemail?email="+localStorage.getItem('email'))
+    fetch(
+      "http://localhost:4000/missionemail?email=" +
+        localStorage.getItem("email")
+    )
       .then(response => response.json())
       .then(response =>
         this.setState({
@@ -46,12 +30,14 @@ class MainMission extends Component {
       .catch(err => console.error(err));
   };
 
-  searchMission = v => {
+  searchMissionByEmail = v => {
     fetch(
-      "http://localhost:4000/searchmission?title=" +
+      "http://localhost:4000/searchemailmission?title=" +
         this.state.search +
         "&description=" +
-        this.state.search
+        this.state.search +
+        "&email=" +
+        localStorage.getItem("email")
     )
       .then(response => response.json())
       .then(response =>
@@ -69,14 +55,15 @@ class MainMission extends Component {
         <Card.Body>
           <Card.Title>{moment(date).format("MMMM D, YYYY")}</Card.Title>
           <Card.Text>{description}</Card.Text>
-          <Button variant="primary" >Read it</Button>
+          <Button variant="primary">Read it</Button>
         </Card.Body>
       </Card>
     </div>
   );
 
   render() {
-    const { mission } = this.state;
+    if (this.state.addMission=== false) {
+      const { mission } = this.state;
     return (
       <main className="main">
         <h1> MainMission</h1>
@@ -90,18 +77,30 @@ class MainMission extends Component {
               this.setState({
                 search: e.target.value
               });
-              this.searchMission();
-              if(e.target.value===''){
-                this.getMission();
+              this.searchMissionByEmail();
+              if (e.target.value === "") {
+                this.getMissionByEmail();
               }
             }}
           />
           {mission.map(this.renderMission)}
+
+          <Container>
+            <Row
+              className="justify-content-center"
+              style={{ marginBottom: 10 }}
+            >
+              <Button variant="success" onClick={e=>this.setState({addMission:true})}>Add new Mission</Button>
+            </Row>
+          </Container>
         </div>
       </main>
     );
+    }else{
+      return           <AddMisison/>;
+    }
+    
   }
-  //  return
 }
 
-export default MainMission;
+export default MyMission;

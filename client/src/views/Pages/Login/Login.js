@@ -12,7 +12,13 @@ import {
 } from "reactstrap";
 import sample from "./video.webm";
 import { Formik } from "formik";
-import { FormGroup, FormControl } from "react-bootstrap";
+import {
+  FormGroup,
+  FormControl,
+  ButtonToolbar,
+  ToggleButton,
+  ToggleButtonGroup
+} from "react-bootstrap";
 import * as Yup from "yup";
 import { Redirect } from "react-router-dom";
 import logo from "../../Icons/logo-orange.png";
@@ -20,10 +26,19 @@ import logo from "../../Icons/logo-orange.png";
 class Login extends Component {
   state = {
     email: "ddd",
-    auth: false
+    auth: false,
+    typeCompt: 2
   };
+  /*
+  let typelogin ='login';
+      if(this.state.typeCompt===2){
+        typelogin ='loginclient';
+        console.log("2 comptr");
+        
+      }
+      */
 
-  getAuth = v => {
+  getAuthConsultant = v => {
     fetch(
       "http://localhost:4000/login?email=" + v.email + "&pwd=" + v.password + ""
     )
@@ -34,22 +49,60 @@ class Login extends Component {
             console.log(this.state.auth);
           });
         }
+        if (response.result === "") {
+          console.log("ikhwaa");
+        }
       })
       .catch(err => console.error(err));
   };
 
-  Onsubmit = () => {
-    console.log(this.state.email + " --  " + this.state.password);
+  getAuthClient = v => {
+    fetch(
+      "http://localhost:4000/loginclient?email=" +
+        v.email +
+        "&pwd=" +
+        v.password +
+        ""
+    )
+      .then(response => response.json())
+      .then(response => {
+        if (response.result[0].mail === v.email) {
+          this.setState({ auth: true }, () => {
+            console.log(this.state.auth);
+          });
+        
+        }
+        if (response.result === "") {
+          console.log("ikhwaa");
+        }
+      })
+      .catch(err => console.error(err));
   };
 
   _handelFormSubmit(value, bag) {
-    this.getAuth(value);
+    localStorage.setItem("email", value.email);
+
+    if (this.state.typeCompt === 1) {
+      localStorage.removeItem("compte");
+      localStorage.setItem("compte", "consultant");
+      this.getAuthConsultant(value);
+    } else {
+      localStorage.removeItem("compte");
+      localStorage.setItem("compte", "client");
+      this.getAuthClient(value);
+    }
   }
+
+  checkChange = value => {
+    this.setState({ typeCompt: value });
+    console.log(this.state.typeCompt);
+  };
 
   render() {
     if (this.state.auth) {
       return <Redirect to={"/"} />;
     }
+
     return (
       <div className="app flex-row align-items-center">
         <video
@@ -76,6 +129,25 @@ class Login extends Component {
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
+                    <Container>
+                      <Row
+                        className="justify-content-center"
+                        style={{ marginBottom: 10 }}
+                      >
+                        <ButtonToolbar>
+                          <ToggleButtonGroup
+                            type="radio"
+                            name="options"
+                            defaultValue={1}
+                            value={this.state.typeCompt}
+                            onChange={this.checkChange}
+                          >
+                            <ToggleButton value={1}>Consultant</ToggleButton>
+                            <ToggleButton value={2}>Client</ToggleButton>
+                          </ToggleButtonGroup>
+                        </ButtonToolbar>
+                      </Row>
+                    </Container>
                     <Formik
                       initialValues={{ email: "", password: "" }}
                       onSubmit={this._handelFormSubmit.bind(this)}
@@ -147,11 +219,7 @@ class Login extends Component {
                   <CardBody className="text-center">
                     <div>
                       <h2>Sign up</h2>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua.
-                      </p>
+                      <p>Creat your account !</p>
                       <Link to="/register">
                         <Button
                           color="primary"

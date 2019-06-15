@@ -37,7 +37,7 @@ app.get('/user',(req,res)=>{
     })  
 });
 
-
+//Login Consultant
 app.get('/login',(req,res)=>{
     const {email, pwd} = req.query;
     const GET_LOG_Q= 'SELECT email FROM consultant where email="'+email+'" and pwd="'+pwd+'"';
@@ -51,6 +51,23 @@ app.get('/login',(req,res)=>{
         }
     })  
 });
+
+
+//Login Client
+app.get('/loginclient',(req,res)=>{
+    const {email, pwd} = req.query;
+    const GET_LOG_Q= 'SELECT mail FROM client where mail="'+email+'" and pwd="'+pwd+'"';
+    connection.query(GET_LOG_Q,(err,result)=>{
+        if(err){
+            return res.send(err);
+        }else{
+            return res.send({
+                result
+            });
+        }
+    })  
+});
+
 
 //Upload CV File
 app.post('/upload', (req, res) => {
@@ -69,10 +86,30 @@ app.post('/upload', (req, res) => {
       res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
     });
   });
-  
-app.get('/register',(req,res)=>{
+  //Consultant Regester
+app.get('/ConsultantRegister',(req,res)=>{
     const {nom,prenom,tel,email, pwd,seniorite,availability} = req.query;
     const GET_LOG_Q= 'INSERT INTO `consultant`(`nom`, `prenom`, `email`, `pwd`, `tel`,  `seniorite`, `disponibilité`) VALUES ("'+nom+'","'+prenom+'","'+email+'","'+pwd+'","'+tel+'","'+seniorite+'","'+availability+'")';
+    connection.query(GET_LOG_Q,(err,result)=>{
+        console.log(GET_LOG_Q);
+        
+        if(err){
+            return res.send({
+                success: err
+            });
+        }else{
+            return res.send({
+                success: true
+            });
+        }
+    })  
+});
+
+
+  //Client Regester
+  app.get('/ClientRegister',(req,res)=>{
+    const {nom,prenom,tel,email, pwd,clientname} = req.query;
+    const GET_LOG_Q= 'INSERT INTO `client`(`representant`,  `mail`, `pwd`, `tel`,  `societe`) VALUES ("'+nom+" "+prenom+'","'+email+'","'+pwd+'","'+tel+'","'+clientname+'")';
     connection.query(GET_LOG_Q,(err,result)=>{
         console.log(GET_LOG_Q);
         
@@ -104,7 +141,7 @@ app.get('/getmission',(req,res)=>{
 });
 
 
-
+    //get Mission with titel or description 
 app.get('/searchmission',(req,res)=>{
     const {title,description} = req.query;
     let Search_Mission="SELECT * FROM mission where Titel LIKE '%"+title+"%' or description	LIKE '%"+description+"%'";
@@ -112,7 +149,6 @@ app.get('/searchmission',(req,res)=>{
         if(err){
             return err;
         }else{
-            console.log(Search_Mission);
             
             return res.json({
                 data:result
@@ -121,6 +157,46 @@ app.get('/searchmission',(req,res)=>{
     })  
 });
 
+
+    //get Mission with Email         
+
+    app.get('/missionemail',(req,res)=>{
+        const {email} = req.query;
+        let Search_Mission="SELECT * FROM mission where id in( SELECT mission_id FROM Missionclient where client_email = '"+email+"') ";
+
+        console.log(Search_Mission);
+        
+        connection.query(Search_Mission,(err,result)=>{
+            if(err){
+                return err;
+            }else{
+                
+                return res.json({
+                    data:result
+                });
+            }
+        })  
+    });
+// Search Mission Content with email Client !
+    app.get('/searchemailmission',(req,res)=>{
+        const {title,description,email} = req.query;
+        let Search_Mission="SELECT * FROM mission where id in( SELECT mission_id FROM Missionclient where client_email = '"+email+"')  and( Titel LIKE '%"+title+"%' or description	LIKE '%"+description+"%')"
+      
+      console.log(Search_Mission);
+      
+       connection.query(Search_Mission,(err,result)=>{
+            if(err){
+                return err;
+            }else{
+                
+                return res.json({
+                    data:result
+                });
+            }
+        })  
+    });
+    
+    
 
 app.get('/',(req,res)=>{
     res.send("hello guys");

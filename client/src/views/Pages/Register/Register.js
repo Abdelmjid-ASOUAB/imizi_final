@@ -13,11 +13,25 @@ import sample from "../Login/video.webm";
 import logo from "../../Icons/logo-orange.png";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { FormGroup, FormControl, Alert, Form } from "react-bootstrap";
+import {
+  FormGroup,
+  FormControl,
+  Alert,
+  Form,
+  ButtonToolbar,
+  ToggleButton,
+  ToggleButtonGroup
+} from "react-bootstrap";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 
 class Register extends Component {
+  constructor() {
+    super();
+    this.checkChange = this.checkChange.bind(this);
+  }
+
+  //our State
   state = {
     nom: "",
     prenom: "",
@@ -32,8 +46,11 @@ class Register extends Component {
     fileName: "Choose CV File",
     uploadedFile: {},
     deplicact: false,
-    isRegester: false
+    isRegester: false,
+    typeCompt: 1
   };
+
+  //Go to next Next Form Consultant
   _Next(value) {
     // console.log(value);
     this.setState({
@@ -43,15 +60,18 @@ class Register extends Component {
       pwd: value.password,
       tel: value.tel
     });
+
     this.setState({
       next: true
     });
+
     console.log(this.state);
   }
 
-  getRegester = v => {
+  //Regester Consultant
+  getRegesterConsultant = v => {
     fetch(
-      "http://localhost:4000/register?nom=" +
+      "http://localhost:4000/ConsultantRegister?nom=" +
         v.nom +
         "&prenom=" +
         v.prenom +
@@ -69,13 +89,56 @@ class Register extends Component {
       .then(response => response.json())
 
       .then(response => {
-        console.log(response.success);
-
         if (response.success === true) {
           this.setState({ isRegester: true }, () => {
             console.log(this.state.isRegester);
             this.upload();
           });
+
+          console.log(response.success);
+
+          localStorage.setItem("email", v.email);
+        } else if (response.success.errno === 1062) {
+          console.log("deplicact Email");
+          this.setState({ deplicact: true, next: false }, () => {
+            console.log(this.state.deplicact);
+          });
+        }
+      })
+      .catch(err => console.error(err));
+  };
+
+  //Regester Client
+  getRegesterClient = v => {
+    localStorage.setItem("email", v.email);
+
+    fetch(
+      "http://localhost:4000/ClientRegister?nom=" +
+        v.nom +
+        "&prenom=" +
+        v.prenom +
+        "&tel=" +
+        v.tel +
+        "&email=" +
+        v.email +
+        "&pwd=" +
+        v.password +
+        "&clientname=" +
+        v.Client_name
+    )
+      .then(response => response.json())
+
+      .then(response => {
+        console.log(response.success);
+        if (response.success === true) {
+          this.setState({ isRegester: true }, () => {
+            console.log(this.state.isRegester);
+          });
+          this.setState({
+            auth: true
+          });
+
+          localStorage.setItem("email", v.email);
         } else if (response.success.errno === 1062) {
           console.log("deplicact Email");
           this.setState({ deplicact: true, next: false }, () => {
@@ -93,6 +156,7 @@ class Register extends Component {
     });
   };
 
+  //Upload Cv
   upload = async e => {
     const formData = new FormData();
     formData.append("file", this.state.file);
@@ -112,20 +176,32 @@ class Register extends Component {
     } catch (err) {}
   };
 
+  //Submit Consultant Form
   OnSubmit = async e => {
     e.preventDefault();
-    this.getRegester(this.state);
+    this.getRegesterConsultant(this.state);
     console.log(this.state);
   };
-
+  //get Error
   renderError(ee) {
     if (this.state.deplicact === true) {
       return (
         <Alert variant="danger " dismissible>
-          <p> Email ${ee} Duplicate entry </p>
+          <p> Email Duplicate entry </p>
         </Alert>
       );
     }
+  }
+
+  //Submit CLient Form
+  SubmitClient(v) {
+    this.getRegesterClient(v);
+  }
+
+  //Check Change of Type Compte Button
+  checkChange(value, event) {
+    this.setState({ typeCompt: value });
+    console.log(this.state.typeCompt);
   }
 
   render() {
@@ -137,9 +213,7 @@ class Register extends Component {
         <div
           className="input-group-prepend"
           style={{ marginBottom: 30, fontSize: 20 }}
-        >
-          <b> Uploading Your CV </b>
-        </div>
+        />
         <div className="input-group-prepend">
           <Form.Group
             as={Col}
@@ -202,7 +276,7 @@ class Register extends Component {
         </div>
       </form>
     );
-
+    //Consultant Form Compte
     if (this.state.next === false) {
       log1 = (
         <Formik
@@ -234,32 +308,39 @@ class Register extends Component {
           }) => (
             <div>
               <FormGroup>
-                <FormControl
-                  isInvalid={errors.prenom && touched.prenom}
-                  placeholder="Prenom"
-                  type="text"
-                  name="prenom"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-                {errors.prenom && touched.prenom ? (
-                  <FormFeedback> {errors.prenom} </FormFeedback>
-                ) : (
-                  <br />
-                )}
-                <FormControl
-                  isInvalid={errors.nom && touched.nom}
-                  placeholder="Nom"
-                  type="text"
-                  name="nom"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-                {errors.nom && touched.nom ? (
-                  <FormFeedback> {errors.nom} </FormFeedback>
-                ) : (
-                  <br />
-                )}
+                <Row>
+                  <Col>
+                    <FormControl
+                      isInvalid={errors.prenom && touched.prenom}
+                      placeholder="First Name"
+                      type="text"
+                      name="prenom"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    {errors.prenom && touched.prenom ? (
+                      <FormFeedback> {errors.prenom} </FormFeedback>
+                    ) : (
+                      <br />
+                    )}
+                  </Col>
+                  <Col>
+                    <FormControl
+                      isInvalid={errors.nom && touched.nom}
+                      placeholder="Last Name"
+                      type="text"
+                      name="nom"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    {errors.nom && touched.nom ? (
+                      <FormFeedback> {errors.nom} </FormFeedback>
+                    ) : (
+                      <br />
+                    )}
+                  </Col>
+                </Row>
+
                 <FormControl
                   isInvalid={errors.email && touched.email}
                   placeholder="email"
@@ -318,6 +399,155 @@ class Register extends Component {
       );
     }
 
+    // Sweetch to Client Form
+    if (this.state.typeCompt == 2) {
+      log1 = (
+        <Formik
+          initialValues={{
+            prenom: "",
+            nom: "",
+            email: "",
+            tel: "+212",
+            password: "",
+            Client_name: ""
+          }}
+          onSubmit={this.SubmitClient.bind(this)}
+          validationSchema={Yup.object().shape({
+            prenom: Yup.string().required(),
+            nom: Yup.string().required(),
+            email: Yup.string()
+              .email()
+              .required(),
+            password: Yup.string().required(),
+            tel: Yup.string().required(),
+            Client_name: Yup.string().required()
+          })}
+          render={({
+            handleChange,
+            handleSubmit,
+            isValid,
+            isSubmitting,
+            handleBlur,
+            errors,
+            touched
+          }) => (
+            <div>
+              <FormGroup>
+                <Row>
+                  <Col>
+                    <FormControl
+                      isInvalid={errors.prenom && touched.prenom}
+                      placeholder="First Name"
+                      type="text"
+                      name="prenom"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    {errors.prenom && touched.prenom ? (
+                      <FormFeedback> {errors.prenom} </FormFeedback>
+                    ) : (
+                      <br />
+                    )}
+                  </Col>
+                  <Col>
+                    <FormControl
+                      isInvalid={errors.nom && touched.nom}
+                      placeholder="Last Name"
+                      type="text"
+                      name="nom"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    {errors.nom && touched.nom ? (
+                      <FormFeedback> {errors.nom} </FormFeedback>
+                    ) : (
+                      <br />
+                    )}
+                  </Col>
+                </Row>
+                <FormControl
+                  isInvalid={errors.Client_name && touched.Client_name}
+                  placeholder="Client Name"
+                  type="text"
+                  name="Client_name"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {errors.Client_name && touched.Client_name ? (
+                  <FormFeedback> {errors.Client_name} </FormFeedback>
+                ) : (
+                  <br />
+                )}
+
+                <FormControl
+                  isInvalid={errors.email && touched.email}
+                  placeholder="email"
+                  type="email"
+                  name="email"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {errors.email && touched.email ? (
+                  <FormFeedback> {errors.email} </FormFeedback>
+                ) : (
+                  <br />
+                )}
+                <FormControl
+                  isInvalid={errors.tel && touched.tel}
+                  placeholder="+212 XXXXXXX"
+                  type="text"
+                  name="tel"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+                {errors.tel && touched.tel ? (
+                  <FormFeedback> {errors.tel} </FormFeedback>
+                ) : (
+                  <br />
+                )}
+
+                <FormControl
+                  isInvalid={errors.password && touched.password}
+                  placeholder="password"
+                  onChange={handleChange}
+                  type="password"
+                  name="password"
+                  onBlur={handleBlur}
+                />
+                {errors.password && touched.password ? (
+                  <FormFeedback> {errors.password} </FormFeedback>
+                ) : (
+                  <br />
+                )}
+              </FormGroup>
+
+              <Container>
+                <Row
+                  className="justify-content-center"
+                  style={{ marginBottom: 10 }}
+                >
+                  <Button
+                    disabled={!isValid || isSubmitting}
+                    variant="outline-warning"
+                    onClick={handleSubmit}
+                    type="submit"
+                    color="primary"
+                  >
+                    registration
+                  </Button>
+                </Row>
+              </Container>
+              <Container>
+                <Row className="justify-content-center">
+                  {this.renderError()}
+                </Row>
+              </Container>
+            </div>
+          )}
+        />
+      );
+    }
+
     return (
       <div className="app flex-row align-items-center">
         <video
@@ -342,7 +572,29 @@ class Register extends Component {
           <Row className="justify-content-center">
             <Col md="9" lg="7" xl="6">
               <Card className="mx-4">
-                <CardBody className="p-4">{log1}</CardBody>
+                <CardBody className="p-4">
+                  <Container>
+                    <Row
+                      className="justify-content-center"
+                      style={{ marginBottom: 10 }}
+                    >
+                      <ButtonToolbar>
+                        <ToggleButtonGroup
+                          type="radio"
+                          name="options"
+                          defaultValue={1}
+                          value={this.state.typeCompt}
+                          onChange={this.checkChange}
+                        >
+                          <ToggleButton value={1}>Consultant</ToggleButton>
+                          <ToggleButton value={2}>Client</ToggleButton>
+                        </ToggleButtonGroup>
+                      </ButtonToolbar>
+                    </Row>
+                  </Container>
+
+                  {log1}
+                </CardBody>
                 <CardFooter className="p-4">
                   <Row>
                     <Col xs="12" sm="6">

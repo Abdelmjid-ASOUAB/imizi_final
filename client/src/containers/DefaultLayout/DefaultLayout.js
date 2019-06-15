@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import * as router from "react-router-dom";
 import { Container, Row } from "reactstrap";
 import MainMission from "./mainPage/mainMission";
+import ClientMission from "./mainPage/ClientMission";
 import MainMessage from "./mainPage/mainMessage";
 import MainSetting from "./mainPage/mainSetting";
 
@@ -32,9 +33,10 @@ class DefaultLayout extends Component {
     <div className="animated fadeIn pt-1 text-center">Loading...</div>
   );
 
-    state = {
-      page:0
-    }
+  state = {
+    page: 0,
+    test:2
+  };
 
   signOut(e) {
     e.preventDefault();
@@ -44,7 +46,14 @@ class DefaultLayout extends Component {
   render() {
     let selectPage = <MainMission />;
     if (this.state.page === 0) {
+      if(localStorage.getItem('compte')=='client'){
+        selectPage = <ClientMission />;
+
+    }else  if(localStorage.getItem('compte')=='consultant'){
       selectPage = <MainMission />;
+
+    }
+
     } else if (this.state.page === 1) {
       selectPage = <MainMessage />;
     } else if (this.state.page === 2) {
@@ -63,7 +72,10 @@ class DefaultLayout extends Component {
             <AppSidebarHeader />
             <AppSidebarForm />
             <Suspense>
+              
               <Container>
+
+              
                 <Row
                   style={{
                     marginTop: 20,
@@ -71,25 +83,34 @@ class DefaultLayout extends Component {
                     marginBottom: 10,
                     fontWeight: "bold"
                   }}
-                  onClick={e => this.setState({
-                    page : 0
-                  })}
+                  onClick={e => {
+                    this.setState({
+                      page: 0
+                    });
+                    console.log(localStorage.getItem('email'));
+                    
+                  }}
                 >
                   All Missions
                 </Row>
-             
+
                 <Row
                   style={{ marginTop: 20, marginLeft: 10, marginBottom: 10 }}
-                  onClick={e => this.setState({
-                    page: 1
-                  })}
+                  onClick={e =>
+                    this.setState({
+                      page: 1
+                    })
+                  }
                 >
                   Messages
                 </Row>
                 <Row
-                  style={{ marginTop: 20, marginLeft: 10, marginBottom: 10 }} onClick={e => this.setState({
-                    page: 2
-                  })}
+                  style={{ marginTop: 20, marginLeft: 10, marginBottom: 10 }}
+                  onClick={e =>
+                    this.setState({
+                      page: 2
+                    })
+                  }
                 >
                   Sitting
                 </Row>
@@ -99,13 +120,9 @@ class DefaultLayout extends Component {
             <AppSidebarMinimizer />
           </AppSidebar>
           <Container>
-          <Row className="justify-content-center">
-            
-          {selectPage}
-          </Row >
-            
+            <Row className="justify-content-center">{selectPage}</Row>
           </Container>
-          
+
           <AppAside fixed>
             <Suspense fallback={this.loading()}>
               <DefaultAside />
