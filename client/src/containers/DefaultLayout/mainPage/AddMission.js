@@ -2,7 +2,6 @@ import React, { Fragment, Component } from "react";
 import { Container, Row, Col, FormFeedback } from "reactstrap";
 import { Form, Button, Card, FormControl, FormGroup } from "react-bootstrap";
 import { Formik } from "formik";
-import * as Yup from "yup";
 import moment from "moment";
 
 import ClientMission from "./ClientMission";
@@ -17,6 +16,10 @@ class AddMisison extends Component {
     super(props);
 
     this.getMissionByEmail();
+  }
+  componentDidUpdate(){
+    this.getMissionByEmail();
+
   }
 
   getMissionByEmail = v => {
@@ -33,6 +36,68 @@ class AddMisison extends Component {
       .catch(err => console.error(err));
   };
 
+  insertRealationMissionClient() {
+    const email =localStorage.getItem("email");
+    fetch(
+      "http://localhost:4000/insertmissionclient?email=" +
+        email 
+      
+    )
+      .then(response => response.json())
+
+      .then(response => {
+        console.log("realation "+response.success);
+      })
+      .catch(err => console.error(err));
+  }
+  insertMission(v,{resetForm}) {
+    const date = new Date().toLocaleString();
+    fetch(
+      "http://localhost:4000/insertmission?titel=" +
+        v.titel +
+        "&description=" +
+        v.description +
+        "&date=" +
+        moment(date).format("YYYY-MM-DD")
+    )
+      .then(response => response.json())
+
+      .then(response => {
+        console.log(response.success);
+        this.insertRealationMissionClient();
+        resetForm({titel: "", description: ""});
+            })
+      .catch(err => console.error(err));
+  }
+
+
+
+  RemoveRelationnMissionClient = id => {
+    fetch(
+      "http://localhost:4000/removemissionClient?id=" +
+       id
+    )
+      .then(response => response.json())
+      .then(response =>{}
+      
+      )
+      .catch(err => console.error(err));
+  };
+
+  RemoveMission = id => {
+    fetch(
+      "http://localhost:4000/removemission?id=" +
+       id
+    )
+      .then(response => response.json())
+      .then(response =>{
+        this.RemoveRelationnMissionClient(id);  
+      }
+      )
+      .catch(err => console.error(err));
+  };
+
+  
   renderMission = ({ id, Titel, description, date }) => (
     <div key={id}>
       <Card style={{ marginLeft: 5, marginRight: 5 }}>
@@ -44,13 +109,13 @@ class AddMisison extends Component {
           <Container>
             <Row className="justify-content-center">
               <Col>
-                <Button variant="primary">Read </Button>
+                <Button variant="primary" onClick={ () =>console.log("read it "+id)}  >Read </Button>
               </Col>
               <Col>
-                <Button variant="info">Modife </Button>
+                <Button variant="info" onClick={ () =>console.log("modife")}>Modife </Button>
               </Col>
               <Col>
-                <Button variant="danger">Remove </Button>
+                <Button variant="danger"   onClick={ () =>this.RemoveMission(id)}>Remove </Button>
               </Col>
             </Row>
           </Container>
@@ -64,60 +129,54 @@ class AddMisison extends Component {
     if (this.state.ClientMission === false) {
       return (
         <main className="main">
-          <Container >
-          <Row className="justify-content-center">
-              <Col >
-          
-              <Card className="text-center" >
-        <Card.Header as="h5">Add New Mission </Card.Header>
-        </Card>
-
-              </Col >
+          <Container>
+            <Row className="justify-content-center">
               <Col>
-              <Card  className="text-center">
-        <Card.Header as="h5">My Mission </Card.Header>
-        </Card>
-
-              </Col >
-              </Row>
+                <Card className="text-center">
+                  <Card.Header as="h5">Add New Mission </Card.Header>
+                </Card>
+              </Col>
+              <Col>
+                <Card className="text-center">
+                  <Card.Header as="h5">My Mission </Card.Header>
+                </Card>
+              </Col>
+            </Row>
 
             <Row className="justify-content-center">
-              <Col >
-              
-
+              <Col>
                 <Formik
                   initialValues={{
-                    title: "",
                     description: "",
-                   
-                  }}
-                  onSubmit={e => {}}
-                  validationSchema={Yup.object().shape({
-                    title: Yup.string().required(),
-                    description: Yup.string().required()
                     
-                  })}
+                    titel: ""
+                  }}
+                  onSubmit={this.insertMission.bind(this)}
                   render={({
+                    handleChange,
                     handleSubmit,
-                   
+                    handleBlur,
                     errors,
                     touched
                   }) => (
                     <div>
                       <FormGroup>
                         <FormControl
-                          
                           placeholder="Title"
                           type="text"
-                          name="title"
+                          name="titel"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
                         />
-                        <br />
+                      <br />
 
                         <Form.Control
                           as="textarea"
                           rows="10"
                           name="description"
-                          placeholder="Description"
+                          placeholder="description"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
                         />
                       </FormGroup>
 
@@ -127,12 +186,12 @@ class AddMisison extends Component {
                           style={{ marginBottom: 10 }}
                         >
                           <Button
-                            variant="success"
+                          
                             onClick={handleSubmit}
                             type="submit"
-                            color="primary"
+                            color="sccess"
                           >
-                            Add Mission
+                            add mission
                           </Button>
                         </Row>
                       </Container>
@@ -143,9 +202,8 @@ class AddMisison extends Component {
                   )}
                 />
               </Col>
-              
+
               <Col style={{ overflowY: "auto", height: 400 }}>
-              
                 {mission.map(this.renderMission)}
               </Col>
             </Row>
