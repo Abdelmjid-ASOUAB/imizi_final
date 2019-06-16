@@ -164,8 +164,6 @@ app.get('/searchmission',(req,res)=>{
         const {email} = req.query;
         let Search_Mission="SELECT * FROM mission where id in( SELECT mission_id FROM Missionclient where client_email = '"+email+"') ";
 
-        console.log(Search_Mission);
-        
         connection.query(Search_Mission,(err,result)=>{
             if(err){
                 return err;
@@ -195,8 +193,82 @@ app.get('/searchmission',(req,res)=>{
             }
         })  
     });
-    
-    
+    //insert Mission
+    let id_mission_insert=0;
+    app.get('/insertmission',(req,res)=>{
+        const {titel,description,date} = req.query;
+        const GET_LOG_Q= 'INSERT INTO `mission`(`Titel`, `description`, `date`) VALUES ("'+titel+'","'+description+'","'+date+'")';
+        connection.query(GET_LOG_Q,(err,result)=>{
+            console.log(GET_LOG_Q);
+            console.log(result.insertId);
+            
+            if(err){
+                return res.send({
+                    success: err
+                });
+            }else{
+                id_mission_insert=result.insertId;
+                return res.send({
+                    success: result.insertId
+                });
+            }
+        })  
+    });
+    //insert Realation Mission Client 
+    app.get('/insertmissionclient',(req,res)=>{
+        const {email} = req.query;
+        const GET_LOG_Q= 'INSERT INTO `Missionclient`(`client_email`, `mission_id`) VALUES ("'+email+'","'+id_mission_insert+'")';
+        connection.query(GET_LOG_Q,(err,result)=>{
+            console.log(GET_LOG_Q);
+            console.log(result.insertId);
+            
+            if(err){
+                return res.send({
+                    success: err
+                });
+            }else{
+                id_mission_insert=result.insertId;
+                return res.send({
+                    success: result.insertId
+                });
+            }
+        })  
+    });
+//Remove from Mission table
+    app.get('/removemission',(req,res)=>{
+        const {id} = req.query;
+        const GET_LOG_Q= 'DELETE FROM `mission` WHERE `mission`.`id` = "'+id+'"';
+        connection.query(GET_LOG_Q,(err,result)=>{
+            console.log(GET_LOG_Q);            
+            if(err){
+                return res.send({
+                    success: err
+                });
+            }else{
+                return res.send({
+                    success: result.insertId
+                });
+            }
+        })  
+    });
+//Remove from MissionClient table
+
+    app.get('/removemissionClient',(req,res)=>{
+        const {id} = req.query;
+        const GET_LOG_Q= 'DELETE FROM `Missionclient` WHERE `Missionclient`.`mission_id` ="'+id+'"';
+        connection.query(GET_LOG_Q,(err,result)=>{
+            console.log("remove 2  "+GET_LOG_Q);            
+            if(err){
+                return res.send({
+                    success: err
+                });
+            }else{
+                return res.send({
+                    success: result.insertId
+                });
+            }
+        })  
+    });
 
 app.get('/',(req,res)=>{
     res.send("hello guys");
