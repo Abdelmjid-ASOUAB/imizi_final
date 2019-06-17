@@ -206,7 +206,7 @@ class Register extends Component {
 
   render() {
     if (this.state.auth) {
-      return <Redirect to={"/"} />;
+      return <Redirect to={"/dashbord"} />;
     }
     let log1 = (
       <form onSubmit={this.OnSubmit}>

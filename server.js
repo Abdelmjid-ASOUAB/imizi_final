@@ -177,7 +177,14 @@ app.get('/searchmission',(req,res)=>{
     });
 // Search Mission Content with email Client !
     app.get('/searchemailmission',(req,res)=>{
-        const {title,description,email} = req.query;
+        const {title,description,email,kaka} = req.query;
+        if(kaka){
+            console.log("kaka");
+            
+        }else{
+            console.log("no kaka");
+
+        }
         let Search_Mission="SELECT * FROM mission where id in( SELECT mission_id FROM Missionclient where client_email = '"+email+"')  and( Titel LIKE '%"+title+"%' or description	LIKE '%"+description+"%')"
       
       console.log(Search_Mission);

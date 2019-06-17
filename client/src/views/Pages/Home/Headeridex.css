@@ -1,0 +1,18 @@
+
+ .Nav-Bar-icon{
+   top: 20px;
+  position: absolute;
+  left: 40%;
+  margin-left: -50px !important;  /* 50% of your logo width */
+  display: block;    
+}
+  .Nav{  
+    background-color: #ffae00 !important;
+  text-align: center;
+  }
+  .Nav{
+   right: 0;
+  }
+  .icon{
+    margin-left: 53% !important;
+  }

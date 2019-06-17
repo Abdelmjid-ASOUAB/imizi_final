@@ -100,7 +100,7 @@ class Login extends Component {
 
   render() {
     if (this.state.auth) {
-      return <Redirect to={"/"} />;
+      return <Redirect to={"/dashbord"} />;
     }
 
     return (
@@ -167,7 +167,7 @@ class Login extends Component {
                         touched
                       }) => (
                         <div>
-                          <h1>Login</h1>
+                          <h2 style={{fontSize:35}}>Login</h2>
                           <FormGroup>
                             <FormControl
                               isInvalid={errors.email && touched.email}

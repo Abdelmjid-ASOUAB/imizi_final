@@ -1,0 +1,47 @@
+
+.f{
+    text-align: center;
+    margin: 0 auto !important;
+    width: 100%  !important;
+}
+.row1{
+    height: 200px !important;
+    margin: 0 auto !important;
+    width: 100%  !important;
+    
+
+}
+#footTitel{
+    color:  #ffae00 !important;
+    font-weight: bold  !important;
+    text-align: center !important;
+    margin: 0 auto;
+    width: 35%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+
+}
+#footdesc{
+    color:  #ffffff !important;
+    font-size: 12px;
+    text-align: left;
+  
+}
+#footdesc2{
+    color:  #ffae00 !important;
+    font-size: 12px;
+    text-align: left;
+  
+}
+#loggo{
+    height: 100px;
+    text-align: center !important;
+   
+}
+#divlogo{
+    padding-top: 80px !important;
+    background-color: black !important;
+    height: 200px;
+
+}

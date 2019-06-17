@@ -6,6 +6,8 @@ import MainMission from "./mainPage/mainMission";
 import ClientMission from "./mainPage/ClientMission";
 import MainMessage from "./mainPage/mainMessage";
 import MainSetting from "./mainPage/mainSetting";
+import MainConsultant from "./mainPage/searshConsultant";
+
 
 import {
   AppAside,
@@ -58,7 +60,10 @@ class DefaultLayout extends Component {
       selectPage = <MainMessage />;
     } else if (this.state.page === 2) {
       selectPage = <MainSetting />;
+    }else if (this.state.page === 3) {
+      selectPage = <MainConsultant />;
     }
+
 
     return (
       <div className="app">
@@ -112,8 +117,24 @@ class DefaultLayout extends Component {
                     })
                   }
                 >
-                  Sitting
+                  setting
                 </Row>
+                
+                  {localStorage.getItem("compte")=="client"? (
+                    <Row
+                    style={{ marginTop: 20, marginLeft: 10, marginBottom: 10 }}
+                    onClick={e =>
+                      this.setState({
+                        page: 3
+                      })
+                    }
+                  >
+                    Search consultant
+                  </Row>
+                ) : (
+                  <br />
+                )}
+              
               </Container>
             </Suspense>
             <AppSidebarFooter />

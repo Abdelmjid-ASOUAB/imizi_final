@@ -37,7 +37,7 @@ class MyMission extends Component {
         "&description=" +
         this.state.search +
         "&email=" +
-        localStorage.getItem("email")
+        localStorage.getItem("email")+"&kaka=haha"
     )
       .then(response => response.json())
       .then(response =>
