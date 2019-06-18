@@ -7,9 +7,6 @@ const fileUpload = require("express-fileupload");
 app.use(fileUpload());
 app.use(cors());
 
-const Select_All_user = "SELECT * FROM consultant";
-
-
 //Connecting  To Database
 const connection = mysql.createConnection({
   host: "localhost",
@@ -17,7 +14,6 @@ const connection = mysql.createConnection({
   password: "",
   database: "imzii"
 });
-
 
 connection.connect(err => {
   if (err) {
@@ -95,7 +91,7 @@ app.post("/upload", (req, res) => {
 app.get("/ConsultantRegister", (req, res) => {
   const { nom, prenom, tel, email, pwd, seniorite, availability } = req.query;
   const GET_LOG_Q =
-    'INSERT INTO `consultant`(`nom`, `prenom`, `email`, `pwd`, `tel`,  `seniorite`, `disponibilité`) VALUES ("' +
+    'INSERT INTO `consultant`(`nom`, `prenom`, `email`, `pwd`, `tel`,  `seniorite`, `disponibilite`) VALUES ("' +
     nom +
     '","' +
     prenom +
@@ -334,7 +330,121 @@ app.get("/removemissionClient", (req, res) => {
   });
 });
 
+//get Mission with titel or description
+app.get("/searchconsultant", (req, res) => {
+  let {
+    competence,
+    seniorite1,
+    seniorite2,
+    seniorite3,
+    seniorite4,
+    diponibilite1,
+    diponibilite2,
+    diponibilite3,
+    diponibilite4
+  } = req.query;
+  let typ = "";
+  let sql = "SELECT * FROM consultant";
 
+  if (competence != "") {
+    sql += " where competence LIKE '%" + competence + "%'";
+    typ = "competence";
+  } else if (
+    seniorite1 != "" ||
+    seniorite2 != "" ||
+    seniorite3 != "" ||
+    seniorite4 != ""
+  ) {
+    sql +=
+     
+      " where seniorite IN ('" +
+      seniorite1 +
+      "','" +
+      seniorite2 +
+      "','" +
+      seniorite3 +
+      "','" +
+      seniorite4 +
+      "')";
+    typ = "seniorite";
+  } else if (
+    diponibilite1 != "" ||
+    diponibilite2 != "" ||
+    diponibilite3 != "" ||
+    diponibilite4 != ""
+  ) {
+    sql +=
+      
+      " where disponibilite IN ('" +
+      diponibilite1 +
+      "','" +
+      diponibilite2 +
+      "','" +
+      diponibilite3 +
+      "','" +
+      diponibilite4 +
+      "')";
+    typ = "disponibilité";
+  }
+
+  if (competence != "" && typ != "competence") {
+    sql +=  " and LIKE '" + competence + "'";
+
+  }
+  if (
+    (seniorite1 != "" ||
+      seniorite2 != "" ||
+      seniorite3 != "" ||
+      seniorite4 != "") &&
+    typ != "seniorite"
+  ) {
+    sql +=
+  
+    " and seniorite IN ('" +
+    seniorite1 +
+    "','" +
+    seniorite2 +
+    "','" +
+    seniorite3 +
+    "','" +
+    seniorite4 +
+    "')";
+  }
+  if (
+    (diponibilite1 != "" ||
+      diponibilite2 != "" ||
+      diponibilite3 != "" ||
+      diponibilite4 != "") &&
+    typ != "disponibilité"
+  ) {
+    sql +=
+   
+    " and disponibilite IN ('" +
+    diponibilite1 +
+    "','" +
+    diponibilite2 +
+    "','" +
+    diponibilite3 +
+    "','" +
+    diponibilite4 +
+    "')";
+  }
+
+
+  console.log(sql);
+  
+
+  connection.query(sql, (err, result) => {
+    if (err) {
+      return err;
+    } else {
+      return res.json({
+        data: result
+      });
+    }
+  });
+  
+});
 
 app.listen(4000, () => {
   console.log("Listen to  Servwerq 4000");

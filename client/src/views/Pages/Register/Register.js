@@ -230,7 +230,7 @@ class Register extends Component {
               <option>Expert [+10 years]</option>
               <option>Senior [5 to 10 years]</option>
               <option>intermediate [3 to 5 years]</option>
-              <option>beginner 0 to 5 years]</option>
+              <option>beginner [0 to 5 years]</option>
             </Form.Control>
           </Form.Group>
           <Form.Group
