@@ -38,10 +38,10 @@ class searshConsultant extends Component {
         {" "}
         <Row>
           <Col xs={12} md={7}>
-          <FormControl placeholder="skills" type="text" name="skills" />
+          <FormControl placeholder="skills" type="text" name="skills" style={{marginTop:30}}/>
           </Col>
-          <Col xs={6} md={5} style={{ backgroundColor: bgColors.Yellow }}>
-            <form>
+          <Col xs={6} md={5} style={{ backgroundColor: bgColors.Yellow ,}}>
+            <form style={{marginTop:30}}>
               
               <Form.Group as={Col} controlId="formGridState">
                 <Form.Label>Seniorite</Form.Label>
