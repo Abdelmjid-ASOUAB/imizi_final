@@ -7,8 +7,7 @@ import {
   Col,
   Container,
   FormFeedback,
-  Row,
-
+  Row
 } from "reactstrap";
 
 import {
@@ -17,7 +16,7 @@ import {
   ButtonToolbar,
   ToggleButton,
   ToggleButtonGroup,
-  Form,
+  Form
 } from "react-bootstrap";
 
 var bgColors = {
@@ -38,42 +37,65 @@ class searshConsultant extends Component {
       <main className="main">
         {" "}
         <Row>
-          <Col xs={12} md={8}>
-            xs=12 md=8
+          <Col xs={12} md={7}>
+          <FormControl placeholder="skills" type="text" name="skills" />
           </Col>
-          <Col xs={6} md={4} style={{ backgroundColor: bgColors.Yellow }}>
-        <form>
-            
-            <FormControl placeholder="skills" type="text" name="skills" />
-            <Form.Group
-            as={Col}
-            controlId="formGridState"
-            onChange={e =>
-              this.setState({
-                seniorite: e.target.value
-              })
-            }
-          >
-            <Form.Label>Seniorite</Form.Label>
-            <Form.Control as="select">
-              <option>Choose your seniority</option>
-              <option>Expert [+10 years]</option>
-              <option>Senior [5 to 10 years]</option>
-              <option>intermediate [3 to 5 years]</option>
-              <option>beginner 0 to 5 years]</option>
-            </Form.Control>
-            <Form.Label>availability</Form.Label>
-            <Form.Control as="select">
-              <option>Choose your availability</option>
-              <option>immediate</option>
-              <option>In 2 weeks</option>
-              <option>1 month</option>
-              <option>+ 1 month</option>
-            </Form.Control>
-          </Form.Group>
-           
-        </form>
+          <Col xs={6} md={5} style={{ backgroundColor: bgColors.Yellow }}>
+            <form>
+              
+              <Form.Group as={Col} controlId="formGridState">
+                <Form.Label>Seniorite</Form.Label>
+                <Row>
+                  <Col>
+                    <Form.Check label="Choose your seniority" />
+                  </Col>{" "}
+                  <Col>
+                    <Form.Check label="Expert [+10 years]" />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Form.Check label="intermediate [3 to 5 years]" />
+                  </Col>{" "}
+                  <Col>
+                    <Form.Check label="beginner 0 to 5 years]" />
+                  </Col>
+                </Row>
 
+                <Form.Label>availability</Form.Label>
+                <Row>
+                  <Col>
+                    <Form.Check label="immediate" />
+                  </Col>{" "}
+                  <Col>
+                    <Form.Check label="In 2 weeks" />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Form.Check label="1 month" />
+                  </Col>{" "}
+                  <Col>
+                    <Form.Check label="+ 1 month" />
+                  </Col>
+                </Row>
+                <Form.Control as="select">
+                  <option>Choose your seniority</option>
+                  <option>Expert [+10 years]</option>
+                  <option>Senior [5 to 10 years]</option>
+                  <option>intermediate [3 to 5 years]</option>
+                  <option>beginner 0 to 5 years]</option>
+                </Form.Control>
+                <Form.Label>availability</Form.Label>
+                <Form.Control as="select">
+                  <option>Choose your availability</option>
+                  <option>immediate</option>
+                  <option>In 2 weeks</option>
+                  <option>1 month</option>
+                  <option>+ 1 month</option>
+                </Form.Control>
+              </Form.Group>
+            </form>
           </Col>
         </Row>
       </main>

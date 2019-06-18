@@ -17,7 +17,8 @@ import {
   FormControl,
   ButtonToolbar,
   ToggleButton,
-  ToggleButtonGroup
+  ToggleButtonGroup,
+  Alert,
 } from "react-bootstrap";
 import * as Yup from "yup";
 import { Redirect } from "react-router-dom";
@@ -27,16 +28,9 @@ class Login extends Component {
   state = {
     email: "ddd",
     auth: false,
-    typeCompt: 2
+    typeCompt: 2,
+    notFound:false
   };
-  /*
-  let typelogin ='login';
-      if(this.state.typeCompt===2){
-        typelogin ='loginclient';
-        console.log("2 comptr");
-        
-      }
-      */
 
   getAuthConsultant = v => {
     fetch(
@@ -44,14 +38,23 @@ class Login extends Component {
     )
       .then(response => response.json())
       .then(response => {
-        if (response.result[0].email === v.email) {
-          this.setState({ auth: true }, () => {
-            console.log(this.state.auth);
+
+        if (Object.keys(response.result).length>0) {
+          console.log("illaa");
+          if (response.result[0].email === v.email) {
+            this.setState({ auth: true }, () => {
+              console.log(this.state.auth);
+            });
+          }
+        }else{
+          console.log("ikhwaa");
+          this.setState({
+            notFound:true
           });
         }
-        if (response.result === "") {
-          console.log("ikhwaa");
-        }
+
+      
+        
       })
       .catch(err => console.error(err));
   };
@@ -66,14 +69,19 @@ class Login extends Component {
     )
       .then(response => response.json())
       .then(response => {
+
+        if (Object.keys(response.result).length>0) {
         if (response.result[0].mail === v.email) {
           this.setState({ auth: true }, () => {
             console.log(this.state.auth);
           });
         
         }
-        if (response.result === "") {
+        }else{
           console.log("ikhwaa");
+          this.setState({
+            notFound:true
+          });
         }
       })
       .catch(err => console.error(err));
@@ -97,7 +105,15 @@ class Login extends Component {
     this.setState({ typeCompt: value });
     console.log(this.state.typeCompt);
   };
-
+  renderError(ee) {
+    if (this.state.notFound === true) {
+      return (
+        <Alert variant="danger " >
+          <p>Account not Found Pleas  <Alert.Link href="#/register">Sign Up</Alert.Link> </p>
+        </Alert>
+      );
+    }
+  }
   render() {
     if (this.state.auth) {
       return <Redirect to={"/dashbord"} />;
@@ -130,6 +146,8 @@ class Login extends Component {
                 <Card className="p-4">
                   <CardBody>
                     <Container>
+                    <Row className="justify-content-center" style={{fontWeight:"bold",fontSize:20,color:"#2980b9"}}>YOU ARE :</Row>
+
                       <Row
                         className="justify-content-center"
                         style={{ marginBottom: 10 }}
@@ -207,6 +225,7 @@ class Login extends Component {
                           >
                             Login
                           </Button>
+                          {this.renderError()}
                         </div>
                       )}
                     />

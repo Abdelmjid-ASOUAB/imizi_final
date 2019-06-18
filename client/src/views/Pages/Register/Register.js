@@ -186,8 +186,8 @@ class Register extends Component {
   renderError(ee) {
     if (this.state.deplicact === true) {
       return (
-        <Alert variant="danger " dismissible>
-          <p> Email Duplicate entry </p>
+        <Alert variant="danger " >
+          <p>You already have account with this email  </p>
         </Alert>
       );
     }
@@ -574,6 +574,7 @@ class Register extends Component {
               <Card className="mx-4">
                 <CardBody className="p-4">
                   <Container>
+                    <Row className="justify-content-center" style={{fontWeight:"bolder",fontSize:20,color:"#2980b9"}}>YOU ARE :</Row>
                     <Row
                       className="justify-content-center"
                       style={{ marginBottom: 10 }}
