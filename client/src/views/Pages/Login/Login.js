@@ -109,7 +109,7 @@ class Login extends Component {
     if (this.state.notFound === true) {
       return (
         <Alert variant="danger " >
-          <p>Account not Found Pleas  <Alert.Link href="#/register">Sign Up</Alert.Link> </p>
+          <p>Account not Found Please  <Alert.Link href="#/register">Sign Up</Alert.Link> </p>
         </Alert>
       );
     }
