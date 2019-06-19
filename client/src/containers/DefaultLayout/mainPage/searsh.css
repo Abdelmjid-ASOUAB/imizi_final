@@ -1,0 +1,12 @@
+.containerr {
+  display: inline-grid;
+  grid-template-columns: auto auto auto ;
+  
+  padding: 10px;
+  border-radius: 10px;
+}
+.itemm {
+
+  padding: 20px;
+  text-align: center;
+}

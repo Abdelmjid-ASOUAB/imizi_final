@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from "react";
 import { Button, Col, Container, FormFeedback, Row } from "reactstrap";
+import './searsh.css'
 
 import {
   FormGroup,
@@ -263,18 +264,27 @@ class searshConsultant extends Component {
     console.log(url);
   };
 
-  renderMission = ({ id, nom, prenom, competence }) => (
-    <div key={id}>
-      <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={avatar} />
-        <Card.Body>
-          <Card.Title>{nom + " " + prenom}</Card.Title>
-          <Card.Text>{competence}</Card.Text>
-          <Button variant="primary">Go somewhere</Button>
-        </Card.Body>
-      </Card>
+  renderMission = ({ id, nom, prenom, competence,email }) => (
+
+    <div key={id} class="itemm">
+    <Card style={{ width: '11rem' }}>
+  <Card.Img variant="top" src={avatar} />
+  <Card.Body>
+    <Card.Title>{nom +" "+prenom}</Card.Title>
+    <Card.Text>
+     {competence}
+    </Card.Text>
+    <Button variant="primary">{email}</Button>
+  </Card.Body>
+</Card>
     </div>
   );
+
+  /**
+   *  <div style={{ display:"inline-grid",gridColumn:"auto",gridColumnEnd:"auto",gridColumnStart:"auto",gridColumnGap:"10",gridRowGap:"25" }}>
+              
+            </div>
+   */
 
   OnSubmit() {
     console.log("onSubmit");
@@ -286,10 +296,10 @@ class searshConsultant extends Component {
       <main className="main">
         {" "}
         <Row>
-        <Col>
-            <div style={{ display:"inline-grid",gridColumn:"auto",gridColumnEnd:"auto",gridColumnStart:"auto",gridColumnGap:"auto" }}>
-              {consultant.map(this.renderMission)}
-            </div>
+            <Col>
+            <div class="containerr">
+            {consultant.map(this.renderMission)}
+</div>
             </Col>
             
           
