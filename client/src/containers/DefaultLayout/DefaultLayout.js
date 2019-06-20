@@ -71,6 +71,7 @@ class DefaultLayout extends Component {
           <Suspense fallback={this.loading()}>
             <DefaultHeader onLogout={e => this.signOut(e)} />
           </Suspense>
+          
         </AppHeader>
         <div className="app-body">
           <AppSidebar fixed display="lg">

@@ -1,6 +1,20 @@
 import React, { Fragment, Component } from "react";
-import { Button, Col, Container, FormFeedback, Row } from "reactstrap";
-import './searsh.css'
+import {
+  Button,
+  Col,
+  Container,
+  FormFeedback,
+  Row,
+  Nav,
+  NavItem,
+  NavLink,
+  Progress,
+  TabContent,
+  TabPane,
+  ListGroup,
+  ListGroupItem
+} from "reactstrap";
+import "./searsh.css";
 
 import {
   FormGroup,
@@ -11,6 +25,7 @@ import {
   Form,
   Card
 } from "react-bootstrap";
+
 import avatar from "../icons/avatar.jpg";
 var bgColors = {
   Default: "#81b71a",
@@ -18,7 +33,8 @@ var bgColors = {
   Cyan: "#37BC9B",
   Green: "#8CC152",
   Red: "#E9573F",
-  Yellow: "#F6BB42"
+  Yellow: "#F6BB42",
+  wi: "#FFFFFF"
 };
 
 class searshConsultant extends Component {
@@ -42,7 +58,17 @@ class searshConsultant extends Component {
     diponibilite2: "",
     diponibilite3: "",
     diponibilite4: "",
-    consultant: []
+    consultant: [],
+    activeTab: "1",
+    ischeckSenior1: "",
+    ischeckSenior2: "",
+    ischeckSenior3: "",
+    ischeckSenior4: "",
+    ischeckAvaibil1: "",
+    ischeckAvaibil2: "",
+    ischeckAvaibil3: "",
+    ischeckAvaibil4: "",
+    skills: ""
   };
   checkBooxChangeSeniorite(e, n) {
     if (n == 1) {
@@ -264,19 +290,37 @@ class searshConsultant extends Component {
     console.log(url);
   };
 
-  renderMission = ({ id, nom, prenom, competence,email }) => (
+  onChangeInput = () => {
+    localStorage.setItem("skills", this.state.skills);
 
-    <div key={id} class="itemm">
-    <Card style={{ width: '11rem' }}>
-  <Card.Img variant="top" src={avatar} />
-  <Card.Body>
-    <Card.Title>{nom +" "+prenom}</Card.Title>
-    <Card.Text>
-     {competence}
-    </Card.Text>
-    <Button variant="primary">{email}</Button>
-  </Card.Body>
-</Card>
+    localStorage.setItem("ischeckSenior1", this.state.ischeckSenior1);
+    localStorage.setItem("ischeckSenior2", this.state.ischeckSenior2);
+    localStorage.setItem("ischeckSenior3", this.state.ischeckSenior3);
+    localStorage.setItem("ischeckSenior4", this.state.ischeckSenior4);
+
+    localStorage.setItem("ischeckAvaibil1", this.state.ischeckAvaibil1);
+    localStorage.setItem("ischeckAvaibil2", this.state.ischeckAvaibil2);
+    localStorage.setItem("ischeckAvaibil3", this.state.ischeckAvaibil3);
+    localStorage.setItem("ischeckAvaibil4", this.state.ischeckAvaibil4);
+  };
+
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
+  }
+  renderMission = ({ id, nom, prenom, competence, email }) => (
+    <div key={id} className="itemm">
+      <Card style={{ width: "11rem" }}>
+        <Card.Img variant="top" src={avatar} />
+        <Card.Body>
+          <Card.Title>{nom + " " + prenom}</Card.Title>
+          <Card.Text>{competence}</Card.Text>
+          <Button variant="primary">{email}</Button>
+        </Card.Body>
+      </Card>
     </div>
   );
 
@@ -292,26 +336,541 @@ class searshConsultant extends Component {
   }
   render() {
     const { consultant } = this.state;
-    if (localStorage.ischeckSenior1=="checked") {
-    console.log("checked changed");
-    
-    }
-    
-    
+
+    const menuSearch = (
+      <React.Fragment>
+        <ListGroup className="list-group-accent" tag={"div"}>
+          <ListGroupItem className="list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase">
+            Skills
+          </ListGroupItem>
+          <ListGroupItem
+            action
+            href="#"
+            className="list-group-item-accent-success"
+          >
+            <div>
+              <div className="page">
+                <div className="">
+                  <div className="">
+                    <label className="">
+                      <input
+                        placeholder="skills"
+                        type="text"
+                        onChange={e => {
+                          this.setState(
+                            {
+                              competence: e.target.value
+                            },
+                            () => {
+                              console.log(this.state.competence);
+                            }
+                          );
+                        }}
+                      />
+                     
+                      <span className="toggle__label">
+                        <span className="toggle__text" />
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <small className="text-muted mr-3">
+              <i className="" />
+              &nbsp;Exampl : <strong>java ,sql ...</strong>
+            </small>
+            <input
+                        type="submit"
+                        className="btn btn-primary btn-block mt-2"
+                        value="search"
+                        onClick={this.OnSubmit}
+                      />
+          </ListGroupItem>
+
+          <ListGroupItem className="list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase">
+            Seniorite
+          </ListGroupItem>
+
+          <ListGroupItem
+            action
+            href="#"
+            className="list-group-item-accent-danger"
+            onClick={() => {
+              if (this.state.ischeckSenior1 === "") {
+                this.setState(
+                  {
+                    ischeckSenior1: "checked"
+                  },
+                  () => {
+                    console.log("checked");
+                    this.onChangeInput();
+                  }
+                );
+              } else {
+                {
+                  this.setState(
+                    {
+                      ischeckSenior1: ""
+                    },
+                    () => {
+                      console.log("no checked");
+                      this.onChangeInput();
+                    }
+                  );
+                }
+              }
+            }}
+          >
+            <div className="avatar float-right">
+              <div className="page">
+                <div className="page__demo">
+                  <div className="page__toggle">
+                    <label className="toggle">
+                      <input
+                        className="toggle__input"
+                        type="checkbox"
+                        checked={this.state.ischeckSenior1}
+                      />
+                      <span className="toggle__label">
+                        <span className="toggle__text" />
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <strong>Expert</strong>{" "}
+            </div>
+            <small className="text-muted mr-3">
+              <i className="icon-calendar" />
+              &nbsp;+10 Years
+            </small>
+          </ListGroupItem>
+
+          <ListGroupItem
+            action
+            href="#"
+            className="list-group-item-accent-success"
+            onClick={() => {
+              if (this.state.ischeckSenior2 === "") {
+                this.setState(
+                  {
+                    ischeckSenior2: "checked"
+                  },
+                  () => {
+                    console.log("checked");
+                    this.onChangeInput();
+                  }
+                );
+              } else {
+                {
+                  this.setState(
+                    {
+                      ischeckSenior2: ""
+                    },
+                    () => {
+                      console.log("no checked");
+                      this.onChangeInput();
+                    }
+                  );
+                }
+              }
+            }}
+          >
+            <div className="avatar float-right">
+              <div className="page">
+                <div className="page__demo">
+                  <div className="page__toggle">
+                    <label className="toggle">
+                      <input
+                        className="toggle__input"
+                        type="checkbox"
+                        checked={this.state.ischeckSenior2}
+                      />
+                      <span className="toggle__label">
+                        <span className="toggle__text" />
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <strong>Senior</strong>{" "}
+            </div>
+            <small className="text-muted mr-3">
+              <i className="icon-calendar" />
+              &nbsp;5 to 10 Years
+            </small>
+          </ListGroupItem>
+
+          <ListGroupItem
+            action
+            href="#"
+            className="list-group-item-accent-primary"
+            onClick={() => {
+              if (this.state.ischeckSenior3 === "") {
+                this.setState(
+                  {
+                    ischeckSenior3: "checked"
+                  },
+                  () => {
+                    console.log("checked");
+                    this.onChangeInput();
+                  }
+                );
+              } else {
+                {
+                  this.setState(
+                    {
+                      ischeckSenior3: ""
+                    },
+                    () => {
+                      console.log("no checked");
+                      this.onChangeInput();
+                    }
+                  );
+                }
+              }
+            }}
+          >
+            <div className="avatar float-right">
+              <div className="page">
+                <div className="page__demo">
+                  <div className="page__toggle">
+                    <label className="toggle">
+                      <input
+                        className="toggle__input"
+                        type="checkbox"
+                        checked={this.state.ischeckSenior3}
+                      />
+                      <span className="toggle__label">
+                        <span className="toggle__text" />
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <strong>Intermediate</strong>{" "}
+            </div>
+            <small className="text-muted mr-3">
+              <i className="icon-calendar" />
+              &nbsp;3 to 5 Years
+            </small>
+          </ListGroupItem>
+
+          <ListGroupItem
+            action
+            href="#"
+            className="list-group-item-accent-info"
+            onClick={() => {
+              if (this.state.ischeckSenior4 === "") {
+                this.setState(
+                  {
+                    ischeckSenior4: "checked"
+                  },
+                  () => {
+                    console.log("checked");
+                    this.onChangeInput();
+                  }
+                );
+              } else {
+                {
+                  this.setState(
+                    {
+                      ischeckSenior4: ""
+                    },
+                    () => {
+                      console.log("no checked");
+                      this.onChangeInput();
+                    }
+                  );
+                }
+              }
+            }}
+          >
+            <div className="avatar float-right">
+              <div className="page">
+                <div className="page__demo">
+                  <div className="page__toggle">
+                    <label className="toggle">
+                      <input
+                        className="toggle__input"
+                        type="checkbox"
+                        checked={this.state.ischeckSenior4}
+                      />
+                      <span className="toggle__label">
+                        <span className="toggle__text" />
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <strong>Beginner</strong>{" "}
+            </div>
+            <small className="text-muted mr-3">
+              <i className="icon-calendar" />
+              &nbsp;0 to 5 Years
+            </small>
+          </ListGroupItem>
+
+          <ListGroupItem className="list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase">
+            availability
+          </ListGroupItem>
+
+          <ListGroupItem
+            action
+            href="#"
+            className="list-group-item-accent-danger"
+            onClick={() => {
+              if (this.state.ischeckAvaibil1 === "") {
+                this.setState(
+                  {
+                    ischeckAvaibil1: "checked"
+                  },
+                  () => {
+                    console.log("checked");
+                    this.onChangeInput();
+                  }
+                );
+              } else {
+                {
+                  this.setState(
+                    {
+                      ischeckAvaibil1: ""
+                    },
+                    () => {
+                      console.log("no checked");
+                      this.onChangeInput();
+                    }
+                  );
+                }
+              }
+            }}
+          >
+            <div className="avatar float-right">
+              <div className="page">
+                <div className="page__demo">
+                  <div className="page__toggle">
+                    <label className="toggle">
+                      <input
+                        className="toggle__input"
+                        type="checkbox"
+                        checked={this.state.ischeckAvaibil1}
+                      />
+                      <span className="toggle__label">
+                        <span className="toggle__text" />
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <strong>Immediate</strong>{" "}
+            </div>
+            <small className="text-muted mr-3">___</small>
+          </ListGroupItem>
+
+          <ListGroupItem
+            action
+            href="#"
+            className="list-group-item-accent-success"
+            onClick={() => {
+              if (this.state.ischeckAvaibil2 === "") {
+                this.setState(
+                  {
+                    ischeckAvaibil2: "checked"
+                  },
+                  () => {
+                    console.log("checked");
+                    this.onChangeInput();
+                  }
+                );
+              } else {
+                {
+                  this.setState(
+                    {
+                      ischeckAvaibil2: ""
+                    },
+                    () => {
+                      console.log("no checked");
+                      this.onChangeInput();
+                    }
+                  );
+                }
+              }
+            }}
+          >
+            <div className="avatar float-right">
+              <div className="page">
+                <div className="page__demo">
+                  <div className="page__toggle">
+                    <label className="toggle">
+                      <input
+                        className="toggle__input"
+                        type="checkbox"
+                        checked={this.state.ischeckAvaibil2}
+                      />
+                      <span className="toggle__label">
+                        <span className="toggle__text" />
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <strong>In 2 weeks</strong>{" "}
+            </div>
+            <small className="text-muted mr-3">__</small>
+          </ListGroupItem>
+
+          <ListGroupItem
+            action
+            href="#"
+            className="list-group-item-accent-primary"
+            onClick={() => {
+              if (this.state.ischeckAvaibil3 === "") {
+                this.setState(
+                  {
+                    ischeckAvaibil3: "checked"
+                  },
+                  () => {
+                    console.log("checked");
+                    this.onChangeInput();
+                  }
+                );
+              } else {
+                {
+                  this.setState(
+                    {
+                      ischeckAvaibil3: ""
+                    },
+                    () => {
+                      console.log("no checked");
+                      this.onChangeInput();
+                    }
+                  );
+                }
+              }
+            }}
+          >
+            <div className="avatar float-right">
+              <div className="page">
+                <div className="page__demo">
+                  <div className="page__toggle">
+                    <label className="toggle">
+                      <input
+                        className="toggle__input"
+                        type="checkbox"
+                        checked={this.state.ischeckAvaibil3}
+                      />
+                      <span className="toggle__label">
+                        <span className="toggle__text" />
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <strong>In 1 month</strong>{" "}
+            </div>
+            <small className="text-muted mr-3">___</small>
+          </ListGroupItem>
+
+          <ListGroupItem
+            action
+            href="#"
+            className="list-group-item-accent-info"
+            onClick={() => {
+              if (this.state.ischeckAvaibil4 === "") {
+                this.setState(
+                  {
+                    ischeckAvaibil4: "checked"
+                  },
+                  () => {
+                    console.log("checked");
+                    this.onChangeInput();
+                  }
+                );
+              } else {
+                {
+                  this.setState(
+                    {
+                      ischeckAvaibil4: ""
+                    },
+                    () => {
+                      console.log("no checked");
+                      this.onChangeInput();
+                    }
+                  );
+                }
+              }
+            }}
+          >
+            <div className="avatar float-right">
+              <div className="page">
+                <div className="page__demo">
+                  <div className="page__toggle">
+                    <label className="toggle">
+                      <input
+                        className="toggle__input"
+                        type="checkbox"
+                        checked={this.state.ischeckAvaibil4}
+                      />
+                      <span className="toggle__label">
+                        <span className="toggle__text" />
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <strong>+1 month</strong>{" "}
+            </div>
+            <small className="text-muted mr-3">___</small>
+          </ListGroupItem>
+        </ListGroup>
+      </React.Fragment>
+    );
+
     return (
       <main className="main">
         {" "}
         <Row>
-            <Col>
-            <div class="containerr">
-            {consultant.map(this.renderMission)}
-</div>
-            </Col>
-            
-          
-          <Col xs={6} md={3} style={{ backgroundColor: bgColors.Yellow }}>
+          <Col sm={9}>
+            <div
+              className="containerr"
+              style={{ overflowY: "auto", height: 700, width: 700 }}
+            >
+              {consultant.map(this.renderMission)}
+            </div>
+          </Col>
 
-          <Col xs={12} md={9}>
+          <Col sm={3} style={{ backgroundColor: bgColors.wi }}>
+            {menuSearch}
+          </Col>
+        </Row>
+      </main>
+    );
+  }
+  //  return
+}
+
+export default searshConsultant;
+
+/**  search Form1 
+ *  <Col xs={12} md={9}>
             <FormControl
               placeholder="skills"
               type="text"
@@ -423,12 +982,4 @@ class searshConsultant extends Component {
                 </Row>
               </Form.Group>
             </form>
-          </Col>
-        </Row>
-      </main>
-    );
-  }
-  //  return
-}
-
-export default searshConsultant;
+ */
