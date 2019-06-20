@@ -292,6 +292,12 @@ class searshConsultant extends Component {
   }
   render() {
     const { consultant } = this.state;
+    if (localStorage.ischeckSenior1=="checked") {
+    console.log("checked changed");
+    
+    }
+    
+    
     return (
       <main className="main">
         {" "}

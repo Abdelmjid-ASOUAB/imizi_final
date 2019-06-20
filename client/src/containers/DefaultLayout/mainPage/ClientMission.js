@@ -95,7 +95,7 @@ class MyMission extends Component {
               className="justify-content-center"
               style={{ marginBottom: 10 }}
             >
-              <Button variant="success" onClick={e=>this.setState({addMission:true})}>Add new Mission</Button>
+              <Button variant="success" onClick={e=>{this.setState({addMission:true}); console.log(localStorage)}}>Add new Mission</Button>
             </Row>
           </Container>
         </div>
