@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 16, 2019 at 04:21 PM
+-- Generation Time: Jun 21, 2019 at 02:52 AM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -66,34 +66,35 @@ CREATE TABLE `consultant` (
   `pwd` varchar(20) NOT NULL,
   `tel` varchar(15) NOT NULL,
   `seniorite` varchar(100) DEFAULT NULL,
-  `disponibilité` varchar(100) DEFAULT NULL,
-  `Tjm` int(11) DEFAULT NULL
+  `disponibilite` varchar(100) DEFAULT NULL,
+  `Tjm` int(11) DEFAULT NULL,
+  `competence` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `consultant`
 --
 
-INSERT INTO `consultant` (`id`, `nom`, `prenom`, `email`, `pwd`, `tel`, `seniorite`, `disponibilité`, `Tjm`) VALUES
-(1, 'hanane', '', 'h@h.com', 'hhh', '', '', '', 0),
-(4, 'asouab', 'abdelmjid', 'h@h.m', 'hhh', '0610573342', '', '', 0),
-(6, 'saadi', 'hanan', 'hanan@homtail.com', '11111', '0610573342', '', '', 0),
-(7, 'hiha', 'hiho', 'h@h.fr', 'hhh', '0185090003', '', '', 0),
-(20, 'nta', 'ana', 'aa@aa.com', '1234567', '1234567', NULL, NULL, NULL),
-(31, 'asouab', 'abdelmjid', 'h@h.ma', 'hhh', '0610573342', NULL, NULL, NULL),
-(33, 'asouab', 'abdelmjid', 'abde.asouab@gmail.com', 'hhh', '0610573342', 'Expert [ 10 years]', 'immediate', NULL),
-(35, 'hiha', 'hiho', 'h@h.mama', 'hhh', '0185090003', 'Senior [5 to 10 years]', 'In 2 weeks', NULL),
-(36, 'hiha', 'hiho', 'h@h.frkk', 'hhh', '0185090003', 'Senior [5 to 10 years]', '1 month', NULL),
-(37, 'hiha', 'hiho', 'h@h.frq', 'hhh', '0185090003', 'Senior [5 to 10 years]', 'In 2 weeks', NULL),
-(38, 'asouab', 'abdelmjid', 'h@h.bb', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', NULL),
-(40, 'asouab', 'abdelmjid', 'h@h.frqqqqq', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', NULL),
-(42, 'ikhan', 'tata', 'h@h.c', 'hhh', '123456', 'undefined', 'undefined', NULL),
-(43, 'asouab', 'abdelmjid', 'h@h.frqq', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', NULL),
-(44, 'hiha', 'hiho', 'h@kh.fr', 'hhh', '0185090003', 'Expert [ 10 years]', 'In 2 weeks', NULL),
-(45, 'asouab', 'abdelmjid', 'h@h.frss', 'hhh', '0610573342', 'Senior [5 to 10 years]', 'In 2 weeks', NULL),
-(47, 'ss', 'ss', 'sss@eee.ma', 'hhh', 'h@h.fr', 'Expert [ 10 years]', 'immediate', NULL),
-(49, 'alah', 'alah', 'h@h.aaa', 'hhh', ' 212', 'Expert [ 10 years]', 'immediate', NULL),
-(50, 'asouab', 'abdelmjid', 'con@con.con', 'hhh', '0610573342', 'Expert [ 10 years]', '1 month', NULL);
+INSERT INTO `consultant` (`id`, `nom`, `prenom`, `email`, `pwd`, `tel`, `seniorite`, `disponibilite`, `Tjm`, `competence`) VALUES
+(1, 'hanane', '', 'h@h.com', 'hhh', '', 'Expert [ 10 years]', '', 0, 'java'),
+(4, 'asouab', 'abdelmjid', 'h@h.m', 'hhh', '0610573342', 'beginner [0 to 5 years]', '', 0, 'java,php'),
+(6, 'saadi', 'hanan', 'hanan@homtail.com', '11111', '0610573342', 'Expert [ 10 years]', '', 0, 'c++,php'),
+(7, 'hiha', 'hiho', 'h@h.fr', 'hhh', '0185090003', 'intermediate [3 to 5 years]', '', 0, 'sql,php'),
+(20, 'nta', 'ana', 'aa@aa.com', '1234567', '1234567', 'beginner [0 to 5 years]', NULL, NULL, 'html,css'),
+(31, 'asouab', 'abdelmjid', 'h@h.ma', 'hhh', '0610573342', 'Senior [5 to 10 years]', NULL, NULL, 'javascript,php'),
+(33, 'asouab', 'abdelmjid', 'abde.asouab@gmail.com', 'hhh', '0610573342', 'Expert [ 10 years]', 'immediate', NULL, 'reactjs,flutter'),
+(35, 'hiha', 'hiho', 'h@h.mama', 'hhh', '0185090003', 'Senior [5 to 10 years]', 'In 2 weeks', NULL, 'Angular'),
+(36, 'hiha', 'hiho', 'h@h.frkk', 'hhh', '0185090003', 'Senior [5 to 10 years]', '1 month', NULL, 'html,css'),
+(37, 'hiha', 'hiho', 'h@h.frq', 'hhh', '0185090003', 'Senior [5 to 10 years]', 'In 2 weeks', NULL, 'jee,java swing'),
+(38, 'asouab', 'abdelmjid', 'h@h.bb', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', NULL, '.net,c#'),
+(40, 'asouab', 'abdelmjid', 'h@h.frqqqqq', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', NULL, 'sql,mongodb'),
+(42, 'haho', 'tata', 'h@h.c', 'hhh', '123456', 'intermediate [3 to 5 years]', 'undefined', NULL, 'flutter,firebase'),
+(43, 'asouab', 'abdelmjid', 'h@h.frqq', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', NULL, 'symfony,php,html,css'),
+(44, 'hiha', 'hiho', 'h@kh.fr', 'hhh', '0185090003', 'Expert [ 10 years]', 'In 2 weeks', NULL, 'php,mern,uml,xml'),
+(45, 'asouab', 'abdelmjid', 'h@h.frss', 'hhh', '0610573342', 'Senior [5 to 10 years]', 'In 2 weeks', NULL, 'react native'),
+(47, 'ss', 'ss', 'sss@eee.ma', 'hhh', 'h@h.fr', 'Expert [ 10 years]', 'immediate', NULL, 'android'),
+(49, 'alah', 'alah', 'h@h.aaa', 'hhh', ' 212', 'Expert [ 10 years]', 'immediate', NULL, 'ios'),
+(50, 'asouab', 'abdelmjid', 'con@con.con', 'hhh', '0610573342', 'Expert [ 10 years]', '1 month', NULL, 'networking');
 
 -- --------------------------------------------------------
 
@@ -118,7 +119,8 @@ INSERT INTO `mission` (`id`, `Titel`, `description`, `date`, `visible`) VALUES
 (1, 'Developer  Java', 'Developer  JavaDeveloper  JavaDeveloper  JavaDeveloper  Java', '2019-06-04', 0),
 (2, 'Developer  Web', 'Developer  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  Web', '2019-06-12', 0),
 (3, 'networking ', 'networkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworking', '2019-06-02', 0),
-(24, 'test 1', 'test 2', '2019-06-16', 0);
+(24, 'test 1', 'test 2', '2019-06-16', 0),
+(25, 'hackers', 'hackers hackers hackers hackers hackers hackers ', '2019-06-16', 0);
 
 -- --------------------------------------------------------
 
@@ -140,7 +142,8 @@ CREATE TABLE `Missionclient` (
 INSERT INTO `Missionclient` (`id`, `client_email`, `mission_id`) VALUES
 (1, 'contact@inwi.com', 1),
 (2, 'contact@inwi.com', 2),
-(18, 'cli@cli.cli', 24);
+(18, 'cli@cli.cli', 24),
+(19, 'cli@cli.cli', 25);
 
 --
 -- Indexes for dumped tables
@@ -180,25 +183,25 @@ ALTER TABLE `Missionclient`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `consultant`
 --
 ALTER TABLE `consultant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `mission`
 --
 ALTER TABLE `mission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `Missionclient`
 --
 ALTER TABLE `Missionclient`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
