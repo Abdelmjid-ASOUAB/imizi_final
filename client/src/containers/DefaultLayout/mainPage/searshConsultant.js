@@ -42,10 +42,6 @@ class searshConsultant extends Component {
     super(props);
     this.OnSubmit = this.OnSubmit.bind(this);
 
-    this.checkBooxChangeSeniorite = this.checkBooxChangeSeniorite.bind(this);
-    this.checkBooxChangeDisponibilte = this.checkBooxChangeDisponibilte.bind(
-      this
-    );
     this.getConsultant();
   }
   state = {
@@ -70,190 +66,8 @@ class searshConsultant extends Component {
     ischeckAvaibil4: "",
     skills: ""
   };
-  checkBooxChangeSeniorite(e, n) {
-    if (n == 1) {
-      if (e.target.checked) {
-        console.log("oui");
-        this.setState(
-          {
-            seniorite1: "Expert [+10 years]"
-          },
-          () => {
-            console.log(this.state.seniorite1);
-          }
-        );
-      } else {
-        console.log("non");
-        this.setState(
-          {
-            seniorite1: ""
-          },
-          () => {
-            console.log(this.state.seniorite1);
-          }
-        );
-      }
-    } else if (n == 2) {
-      if (e.target.checked) {
-        console.log("oui");
-        this.setState(
-          {
-            seniorite2: "Senior [5 to 10 years]"
-          },
-          () => {
-            console.log(this.state.seniorite2);
-          }
-        );
-      } else {
-        console.log("non");
-        this.setState(
-          {
-            seniorite2: ""
-          },
-          () => {
-            console.log(this.state.seniorite2);
-          }
-        );
-      }
-    } else if (n == 3) {
-      if (e.target.checked) {
-        console.log("oui");
-        this.setState(
-          {
-            seniorite3: "intermediate [3 to 5 years]"
-          },
-          () => {
-            console.log(this.state.seniorite3);
-          }
-        );
-      } else {
-        console.log("non");
-        this.setState(
-          {
-            seniorite3: ""
-          },
-          () => {
-            console.log(this.state.seniorite3);
-          }
-        );
-      }
-    } else if (n == 4) {
-      if (e.target.checked) {
-        console.log("oui");
-        this.setState(
-          {
-            seniorite4: "beginner [0 to 5 years]"
-          },
-          () => {
-            console.log(this.state.seniorite4);
-          }
-        );
-      } else {
-        console.log("non");
-        this.setState(
-          {
-            seniorite4: ""
-          },
-          () => {
-            console.log(this.state.seniorite4);
-          }
-        );
-      }
-    }
-  }
-  checkBooxChangeDisponibilte(e, n) {
-    if (n == 1) {
-      if (e.target.checked) {
-        console.log("oui");
-        this.setState(
-          {
-            diponibilite1: "immediate"
-          },
-          () => {
-            console.log(this.state.diponibilite1);
-          }
-        );
-      } else {
-        console.log("non");
-        this.setState(
-          {
-            diponibilite1: ""
-          },
-          () => {
-            console.log(this.state.diponibilite1);
-          }
-        );
-      }
-    } else if (n == 2) {
-      if (e.target.checked) {
-        console.log("oui");
-        this.setState(
-          {
-            diponibilite2: "In 2 weeks"
-          },
-          () => {
-            console.log(this.state.diponibilite2);
-          }
-        );
-      } else {
-        console.log("non");
-        this.setState(
-          {
-            diponibilite2: ""
-          },
-          () => {
-            console.log(this.state.diponibilite2);
-          }
-        );
-      }
-    } else if (n == 3) {
-      if (e.target.checked) {
-        console.log("oui");
-        this.setState(
-          {
-            diponibilite3: "1 month"
-          },
-          () => {
-            console.log(this.state.diponibilite3);
-          }
-        );
-      } else {
-        console.log("non");
-        this.setState(
-          {
-            diponibilite3: ""
-          },
-          () => {
-            console.log(this.state.diponibilite3);
-          }
-        );
-      }
-    } else if (n == 4) {
-      if (e.target.checked) {
-        console.log("oui");
-        this.setState(
-          {
-            diponibilite4: "+ 1 month"
-          },
-          () => {
-            console.log(this.state.diponibilite4);
-          }
-        );
-      } else {
-        console.log("non");
-        this.setState(
-          {
-            diponibilite4: ""
-          },
-          () => {
-            console.log(this.state.diponibilite4);
-          }
-        );
-      }
-    }
-  }
-
   getConsultant = v => {
+
     let url =
       "http://localhost:4000/searchconsultant?competence=" +
       this.state.competence +
@@ -290,27 +104,6 @@ class searshConsultant extends Component {
     console.log(url);
   };
 
-  onChangeInput = () => {
-    localStorage.setItem("skills", this.state.skills);
-
-    localStorage.setItem("ischeckSenior1", this.state.ischeckSenior1);
-    localStorage.setItem("ischeckSenior2", this.state.ischeckSenior2);
-    localStorage.setItem("ischeckSenior3", this.state.ischeckSenior3);
-    localStorage.setItem("ischeckSenior4", this.state.ischeckSenior4);
-
-    localStorage.setItem("ischeckAvaibil1", this.state.ischeckAvaibil1);
-    localStorage.setItem("ischeckAvaibil2", this.state.ischeckAvaibil2);
-    localStorage.setItem("ischeckAvaibil3", this.state.ischeckAvaibil3);
-    localStorage.setItem("ischeckAvaibil4", this.state.ischeckAvaibil4);
-  };
-
-  toggle(tab) {
-    if (this.state.activeTab !== tab) {
-      this.setState({
-        activeTab: tab
-      });
-    }
-  }
   renderMission = ({ id, nom, prenom, competence, email }) => (
     <div key={id} className="itemm">
       <Card style={{ width: "11rem" }}>
@@ -333,6 +126,7 @@ class searshConsultant extends Component {
   OnSubmit() {
     console.log("onSubmit");
     this.getConsultant();
+    console.log(this.state);
   }
   render() {
     const { consultant } = this.state;
@@ -367,7 +161,7 @@ class searshConsultant extends Component {
                           );
                         }}
                       />
-                     
+
                       <span className="toggle__label">
                         <span className="toggle__text" />
                       </span>
@@ -382,11 +176,11 @@ class searshConsultant extends Component {
               &nbsp;Exampl : <strong>java ,sql ...</strong>
             </small>
             <input
-                        type="submit"
-                        className="btn btn-primary btn-block mt-2"
-                        value="search"
-                        onClick={this.OnSubmit}
-                      />
+              type="submit"
+              className="btn btn-primary btn-block mt-2"
+              value="search"
+              onClick={this.OnSubmit}
+            />
           </ListGroupItem>
 
           <ListGroupItem className="list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase">
@@ -397,26 +191,32 @@ class searshConsultant extends Component {
             action
             href="#"
             className="list-group-item-accent-danger"
+            onChange={() => {
+              console.log("change chenage");
+            }}
             onClick={() => {
               if (this.state.ischeckSenior1 === "") {
                 this.setState(
                   {
-                    ischeckSenior1: "checked"
+                    ischeckSenior1: "checked",
+                    seniorite1: "Expert [+10 years]"
+
                   },
                   () => {
                     console.log("checked");
-                    this.onChangeInput();
+                   
                   }
                 );
               } else {
                 {
                   this.setState(
                     {
-                      ischeckSenior1: ""
+                      ischeckSenior1: "",
+                      seniorite1: ""
+
                     },
                     () => {
                       console.log("no checked");
-                      this.onChangeInput();
                     }
                   );
                 }
@@ -458,22 +258,24 @@ class searshConsultant extends Component {
               if (this.state.ischeckSenior2 === "") {
                 this.setState(
                   {
-                    ischeckSenior2: "checked"
+                    ischeckSenior2: "checked",
+                    seniorite2: "Senior [5 to 10 years]"
                   },
                   () => {
                     console.log("checked");
-                    this.onChangeInput();
+                    
                   }
                 );
               } else {
                 {
                   this.setState(
                     {
-                      ischeckSenior2: ""
+                      ischeckSenior2: "",
+                      seniorite2: ""
                     },
                     () => {
                       console.log("no checked");
-                      this.onChangeInput();
+                    
                     }
                   );
                 }
@@ -515,22 +317,24 @@ class searshConsultant extends Component {
               if (this.state.ischeckSenior3 === "") {
                 this.setState(
                   {
-                    ischeckSenior3: "checked"
+                    ischeckSenior3: "checked",
+                    seniorite3: "intermediate [3 to 5 years]"
                   },
                   () => {
                     console.log("checked");
-                    this.onChangeInput();
+                  
                   }
                 );
               } else {
                 {
                   this.setState(
                     {
-                      ischeckSenior3: ""
+                      ischeckSenior3: "",
+                      seniorite3: ""
                     },
                     () => {
                       console.log("no checked");
-                      this.onChangeInput();
+                     
                     }
                   );
                 }
@@ -572,22 +376,24 @@ class searshConsultant extends Component {
               if (this.state.ischeckSenior4 === "") {
                 this.setState(
                   {
-                    ischeckSenior4: "checked"
+                    ischeckSenior4: "checked",
+                    seniorite4: "beginner [0 to 5 years]"
                   },
                   () => {
                     console.log("checked");
-                    this.onChangeInput();
+                   
                   }
                 );
               } else {
                 {
                   this.setState(
                     {
-                      ischeckSenior4: ""
+                      ischeckSenior4: "",
+                      seniorite4: ""
                     },
                     () => {
                       console.log("no checked");
-                      this.onChangeInput();
+                      
                     }
                   );
                 }
@@ -633,22 +439,25 @@ class searshConsultant extends Component {
               if (this.state.ischeckAvaibil1 === "") {
                 this.setState(
                   {
-                    ischeckAvaibil1: "checked"
+                    ischeckAvaibil1: "checked",
+                    diponibilite1: "immediate"
                   },
                   () => {
                     console.log("checked");
-                    this.onChangeInput();
+                    
+                  
                   }
                 );
               } else {
                 {
                   this.setState(
                     {
-                      ischeckAvaibil1: ""
+                      ischeckAvaibil1: "",
+                      diponibilite1: ""
                     },
                     () => {
                       console.log("no checked");
-                      this.onChangeInput();
+                      
                     }
                   );
                 }
@@ -664,6 +473,9 @@ class searshConsultant extends Component {
                         className="toggle__input"
                         type="checkbox"
                         checked={this.state.ischeckAvaibil1}
+                        onChange={e => {
+                          console.log("change22");
+                        }}
                       />
                       <span className="toggle__label">
                         <span className="toggle__text" />
@@ -687,22 +499,24 @@ class searshConsultant extends Component {
               if (this.state.ischeckAvaibil2 === "") {
                 this.setState(
                   {
-                    ischeckAvaibil2: "checked"
+                    ischeckAvaibil2: "checked",
+                    diponibilite2: "In 2 weeks"
                   },
                   () => {
                     console.log("checked");
-                    this.onChangeInput();
+                   
                   }
                 );
               } else {
                 {
                   this.setState(
                     {
-                      ischeckAvaibil2: ""
+                      ischeckAvaibil2: "",
+                      diponibilite2: ""
                     },
                     () => {
                       console.log("no checked");
-                      this.onChangeInput();
+                      
                     }
                   );
                 }
@@ -741,22 +555,24 @@ class searshConsultant extends Component {
               if (this.state.ischeckAvaibil3 === "") {
                 this.setState(
                   {
-                    ischeckAvaibil3: "checked"
+                    ischeckAvaibil3: "checked",
+                    diponibilite3: "1 month"
                   },
                   () => {
                     console.log("checked");
-                    this.onChangeInput();
+                    
                   }
                 );
               } else {
                 {
                   this.setState(
                     {
-                      ischeckAvaibil3: ""
+                      ischeckAvaibil3: "",
+                      diponibilite3: ""
                     },
                     () => {
                       console.log("no checked");
-                      this.onChangeInput();
+                     
                     }
                   );
                 }
@@ -795,22 +611,22 @@ class searshConsultant extends Component {
               if (this.state.ischeckAvaibil4 === "") {
                 this.setState(
                   {
-                    ischeckAvaibil4: "checked"
+                    ischeckAvaibil4: "checked",
+                    diponibilite4: "+ 1 month"
                   },
                   () => {
                     console.log("checked");
-                    this.onChangeInput();
                   }
                 );
               } else {
                 {
                   this.setState(
                     {
-                      ischeckAvaibil4: ""
+                      ischeckAvaibil4: "",      
+                      diponibilite4: ""
                     },
                     () => {
                       console.log("no checked");
-                      this.onChangeInput();
                     }
                   );
                 }
