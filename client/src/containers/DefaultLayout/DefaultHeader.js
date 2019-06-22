@@ -23,8 +23,8 @@ class DefaultHeader extends Component {
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
         <AppNavbarBrand
-          full={{ src: logo, width: 89, height: 35, alt: 'CoreUI Logo' }}
-          minimized={{ src: sygnet, width: 35, height: 35, alt: 'CoreUI Logo' }}
+          full={{ src: logo, width: 89, height: 35, alt: 'IMZII Logo' }}
+          minimized={{ src: sygnet, width: 35, height: 35, alt: 'IMZII Logo' }}
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
 
@@ -70,7 +70,7 @@ class DefaultHeader extends Component {
             </DropdownMenu>
           </AppHeaderDropdown>
         </Nav>
-        <AppAsideToggler className="d-md-down-none" />
+        <AppAsideToggler className="d-md-down-none"  display="lg" />
         {/*<AppAsideToggler className="d-lg-none" mobile />*/}
       </React.Fragment>
     );
