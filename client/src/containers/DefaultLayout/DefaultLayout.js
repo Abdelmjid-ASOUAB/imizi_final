@@ -95,7 +95,6 @@ class DefaultLayout extends Component {
                     href="#"
                     className={this.state.page==0?colorSelect:colorNotSelect}                
                     style={{backgroundColor:"#2f353a",color:"#f0f3f5"}}
-                    color="success"
                   >
                     <div className="avatar float-left">
                       <div className="page">

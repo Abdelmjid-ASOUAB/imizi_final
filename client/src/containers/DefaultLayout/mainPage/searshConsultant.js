@@ -28,13 +28,6 @@ import {
 
 import {
   AppAside,
-  AppFooter,
-  AppHeader,
-  AppSidebar,
-  AppSidebarFooter,
-  AppSidebarForm,
-  AppSidebarHeader,
-  AppSidebarMinimizer,
   AppBreadcrumb2 as AppBreadcrumb,
   AppSidebarNav2 as AppSidebarNav
 } from "@coreui/react";
@@ -124,9 +117,10 @@ class searshConsultant extends Component {
       <Card style={{ width: "11rem" }}>
         <Card.Img variant="top" src={avatar} />
         <Card.Body>
-          <Card.Title>{nom + " " + prenom}</Card.Title>
+          <Card.Title>{nom }</Card.Title>
+          <Card.Title>{" "+ prenom}</Card.Title>
           <Card.Text>{competence}</Card.Text>
-          <Button variant="primary">{email}</Button>
+         
         </Card.Body>
       </Card>
     </div>
@@ -666,7 +660,7 @@ class searshConsultant extends Component {
 
     return (
       <div className="main">
-        <Row> {Object.keys(consultant).length} Consultant</Row>
+        <Row>    <b> {Object.keys(consultant).length} Consultant Found   </b></Row>
         <Row>
           {consultant.map(this.renderMission)}
           <AppAside fixed>
