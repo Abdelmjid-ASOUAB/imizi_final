@@ -89,9 +89,9 @@ app.post("/upload", (req, res) => {
 
 //Consultant Regester
 app.get("/ConsultantRegister", (req, res) => {
-  const { nom, prenom, tel, email, pwd, seniorite, availability } = req.query;
+  const { nom, prenom, tel, email, pwd, seniorite, availability,tjm,contract} = req.query;
   const GET_LOG_Q =
-    'INSERT INTO `consultant`(`nom`, `prenom`, `email`, `pwd`, `tel`,  `seniorite`, `disponibilite`) VALUES ("' +
+    'INSERT INTO `consultant`(`nom`, `prenom`, `email`, `pwd`, `tel`,  `seniorite`, `disponibilite`, `Tjm`, `contract`) VALUES ("' +
     nom +
     '","' +
     prenom +
@@ -105,6 +105,10 @@ app.get("/ConsultantRegister", (req, res) => {
     seniorite +
     '","' +
     availability +
+    '","' +
+    tjm +
+    '","' +
+    contract +
     '")';
   connection.query(GET_LOG_Q, (err, result) => {
     console.log(GET_LOG_Q);
@@ -341,7 +345,8 @@ app.get("/searchconsultant", (req, res) => {
     diponibilite1,
     diponibilite2,
     diponibilite3,
-    diponibilite4
+    diponibilite4,
+    tjm,contract
   } = req.query;
   let typ = "";
   let sql = "SELECT * FROM consultant";
@@ -385,11 +390,16 @@ app.get("/searchconsultant", (req, res) => {
       diponibilite4 +
       "')";
     typ = "disponibilité";
+  }else if (tjm != "") {
+    sql += " where Tjm = '" + tjm+ "'";
+    typ = "tjm";
+  }else if (contract != "") {
+    sql += " where contract = '" + contract+ "'";
+    typ = "contract";
   }
 
   if (competence != "" && typ != "competence") {
-    sql +=  " and LIKE '" + competence + "'";
-
+    sql += " and competence LIKE '%" + competence + "%'";
   }
   if (
     (seniorite1 != "" ||
@@ -428,6 +438,16 @@ app.get("/searchconsultant", (req, res) => {
     "','" +
     diponibilite4 +
     "')";
+  }
+
+  if (tjm != "" && typ != "tjm") {
+    sql +=  " and Tjm= '" + competence + "'";
+
+  }
+
+  if (contract != "" && typ != "contract") {
+    sql +=  " and contract= '" + contract + "'";
+
   }
 
 

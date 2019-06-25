@@ -112,7 +112,7 @@ class AddMisison extends Component {
                 <Button variant="primary" onClick={ () =>console.log("read it "+id)}  >Read </Button>
               </Col>
               <Col>
-                <Button variant="info" onClick={ () =>console.log("modife"+localStorage.getItem('input'))}>Modife </Button>
+                <Button variant="info" onClick={ () =>console.log("modife")}>Modife </Button>
               </Col>
               <Col>
                 <Button variant="danger"   onClick={ () =>this.RemoveMission(id)}>Remove </Button>

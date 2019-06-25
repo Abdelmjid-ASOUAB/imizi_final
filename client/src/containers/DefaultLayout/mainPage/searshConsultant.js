@@ -73,7 +73,9 @@ class searshConsultant extends Component {
     ischeckAvaibil2: "",
     ischeckAvaibil3: "",
     ischeckAvaibil4: "",
-    skills: ""
+    skills: "",
+    tjm: "",
+    contract: ""
   };
   getConsultant = v => {
     let url =
@@ -94,7 +96,11 @@ class searshConsultant extends Component {
       "&diponibilite3=" +
       this.state.diponibilite3 +
       "&diponibilite4=" +
-      this.state.diponibilite4;
+      this.state.diponibilite4 +
+      "&tjm=" +
+      this.state.tjm +
+      "&contract=" +
+      this.state.contract;
     fetch(url)
       .then(response => response.json())
       .then(response => {
@@ -117,10 +123,9 @@ class searshConsultant extends Component {
       <Card style={{ width: "11rem" }}>
         <Card.Img variant="top" src={avatar} />
         <Card.Body>
-          <Card.Title>{nom }</Card.Title>
-          <Card.Title>{" "+ prenom}</Card.Title>
+          <Card.Title>{nom}</Card.Title>
+          <Card.Title>{" " + prenom}</Card.Title>
           <Card.Text>{competence}</Card.Text>
-         
         </Card.Body>
       </Card>
     </div>
@@ -652,6 +657,95 @@ class searshConsultant extends Component {
                 </div>
                 <small className="text-muted mr-3">___</small>
               </ListGroupItem>
+
+              <ListGroupItem className="list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase">
+                TJM
+              </ListGroupItem>
+
+              <ListGroupItem
+                action
+                href="#"
+                className="list-group-item-accent-success"
+              >
+                <div>
+                  <div className="page">
+                    <div className="">
+                      <div className="">
+                        <label className="">
+                          <FormControl
+                            placeholder="Tjm"
+                            type="number"
+                            name="tjm"
+                            min="1000"
+                            max="5000"
+                            step="100"
+                            onChange={e =>
+                              this.setState(
+                                {
+                                  tjm: e.target.value
+                                },
+                                e => {
+                                  console.log(this.state.tjm);
+                                }
+                              )
+                            }
+                          />
+                          <span className="toggle__label">
+                            <span className="toggle__text" />
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </ListGroupItem>
+
+              <ListGroupItem className="list-group-item-accent-secondary bg-light text-center font-weight-bold text-muted text-uppercase">
+                Type of Contracts
+              </ListGroupItem>
+
+              <ListGroupItem
+                action
+                href="#"
+                className="list-group-item-accent-success"
+              >
+                <div>
+                  <div className="page">
+                    <div className="">
+                      <div className="">
+                        <label className="">
+                          <Form.Group
+                            as={Col}
+                            controlId="formGridState"
+                            onChange={e =>
+                              this.setState(
+                                {
+                                  contract: e.target.value
+                                },
+                                e => {
+                                  console.log(this.state.contract);
+                                }
+                              )
+                            }
+                          >
+                            <Form.Control as="select">
+                              <option></option>
+                              <option>CDI</option>
+                              <option>Freelancer</option>
+                            </Form.Control>
+                          </Form.Group>
+                          <span className="toggle__label">
+                            <span className="toggle__text" />
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                
+              </ListGroupItem>
             </ListGroup>
           </TabPane>
         </TabContent>
@@ -660,7 +754,10 @@ class searshConsultant extends Component {
 
     return (
       <div className="main">
-        <Row>    <b> {Object.keys(consultant).length} Consultant Found   </b></Row>
+        <Row>
+          {" "}
+          <b> {Object.keys(consultant).length} Consultant Found </b>
+        </Row>
         <Row>
           {consultant.map(this.renderMission)}
           <AppAside fixed>
@@ -674,125 +771,3 @@ class searshConsultant extends Component {
 }
 
 export default searshConsultant;
-
-/** 
- *  <Col  sm={3} style={{ backgroundColor: bgColors.wi }}>
-            {menuSearch}
-          </Col>
- * 
- * 
- * 
- *  search Form1 
- *  <Col xs={12} md={9}>
-            <FormControl
-              placeholder="skills"
-              type="text"
-              name="skills"
-              style={{ marginTop: 30 }}
-              onChange={e => {
-                this.setState(
-                  {
-                    competence: e.target.value
-                  },
-                  () => {
-                    console.log(this.state.competence);
-                  }
-                );
-              }}
-            />{" "}
-            <input
-              type="submit"
-              className="btn btn-primary btn-block mt-4"
-              value="search"
-              onClick={this.OnSubmit}
-            />
-           
-          </Col>
-            <form style={{ marginTop: 30 }}>
-              <Form.Group as={Col} controlId="formGridState">
-                <Form.Label>Seniorite</Form.Label>
-                <Row>
-                  <Col>
-                    <Form.Check
-                      label="Expert [+10 years]"
-                      onChange={e => {
-                        this.checkBooxChangeSeniorite(e, 1);
-                      }}
-                    />
-                  </Col>{" "}
-                </Row>
-                <Row>
-                  <Col>
-                    <Form.Check
-                      label="Senior [5 to 10 years]"
-                      onChange={e => {
-                        this.checkBooxChangeSeniorite(e, 2);
-                      }}
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <Form.Check
-                      label="intermediate [3 to 5 years]"
-                      onChange={e => {
-                        this.checkBooxChangeSeniorite(e, 3);
-                      }}
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <Form.Check
-                      label="beginner [0 to 5 years]"
-                      onChange={e => {
-                        this.checkBooxChangeSeniorite(e, 4);
-                      }}
-                    />
-                  </Col>
-                </Row>
-
-                <Form.Label>availability</Form.Label>
-                <Row>
-                  <Col>
-                    <Form.Check
-                      label="immediate"
-                      onChange={e => {
-                        this.checkBooxChangeDisponibilte(e, 1);
-                      }}
-                    />
-                  </Col>{" "}
-                </Row>
-                <Row>
-                  <Col>
-                    <Form.Check
-                      label="In 2 weeks"
-                      onChange={e => {
-                        this.checkBooxChangeDisponibilte(e, 2);
-                      }}
-                    />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <Form.Check
-                      label="1 month"
-                      onChange={e => {
-                        this.checkBooxChangeDisponibilte(e, 3);
-                      }}
-                    />
-                  </Col>
-                  </Row>
-                <Row>
-                  <Col>
-                    <Form.Check
-                      label="+ 1 month"
-                      onChange={e => {
-                        this.checkBooxChangeDisponibilte(e, 4);
-                      }}
-                    />
-                  </Col>
-                </Row>
-              </Form.Group>
-            </form>
- */

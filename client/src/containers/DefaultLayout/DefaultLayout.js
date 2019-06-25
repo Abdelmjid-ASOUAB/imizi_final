@@ -1,6 +1,4 @@
 import React, { Component, Suspense } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
-import * as router from "react-router-dom";
 import { Container, Row, ListGroupItem, Col } from "reactstrap";
 import MainMission from "./mainPage/mainMission";
 import ClientMission from "./mainPage/ClientMission";
@@ -12,11 +10,29 @@ import {
   AppFooter,
   AppHeader,
   AppSidebar,
-  AppSidebarFooter,
   AppSidebarForm,
   AppSidebarHeader,
   AppSidebarMinimizer
 } from "@coreui/react";
+
+
+
+
+
+
+import Fab from '@material-ui/core/Fab';
+import robot from './icons/robot.png';
+import Close from '@material-ui/icons/CloseOutlined';
+import "./chat.css";
+
+
+import {
+  Widget,
+ 
+} from "react-chat-widget";
+
+
+
 
 
 import home from './icons/home.png'
@@ -27,6 +43,7 @@ import consultant from './icons/consultant.png'
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
 const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
 
+
 class DefaultLayout extends Component {
   loading = () => (
     <div className="animated fadeIn pt-1 text-center">Loading...</div>
@@ -34,13 +51,65 @@ class DefaultLayout extends Component {
 
   state = {
     page: 0,
-    test: 2
+    test: 2,
+    open: false
+
   };
+
 
   signOut(e) {
     e.preventDefault();
     this.props.history.push("/login");
   }
+
+
+
+  boot = newMessage => {
+    return (
+      <div
+        
+        onClick={() => {
+          this.setState({
+            open:true
+          },()=> {
+            console.log(this.state.open);
+
+          });
+        }}
+      >
+        <Fab color="primary" aria-label="Add" >
+        <img src={robot} alt="home" style={{height:50,width:50}} />
+    </Fab>
+      </div>
+    );
+  
+  
+  
+};
+
+
+boot2 = newMessage => {
+  
+
+  return (
+    <div
+      onClick={() => {
+        this.setState({
+          open:false
+        },()=> {
+          console.log(this.state.open);
+
+        });
+      }}
+    >
+        <Close  style={{right:"7",top:"5", position: "absolute",color:"#FFFFFF",cursor: "pointer", }} />
+
+        <iframe allow="microphone;" width="350" height="430" src="https://console.dialogflow.com/api-client/demo/embedded/e1b71eb6-86f2-4c70-b3e2-798b315edd7d"> </iframe>
+
+    </div>
+  );
+
+};
 
   render() {
     const colorSelect="list-group-item-accent-light";
@@ -246,7 +315,14 @@ class DefaultLayout extends Component {
             {AppSidebarMinimizer}
           </AppSidebar>
           <Container>
-          <div>{selectPage}</div>
+          <div>
+          
+          {selectPage}
+          <div className="App">
+        <Widget launcher={this.state.open==false ? this.boot: this.boot2} />
+
+      </div>
+          </div>
           </Container>
         </div>
         <AppFooter>

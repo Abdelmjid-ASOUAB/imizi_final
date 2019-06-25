@@ -41,13 +41,15 @@ class Register extends Component {
     seniorite: "",
     availability: "",
     auth: false,
-    next: false,
+    next: false,//false !!
     file: "",
     fileName: "Choose CV File",
     uploadedFile: {},
     deplicact: false,
     isRegester: false,
-    typeCompt: 1
+    typeCompt: 1,
+    contractType:"CDI",
+    tjm:''
   };
 
   //Go to next Next Form Consultant
@@ -84,7 +86,11 @@ class Register extends Component {
         "&seniorite=" +
         v.seniorite +
         "&availability=" +
-        v.availability
+        v.availability+
+        "&tjm=" +
+        v.tjm+
+        "&contract=" +
+        v.contractType
     )
       .then(response => response.json())
 
@@ -250,8 +256,54 @@ class Register extends Component {
               <option>1 month</option>
               <option>+ 1 month</option>
             </Form.Control>
+           
           </Form.Group>
+        
         </div>
+
+       
+        <Row
+                  className="justify-content-center"
+                  style={{ marginBottom: 10 }}
+                >
+          <Form.Group  >
+           
+          <FormControl
+                   
+                      placeholder="Tjm"
+                      type="number"
+                      name="tjm"
+                      min="1000"
+                      max="5000"
+                      step="100"
+                      onChange={e =>
+                        this.setState({
+                          tjm: e.target.value
+                        },e=>{console.log(this.state.tjm);
+                        })
+                      }
+                    />
+                    <Form.Group
+            as={Col}
+            controlId="formGridState"
+            onChange={e =>
+              this.setState({
+                contractType: e.target.value
+              },e=>{console.log(this.state.contractType);
+              })
+            }
+          >
+            <Form.Label>Type of Contracts</Form.Label>
+            <Form.Control as="select">
+              <option>CDI</option>
+              <option>Freelancer</option>
+              
+            </Form.Control>
+           
+          </Form.Group>
+          </Form.Group>
+         
+          </Row>
 
         <div className="input-group">
           <div className="custom-file">
