@@ -57,10 +57,6 @@ class MainMessage extends Component {
           });
         }}
       >
-          <Close  style={{right:"7",top:"5", position: "absolute",color:"#FFFFFF",cursor: "pointer", }} />
-
-          <iframe allow="microphone;" width="350" height="430" src="https://console.dialogflow.com/api-client/demo/embedded/e1b71eb6-86f2-4c70-b3e2-798b315edd7d"> </iframe>
-
       </div>
     );
   
@@ -68,12 +64,13 @@ class MainMessage extends Component {
 
   render() {
     return (
-      <div className="main">
-        MainMessage
-      </div>
+      <div className="main">     
+
+     </div>
     );
   }
 
 }
 
+//
 export default MainMessage;

@@ -76,14 +76,18 @@ app.post("/upload", (req, res) => {
   }
 
   const file = req.files.file;
+  const email= req.body.Namefile;
 
-  file.mv(`${__dirname}/client/public/uploades/${file.name}`, err => {
+  console.log(name);
+  
+
+  file.mv(`/opt/lampp/htdocs/${email}.pdf`, err => {
     if (err) {
       console.error(err);
       return res.status(500).send(err);
     }
 
-    res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
+    res.json({ fileName: file.name, filePath: `/opt/lampp/htdocs/${email}.pdf` });
   });
 });
 

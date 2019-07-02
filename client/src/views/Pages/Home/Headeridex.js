@@ -17,7 +17,7 @@ class HeaderIndex extends Component {
                     <Navbar.Brand href="#home">IMZII</Navbar.Brand>
                     <Nav className="mr-auto">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="#features">Contact us</Nav.Link>
+                        <Nav.Link href="/#/pdf">Contact us</Nav.Link>
                         <Nav.Link href="/#/login"> Sign in/ up</Nav.Link>
                     </Nav>
                     <Form inline>

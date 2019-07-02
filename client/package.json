@@ -41,6 +41,8 @@
     "react-dropzone": "^10.1.5",
     "react-file-picker": "0.0.6",
     "react-icons": "^3.7.0",
+    "react-pdf-js": "^5.1.0",
+    "react-read-pdf": "^2.0.9",
     "react-router-config": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "react-test-renderer": "^16.8.6",

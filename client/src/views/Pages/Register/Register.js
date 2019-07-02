@@ -166,6 +166,7 @@ class Register extends Component {
   upload = async e => {
     const formData = new FormData();
     formData.append("file", this.state.file);
+    formData.append("Namefile", this.state.email);
 
     try {
       const res = await axios.post("http://localhost:4000/upload", formData, {

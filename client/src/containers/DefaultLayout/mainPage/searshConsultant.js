@@ -126,7 +126,8 @@ class searshConsultant extends Component {
           <Card.Title>{nom}</Card.Title>
           <Card.Title>{" " + prenom}</Card.Title>
           <Card.Text>{competence}</Card.Text>
-        </Card.Body>
+          <Button variant="primary" onClick={()=>{localStorage.setItem("constEmail",email)}}  href="/#/pdf" target="_blank">CV</Button>
+          </Card.Body>
       </Card>
     </div>
   );
