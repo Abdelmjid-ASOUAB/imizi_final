@@ -53,6 +53,27 @@ app.get("/login", (req, res) => {
   });
 });
 
+
+//Login Admin
+app.get("/admin", (req, res) => {
+  const { email, pwd } = req.query;
+  const GET_LOG_Q =
+    'SELECT email FROM admin where email="' +
+    email +
+    '" and pwd="' +
+    pwd +
+    '"';
+  connection.query(GET_LOG_Q, (err, result) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.send({
+        result
+      });
+    }
+  });
+});
+
 //Login Client
 app.get("/loginclient", (req, res) => {
   const { email, pwd } = req.query;
@@ -469,6 +490,71 @@ app.get("/searchconsultant", (req, res) => {
   });
   
 });
+
+
+//Update Active  in Consultant table
+app.get("/activeConsultant", (req, res) => {
+  const { id,active } = req.query;
+  const GET_LOG_Q =
+    'UPDATE consultant SET active = "'+active+'"  WHERE `id` ="' +
+    id +
+    '"';
+  connection.query(GET_LOG_Q, (err, result) => {
+    console.log("remove 2  " + GET_LOG_Q);
+    if (err) {
+      return res.send({
+        success: err
+      });
+    } else {
+      return res.send({
+        success: result.insertId
+      });
+    }
+  });
+});
+
+//Update All  in Consultant table
+app.get("/updateconsultant", (req, res) => {
+  const { id,nom, prenom, tel, email, pwd, seniorite, availability,tjm,contract} = req.query;
+  const GET_LOG_Q =
+    'UPDATE consultant SET `nom` = "'+nom+'" , `prenom` = "'+prenom+'" , `email` = "'+email+'" , `pwd` = "'+pwd+'" , `tel` = "'+tel+'" ,  `seniorite` = "'+seniorite+'" , `disponibilite` = "'+availability+'" , `Tjm` = "'+tjm+'" , `contract`= "'+contract+'" '
+    
+    +'  WHERE `id` ="' +
+    id +
+    '"';
+  connection.query(GET_LOG_Q, (err, result) => {
+    console.log("remove 2  " + GET_LOG_Q);
+    if (err) {
+      return res.send({
+        success: err
+      });
+    } else {
+      return res.send({
+        success: result.insertId
+      });
+    }
+  });
+});
+
+
+//Remove from Mission table
+app.get("/removeConsultant", (req, res) => {
+  const { id } = req.query;
+  const GET_LOG_Q = 'DELETE FROM `consultant` WHERE `consultant`.`id` = "' + id + '"';
+  connection.query(GET_LOG_Q, (err, result) => {
+    console.log(GET_LOG_Q);
+    if (err) {
+      return res.send({
+        success: err
+      });
+    } else {
+      return res.send({
+        success: result.insertId
+      });
+    }
+  });
+});
+
 
 app.listen(4000, () => {
   console.log("Listen to  Servwerq 4000");

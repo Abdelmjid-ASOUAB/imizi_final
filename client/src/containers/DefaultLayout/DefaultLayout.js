@@ -5,6 +5,7 @@ import ClientMission from "./mainPage/ClientMission";
 import MainMessage from "./mainPage/mainMessage";
 import MainSetting from "./mainPage/mainSetting";
 import MainConsultant from "./mainPage/searshConsultant";
+import TableConsultant from "./mainPage/tableConsultant";
 
 import {
   AppFooter,
@@ -30,10 +31,6 @@ import {
   Widget,
  
 } from "react-chat-widget";
-
-
-
-
 
 import home from './icons/home.png'
 import message from './icons/message.png'
@@ -65,6 +62,7 @@ class DefaultLayout extends Component {
 
 
   boot = newMessage => {
+    if(localStorage.getItem("compte")==="client")  {
     return (
       <div
         
@@ -84,12 +82,13 @@ class DefaultLayout extends Component {
     );
   
   
-  
+      }
 };
 
 
 boot2 = newMessage => {
   
+
 
   return (
     <div
@@ -102,7 +101,7 @@ boot2 = newMessage => {
         });
       }}
     >
-        <Close  style={{right:"7",top:"5", position: "absolute",color:"#FFFFFF",cursor: "pointer", }} />
+       <Close  style={{right:"7",top:"5", position: "absolute",color:"#FFFFFF",cursor: "pointer", }} />
 
         <iframe allow="microphone;" width="350" height="430" src="https://console.dialogflow.com/api-client/demo/embedded/e1b71eb6-86f2-4c70-b3e2-798b315edd7d"> </iframe>
 
@@ -116,11 +115,16 @@ boot2 = newMessage => {
     const colorNotSelect="list-group-item-accent";
 
     let selectPage = <MainMission />;
+   if(localStorage.getItem("compte") !="admin"){ 
+    
+  }else{
     if (this.state.page === 0) {
       if (localStorage.getItem("compte") == "client") {
         selectPage =    <div className="animated fadeIn pt-1"><ClientMission /></div>;
       } else if (localStorage.getItem("compte") == "consultant") {
         selectPage =<div className="animated fadeIn pt-1"> <MainMission /></div>;
+      }else if (localStorage.getItem("compte") == "admin") {
+        selectPage =<div className="animated fadeIn pt-1"> <TableConsultant /></div>;
       }
     } else if (this.state.page === 1) {
       selectPage = <div className="animated fadeIn pt-1"><MainMessage /></div>;
@@ -129,6 +133,7 @@ boot2 = newMessage => {
     } else if (this.state.page === 3) {
       selectPage = <div className="animated fadeIn pt-1"><MainConsultant /></div>;
     }
+  }
 
     return (
       <div className="app">
@@ -142,6 +147,7 @@ boot2 = newMessage => {
             <AppSidebarHeader />
             <AppSidebarForm />
             <Suspense>
+            {localStorage.getItem("compte") != "admin" ?
               <Container>
                 <Row
                   style={{
@@ -310,6 +316,52 @@ boot2 = newMessage => {
                   <br />
                 )}
               </Container>
+             :       
+             <Container>
+               
+               <Row
+                  style={{
+                    marginTop: 5,
+                    marginBottom: 5,
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                    
+                  }}
+                  onClick={e => {
+                    this.setState({
+                      page: 0
+                    });
+                    console.log(localStorage.getItem("email"));
+                  }}
+                >
+               <ListGroupItem
+                    action
+                    href="#"
+                    className={this.state.page==3?colorSelect:colorNotSelect}                
+                    style={{backgroundColor:"#2f353a",color:"#f0f3f5"}}
+                  >
+                    <div className="avatar float-left">
+                      <div className="page">
+                        <div className="page__demo">
+                          <div className="page__toggle">
+                            <label className="toggle">
+                            <img src={consultant} alt="home" style={{height:35,width:35}} />
+                              <span className="toggle__label">
+                                <span className="toggle__text" />
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <strong> Table Consultant</strong>
+                    </div>
+                  </ListGroupItem>
+                  </Row>
+               
+                </Container>           
+          }
             </Suspense>
 
             {AppSidebarMinimizer}
@@ -319,6 +371,7 @@ boot2 = newMessage => {
           
           {selectPage}
           <div className="App">
+      
         <Widget launcher={this.state.open==false ? this.boot: this.boot2} />
 
       </div>

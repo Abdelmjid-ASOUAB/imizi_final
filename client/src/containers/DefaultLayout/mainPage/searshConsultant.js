@@ -678,7 +678,7 @@ class searshConsultant extends Component {
                             type="number"
                             name="tjm"
                             min="1000"
-                            max="5000"
+                            max="4946"
                             step="100"
                             onChange={e =>
                               this.setState(
