@@ -493,6 +493,13 @@ app.get("/searchconsultant", (req, res) => {
   }
 
 
+  if(sql==="SELECT * FROM consultant"){
+    sql += " where active ='active'";
+  }else{
+    sql += " and active ='active'";
+
+  }
+
   console.log(sql);
   
 
