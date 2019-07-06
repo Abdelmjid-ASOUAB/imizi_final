@@ -196,6 +196,23 @@ app.get("/getmission", (req, res) => {
   });
 });
 
+
+//get All Client
+app.get("/getClient", (req, res) => {
+  const Select_All_Client = "SELECT * FROM client";
+  connection.query(Select_All_Client, (err, result) => {
+    if (err) {
+      return err;
+    } else {
+      return res.json({
+        data: result
+      });
+    }
+  });
+});
+
+
+
 //get Mission with titel or description
 app.get("/searchmission", (req, res) => {
   const { title, description } = req.query;
@@ -554,6 +571,70 @@ app.get("/removeConsultant", (req, res) => {
     }
   });
 });
+
+
+//Update Active  in Consultant table
+app.get("/activeClient", (req, res) => {
+  const { id,active } = req.query;
+  const GET_LOG_Q =
+    'UPDATE client SET active = "'+active+'"  WHERE `id` ="' +
+    id +
+    '"';
+  connection.query(GET_LOG_Q, (err, result) => {
+    console.log("remove 2  " + GET_LOG_Q);
+    if (err) {
+      return res.send({
+        success: err
+      });
+    } else {
+      return res.send({
+        success: result.insertId
+      });
+    }
+  });
+});
+
+app.get("/removeClient", (req, res) => {
+  const { id } = req.query;
+  const GET_LOG_Q = 'DELETE FROM `client` WHERE `client`.`id` = "' + id + '"';
+  connection.query(GET_LOG_Q, (err, result) => {
+    console.log(GET_LOG_Q);
+    if (err) {
+      return res.send({
+        success: err
+      });
+    } else {
+      return res.send({
+        success: result.insertId
+      });
+    }
+  });
+});
+
+//Update All  in Consultant table
+app.get("/updateclient", (req, res) => {
+  const { id,representant, societe, tel, email, pwd} = req.query;
+  const GET_LOG_Q =
+    'UPDATE client SET `representant` = "'+representant+'" , `societe` = "'+societe+'" , `mail` = "'+email+'" , `pwd` = "'+pwd+'" , `tel` = "'+tel+'"'
+    
+    +'  WHERE `id` ="' +
+    id +
+    '"';
+  connection.query(GET_LOG_Q, (err, result) => {
+    console.log(GET_LOG_Q);
+    if (err) {
+      return res.send({
+        success: err
+      });
+    } else {
+      return res.send({
+        success: result.insertId
+      });
+    }
+  });
+});
+
+
 
 
 app.listen(4000, () => {

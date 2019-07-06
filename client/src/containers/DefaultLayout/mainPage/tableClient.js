@@ -22,7 +22,7 @@ import {
 } from "react-bootstrap";
 let but = "warning";
 
-class tableConsultant extends Component {
+class tableClient extends Component {
   constructor(props) {
     super(props);
 
@@ -32,61 +32,25 @@ class tableConsultant extends Component {
     this.handleShowEd = this.handleShowEd.bind(this);
     this.handleCloseEd = this.handleCloseEd.bind(this);
 
-    this.getConsultant();
+    this.getClient();
   }
   state = {
-    competence: "",
-    seniorite1: "",
-    seniorite2: "",
-    seniorite3: "",
-    seniorite4: "",
-    diponibilite1: "",
-    diponibilite2: "",
-    diponibilite3: "",
-    diponibilite4: "",
+   
     consultant: [],
-    activeTab: "1",
-    skills: "",
-    tjm: "",
     contract: "",
     Rshow: false,
     Edshow: false,
     idSel: "",
-    nameSel: "",
-    prenomSel: "",
+    representantSel: "",
+    societyoSel: "",
     emailSel: "",
     pwdSel: "",
-    senioriteSel: "",
-    availabilitySel: "",
-    tjmSel: "",
-    contractSel: "",
     telSel: ""
   };
 
-  getConsultant = v => {
+  getClient = v => {
     let url =
-      "http://localhost:4000/searchconsultant?competence=" +
-      this.state.competence +
-      "&seniorite1=" +
-      this.state.seniorite1 +
-      "&seniorite2=" +
-      this.state.seniorite2 +
-      "&seniorite3=" +
-      this.state.seniorite3 +
-      "&seniorite4=" +
-      this.state.seniorite4 +
-      "&diponibilite1=" +
-      this.state.diponibilite1 +
-      "&diponibilite2=" +
-      this.state.diponibilite2 +
-      "&diponibilite3=" +
-      this.state.diponibilite3 +
-      "&diponibilite4=" +
-      this.state.diponibilite4 +
-      "&tjm=" +
-      this.state.tjm +
-      "&contract=" +
-      this.state.contract;
+      "http://localhost:4000/getClient" ;
     fetch(url)
       .then(response => response.json())
       .then(response => {
@@ -108,8 +72,8 @@ class tableConsultant extends Component {
     this.setState({ Rshow: false });
   }
 
-  handleShow(id, name, email) {
-    this.setState({ Rshow: true, idSel: id, nameSel: name, emailSel: email });
+  handleShow(id, name, society,email) {
+    this.setState({ Rshow: true, idSel: id, representantSel: name, emailSel: email,societyoSel:society });
   }
 
   handleCloseEd() {
@@ -118,67 +82,55 @@ class tableConsultant extends Component {
 
   handleShowEd(
     id,
-    name,
-    prenom,
+    representant,
     email,
     pwd,
     tel,
-    seniorite,
-    availability,
-    tjm,
-    contract
+    societe
   ) {
     this.setState({
       Edshow: true,
       idSel: id,
-      nameSel: name,
-      prenomSel: prenom,
+      representantSel: representant,
       emailSel: email,
       pwdSel: pwd,
       telSel: tel,
-      senioriteSel: seniorite,
-      availabilitySel: availability,
-      tjmSel: tjm,
-      contractSel: contract
+      societyoSel: societe,
     });
   }
 
   changeActive = (id, active) => {
     let url =
-      "http://localhost:4000/activeConsultant?id=" + id + "&active=" + active;
+      "http://localhost:4000/activeClient?id=" + id + "&active=" + active;
 
     fetch(url)
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        this.getConsultant();
+        this.getClient();
       })
       .catch(err => console.error(err));
   };
 
   removeConsultant = id => {
-    let url = "http://localhost:4000/removeConsultant?id=" + id;
+    let url = "http://localhost:4000/removeClient?id=" + id;
 
     fetch(url)
       .then(response => response.json())
       .then(response => {
         console.log(response);
-        this.getConsultant();
+        this.getClient();
       })
       .catch(err => console.error(err));
   };
   renderConsultant = ({
     id,
-    nom,
-    prenom,
-    seniorite,
-    email,
+    representant,
+    mail,
     pwd,
-    disponibilite,
-    Tjm,
-    contract,
     active,
-    tel
+    tel,
+    societe
   }) => {
     let color = "";
 
@@ -192,12 +144,11 @@ class tableConsultant extends Component {
 
     return (
       <tr key={id} style={{ textAlign: "center", backgroundColor: color }}>
-        <td>{nom}</td>
-        <td>{prenom}</td>
-        <td>{email}</td>
-        <td>{seniorite}</td>
-        <td>{disponibilite}</td>
-        <td>{Tjm}</td>
+        <td>{societe}</td>
+        <td>{representant}</td>
+        <td>{tel}</td>
+        <td>{mail}</td>
+        <td>{pwd}</td>
         <td>
           <Form.Control
             as="select"
@@ -231,7 +182,7 @@ class tableConsultant extends Component {
             variant="danger"
             onClick={e => {
               console.log(id + "  " + e.target.value);
-              this.handleShow(id, nom + " " + prenom, email);
+              this.handleShow(id,representant,societe, mail);
             }}
           >
             {" "}
@@ -246,15 +197,11 @@ class tableConsultant extends Component {
               console.log(id + "  " + e.target.value);
               this.handleShowEd(
                 id,
-                nom,
-                prenom,
-                email,
+                representant,
+                mail,
                 pwd,
                 tel,
-                seniorite,
-                disponibilite,
-                Tjm,
-                contract
+                societe
               );
             }}
           >
@@ -266,28 +213,20 @@ class tableConsultant extends Component {
     );
   };
 
-  updateConsultant = v => {
+  updateConsultant = (v)=> {
     console.log(v);
 
     fetch(
-      "http://localhost:4000/updateconsultant?nom=" +
-        v.nameSel +
-        "&prenom=" +
-        v.prenomSel +
+      "http://localhost:4000/updateclient?representant=" +
+        v.representantSel +
+        "&societe=" +
+        v.societyoSel +
         "&tel=" +
         v.telSel +
         "&email=" +
         v.emailSel +
         "&pwd=" +
         v.pwdSel +
-        "&seniorite=" +
-        v.senioriteSel +
-        "&availability=" +
-        v.availabilitySel +
-        "&tjm=" +
-        v.tjmSel +
-        "&contract=" +
-        v.contractSel +
         "&id=" +
         v.idSel
     )
@@ -295,6 +234,7 @@ class tableConsultant extends Component {
 
       .then(response => {
         if (response.success === true) {
+        
           console.log(response.success);
         } else if (response.success.errno === 1062) {
           console.log("deplicact Email");
@@ -311,24 +251,19 @@ class tableConsultant extends Component {
 
     return (
       <div className="s">
-        <Table
-          striped
-          bordered
-          hover
-          responsive
-          size="sm"
-          style={{ textAlign: "center" }}
-        >
+        <Table striped bordered hover responsive size="sm" style={{ textAlign: "center" }}>
           <thead>
             <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>seniorite</th>
-              <th>diponibilite</th>
-              <th>Tjm</th>
+              <th>society</th>
+              <th>Representative</th>
+              <th>Tel</th>
+              <th>Mail</th>
+              <th>Pwd</th>
               <th>Active</th>
-              <th colspan="2">Action</th>
+            
+              <th  colspan="2">Action</th>
+
+             
             </tr>
           </thead>
           <tbody>{consultant.map(this.renderConsultant)}</tbody>
@@ -339,8 +274,9 @@ class tableConsultant extends Component {
             <Modal.Title>Remove Consultant {this.state.idSel} ?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Name : <strong> {this.state.nameSel}</strong> <br /> Email:{" "}
-            {this.state.emailSel}{" "}
+            Name : <strong> {this.state.representantSel}</strong> <br /> 
+            society : <strong> {this.state.societyoSel}</strong> <br /> 
+            Email: <strong>{this.state.emailSel}{" "}</strong> 
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
@@ -370,16 +306,16 @@ class tableConsultant extends Component {
                   controlId="formGridState"
                   onChange={e =>
                     this.setState({
-                      nameSel: e.target.value
+                      representantSel: e.target.value
                     })
                   }
                 >
-                  <Form.Label>First Name</Form.Label>
+                  <Form.Label>Representative</Form.Label>
                   <FormControl
-                    placeholder="First Name"
+                    placeholder="Representative"
                     type="text"
                     name="nom"
-                    defaultValue={this.state.nameSel}
+                    defaultValue={this.state.representantSel}
                   />
                 </Form.Group>
                 <Form.Group
@@ -387,16 +323,16 @@ class tableConsultant extends Component {
                   controlId="formGridState"
                   onChange={e =>
                     this.setState({
-                      prenomSel: e.target.value
+                      societyoSel: e.target.value
                     })
                   }
                 >
-                  <Form.Label>Last Name</Form.Label>
+                  <Form.Label>Society</Form.Label>
                   <FormControl
-                    placeholder="First Name"
+                    placeholder="Society"
                     type="text"
                     name="prenom"
-                    defaultValue={this.state.prenomSel}
+                    defaultValue={this.state.societyoSel}
                   />
                 </Form.Group>
               </div>
@@ -438,117 +374,31 @@ class tableConsultant extends Component {
                 </Form.Group>
               </div>
 
-              <div className="input-group-prepend">
-                <Form.Group
-                  as={Col}
-                  controlId="formGridState"
-                  onChange={e =>
-                    this.setState({
-                      senioriteSel: e.target.value
-                    })
-                  }
-                >
-                  <Form.Label>Seniorite</Form.Label>
-                  <Form.Control
-                    as="select"
-                    defaultValue={this.state.senioriteSel}
-                  >
-                    <option>Choose your seniority</option>
-                    <option>Expert [+10 years]</option>
-                    <option>Senior [5 to 10 years]</option>
-                    <option>intermediate [3 to 5 years]</option>
-                    <option>beginner [0 to 5 years]</option>
-                  </Form.Control>
-                </Form.Group>
-                <Form.Group
-                  as={Col}
-                  controlId="formGridState"
-                  onChange={e =>
-                    this.setState({
-                      availabilitySel: e.target.value
-                    })
-                  }
-                >
-                  <Form.Label>availability</Form.Label>
-                  <Form.Control
-                    as="select"
-                    defaultValue={this.state.availabilitySel}
-                  >
-                    <option>Choose your availability</option>
-                    <option>immediate</option>
-                    <option>In 2 weeks</option>
-                    <option>1 month</option>
-                    <option>+ 1 month</option>
-                  </Form.Control>
-                </Form.Group>
-              </div>
-              <div className="input-group-prepend">
 
-              <Form.Group as={Col} controlId="formGridState">
-                <Form.Label>Tel</Form.Label>
-
-                <FormControl
-                  placeholder="tel"
-                  type="text"
-                  name="tel"
-                  defaultValue={this.state.telSel}
-                  onChange={e =>
-                    this.setState(
-                      {
-                        telSel: e.target.value
-                      },
-                      e => {
-                        console.log(this.state.telSel);
-                      }
-                    )
-                  }
-                />
-              </Form.Group>
-              <Form.Group as={Col} controlId="formGridState">
-              <Form.Label>TJM</Form.Label>
-
-              <FormControl
-                placeholder="Tjm"
-                type="number"
-                name="tjm"
-                min="1000"
-                max="4946"
-                step="100"
-                defaultValue={this.state.tjmSel}
-                onChange={e =>
-                  this.setState(
-                    {
-                      tjmSel: e.target.value
-                    },
-                    e => {
-                      console.log(this.state.tjmSel);
-                    }
-                  )
-                }
-              />
-              </Form.Group>
-              </div>
-
-              <Form.Group
-                as={Col}
-                controlId="formGridState"
-                onChange={e =>
-                  this.setState(
-                    {
-                      contractSel: e.target.value
-                    },
-                    e => {
-                      console.log(this.state.contractType);
-                    }
-                  )
-                }
+              <div
+                className="justify-content-center"
+                style={{ marginBottom: 10 }}
               >
-                <Form.Label>Type of Contracts</Form.Label>
-                <Form.Control as="select" defaultValue={this.state.contractSel}>
-                  <option>CDI</option>
-                  <option>Freelancer</option>
-                </Form.Control>
-              </Form.Group>
+                <Form.Group>
+                  <Form.Label>Tel</Form.Label>
+
+                  <FormControl
+                    placeholder="tel"
+                    type="text"
+                    name="tel"
+                    defaultValue={this.state.telSel}
+                    onChange={e =>
+                      this.setState(
+                        {
+                          telSel: e.target.value
+                        },
+                        e => {
+                          console.log(this.state.telSel);
+                        }
+                      )
+                    }
+                  />                  </Form.Group>
+              </div>
             </form>
           </Modal.Body>
           <Modal.Footer>
@@ -559,11 +409,13 @@ class tableConsultant extends Component {
               variant="outline-success"
               onClick={e => {
                 this.updateConsultant(this.state);
-                this.getConsultant();
+                this.getClient();
                 this.handleCloseEd();
+              
+                
               }}
             >
-              Edite Consultant
+              Edite Client
             </Button>
           </Modal.Footer>
         </Modal>
@@ -573,4 +425,4 @@ class tableConsultant extends Component {
   //  return
 }
 
-export default tableConsultant;
+export default tableClient;
