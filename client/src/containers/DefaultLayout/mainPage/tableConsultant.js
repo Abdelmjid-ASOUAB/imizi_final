@@ -65,28 +65,7 @@ class tableConsultant extends Component {
 
   getConsultant = v => {
     let url =
-      "http://localhost:4000/searchconsultant?competence=" +
-      this.state.competence +
-      "&seniorite1=" +
-      this.state.seniorite1 +
-      "&seniorite2=" +
-      this.state.seniorite2 +
-      "&seniorite3=" +
-      this.state.seniorite3 +
-      "&seniorite4=" +
-      this.state.seniorite4 +
-      "&diponibilite1=" +
-      this.state.diponibilite1 +
-      "&diponibilite2=" +
-      this.state.diponibilite2 +
-      "&diponibilite3=" +
-      this.state.diponibilite3 +
-      "&diponibilite4=" +
-      this.state.diponibilite4 +
-      "&tjm=" +
-      this.state.tjm +
-      "&contract=" +
-      this.state.contract;
+      "http://localhost:4000/getConsultant" ;
     fetch(url)
       .then(response => response.json())
       .then(response => {
@@ -103,6 +82,7 @@ class tableConsultant extends Component {
 
     console.log(url);
   };
+
 
   handleClose() {
     this.setState({ Rshow: false });

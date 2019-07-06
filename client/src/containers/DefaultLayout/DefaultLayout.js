@@ -17,6 +17,8 @@ import {
   AppSidebarMinimizer
 } from "@coreui/react";
 
+
+
 import Fab from "@material-ui/core/Fab";
 import robot from "./icons/robot.png";
 import Close from "@material-ui/icons/CloseOutlined";
@@ -113,8 +115,7 @@ class DefaultLayout extends Component {
     const colorNotSelect = "list-group-item-accent";
 
     let selectPage = <MainMission />;
-    if (localStorage.getItem("compte") != "admin") {
-    } else {
+  
       if (this.state.page === 0) {
         if (localStorage.getItem("compte") == "client") {
           selectPage = (
@@ -164,13 +165,13 @@ class DefaultLayout extends Component {
           </div>
         );
       }
-    }
+    
 
     return (
       <div className="app">
         <AppHeader fixed>
           <Suspense fallback={this.loading()}>
-            <DefaultHeader onLogout={e => this.signOut(e)} />
+            <DefaultHeader onLogout={e => this.signOut(e)} onEdite={e => {console.log(localStorage.getItem("email")+localStorage.getItem("compte"))}} />
           </Suspense>
         </AppHeader>
         <div className="app-body">
@@ -471,6 +472,8 @@ class DefaultLayout extends Component {
             <DefaultFooter />
           </Suspense>
         </AppFooter>
+
+
       </div>
     );
   }

@@ -419,6 +419,7 @@ class tableClient extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
+
       </div>
     );
   }

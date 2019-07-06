@@ -33,6 +33,8 @@ app.get("/user", (req, res) => {
   });
 });
 
+
+
 //Login Consultant
 app.get("/login", (req, res) => {
   const { email, pwd } = req.query;
@@ -196,9 +198,27 @@ app.get("/getmission", (req, res) => {
   });
 });
 
+//get All Consultant
+app.get("/getConsultant", (req, res) => {
+  const Select_All_Client = "SELECT * FROM `consultant`  ";
+  console.log();
+  
+  connection.query(Select_All_Client, (err, result) => {
+    if (err) {
+      return err;
+    } else {
+      return res.json({
+        data: result
+      });
+    }
+  });
+});
+
+
 
 //get All Client
 app.get("/getClient", (req, res) => {
+  
   const Select_All_Client = "SELECT * FROM client";
   connection.query(Select_All_Client, (err, result) => {
     if (err) {
@@ -210,6 +230,33 @@ app.get("/getClient", (req, res) => {
     }
   });
 });
+
+//get  Client By Email
+
+app.get("/getClientEmail", (req, res) => {
+
+
+
+//get  Consultant By Email
+
+app.get("/getConsultantEmail", (req, res) => {
+
+  const {email} = req.query;
+
+  const Select_All_Client = "SELECT * FROM consultant where email ='"+email+"'";
+  console.log(Select_All_Client);
+  
+  connection.query(Select_All_Client, (err, result) => {
+    if (err) {
+      return err;
+    } else {
+      return res.json({
+        data: result
+      });
+    }
+  });
+});
+
 
 
 
