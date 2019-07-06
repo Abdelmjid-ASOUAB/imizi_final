@@ -235,15 +235,10 @@ app.get("/getClient", (req, res) => {
 
 app.get("/getClientEmail", (req, res) => {
 
-
-
-//get  Consultant By Email
-
-app.get("/getConsultantEmail", (req, res) => {
-
+  
   const {email} = req.query;
 
-  const Select_All_Client = "SELECT * FROM consultant where email ='"+email+"'";
+  const Select_All_Client = "SELECT * FROM client where mail ='"+email+"'";
   console.log(Select_All_Client);
   
   connection.query(Select_All_Client, (err, result) => {
