@@ -6,11 +6,10 @@ import addMission from "./AddMission";
 import AddMisison from "./AddMission";
 
 class MyMission extends Component {
-
   state = {
     mission: [],
     search: "",
-    addMission:false
+    addMission: false
   };
   constructor(props) {
     super(props);
@@ -39,7 +38,8 @@ class MyMission extends Component {
         "&description=" +
         this.state.search +
         "&email=" +
-        localStorage.getItem("email")+"&kaka=haha"
+        localStorage.getItem("email") +
+        "&kaka=haha"
     )
       .then(response => response.json())
       .then(response =>
@@ -64,47 +64,65 @@ class MyMission extends Component {
   );
 
   render() {
-    if (this.state.addMission=== false) {
+    if (this.state.addMission === false) {
       const { mission } = this.state;
-    return (
-      <main className="main">
-        <h1> MainMission</h1>
+      return (
+        <main className="main">
+          <div>
+            <Container>
+              <Row
+                className="justify-content-center"
+                style={{ marginBottom: 10,marginLeft:5,marginRight:1 }}
+              >
+                <strong>
+                  <h1>Missions</h1>
+                </strong>
+                <Form.Control
+                  type="text"
+                  placeholder="Search for Mission"
+                  style={{
+                    marginLeft: 10,
+                    marginRight: 18,
+                    marginBottom: 10,
+                    marginTop: 20
+                  }}
+                  onChange={e => {
+                    this.setState({
+                      search: e.target.value
+                    });
+                    this.searchMissionByEmail();
+                    if (e.target.value === "") {
+                      this.getMissionByEmail();
+                    }
+                  }}
+                />
+              </Row>
+            </Container>
 
-        <div>
-          <Form.Control
-            type="text"
-            placeholder="Search for Mission"
-            style={{ marginLeft: 30, marginRight: 0, marginBottom: 30 }}
-            onChange={e => {
-              this.setState({
-                search: e.target.value
-              });
-              this.searchMissionByEmail();
-              if (e.target.value === "") {
-                this.getMissionByEmail();
-              }
-            }}
-          />
-           
             {mission.map(this.renderMission)}
 
-        
-
-          <Container>
-            <Row
-              className="justify-content-center"
-              style={{ marginBottom: 10 }}
-            >
-              <Button variant="success" onClick={e=>{this.setState({addMission:true}); console.log(localStorage)}}>Add new Mission</Button>
-            </Row>
-          </Container>
-        </div>
-      </main>
-    );
-    }else{
-      return           <AddMisison/>;
+            <Container>
+              <Row
+                className="justify-content-center"
+                style={{ marginBottom: 10 }}
+              >
+                <Button
+                  variant="success"
+                  onClick={e => {
+                    this.setState({ addMission: true });
+                    console.log(localStorage);
+                  }}
+                >
+                  Add new Mission
+                </Button>
+              </Row>
+            </Container>
+          </div>
+        </main>
+      );
+    } else {
+      return <AddMisison />;
     }
-    
   }
 }
 

@@ -79,7 +79,7 @@ class MainMission extends Component {
     const { mission } = this.state;
     return (
       <main className="main">
-        <h1> MainMission</h1>
+        <h1>Mission</h1>
 
         <div>
           <Form.Control

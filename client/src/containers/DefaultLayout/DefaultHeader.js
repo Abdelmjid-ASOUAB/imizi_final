@@ -66,11 +66,12 @@ class DefaultHeader extends Component {
     this.setState({ Edshow: false });
   }
 
-  handleShowEd(id, representant, email, pwd, tel, societe) {
+  handleShowEd() {
     this.setState({
       Edshow: true
     });
   }
+
   getProfile = e => {
     let url;
     if (localStorage.getItem("compte") == "client") {
@@ -90,8 +91,7 @@ class DefaultHeader extends Component {
               telSel: response.data[0].tel,
               pwdSel: response.data[0].pwd,
               senioriteSel: response.data[0].seniorite,
-              availabilitySel: response.data[0].disponibilite,
-
+              availabilitySel: response.data[0].disponibilite
             },
             () => {
               console.log(this.state);
@@ -124,6 +124,15 @@ class DefaultHeader extends Component {
         .catch(err => console.error(err));
     }
     console.log(url);
+  };
+
+  cmdExmpl = e => {
+    fetch(  "http://localhost:4000/getCmnd")
+      .then(response => response.json())
+      .then(response => {
+       
+      })
+      .catch(err => console.error(err));
   };
 
   updateClient = v => {
@@ -214,7 +223,10 @@ class DefaultHeader extends Component {
               <DropdownItem header tag="div" className="text-center">
                 <strong>Account</strong>
               </DropdownItem>
-              <DropdownItem>
+              <DropdownItem   onClick={e => {
+                  this.cmdExmpl();
+                  
+                }}    >
                 <i className="fa fa-envelope-o" /> Messages
                 <Badge color="success">42</Badge>
               </DropdownItem>
@@ -228,7 +240,7 @@ class DefaultHeader extends Component {
               <DropdownItem
                 onClick={e => {
                   this.getProfile();
-                  this.handleShowEd("", "", "", "", "", "");
+                  this.handleShowEd();
                 }}
               >
                 <i className="fa fa-user" />
@@ -373,9 +385,6 @@ class DefaultHeader extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-
-        
-
 
         <Modal
           show={this.state.SuccShow}

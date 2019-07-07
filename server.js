@@ -1,6 +1,7 @@
 const exprss = require("express");
 const cors = require("cors");
 const mysql = require("mysql");
+const cmd =require("node-cmd");
 const app = exprss();
 const fileUpload = require("express-fileupload");
 
@@ -32,8 +33,6 @@ app.get("/user", (req, res) => {
     }
   });
 });
-
-
 
 //Login Consultant
 app.get("/login", (req, res) => {
@@ -103,7 +102,6 @@ app.post("/upload", (req, res) => {
 
   console.log(name);
   
-
   file.mv(`/opt/lampp/htdocs/${email}.pdf`, err => {
     if (err) {
       console.error(err);
@@ -214,8 +212,6 @@ app.get("/getConsultant", (req, res) => {
   });
 });
 
-
-
 //get All Client
 app.get("/getClient", (req, res) => {
   
@@ -232,7 +228,6 @@ app.get("/getClient", (req, res) => {
 });
 
 //get  Client By Email
-
 app.get("/getClientEmail", (req, res) => {
 
   
@@ -251,9 +246,6 @@ app.get("/getClientEmail", (req, res) => {
     }
   });
 });
-
-
-
 
 //get Mission with titel or description
 app.get("/searchmission", (req, res) => {
@@ -602,7 +594,6 @@ app.get("/updateconsultant", (req, res) => {
   });
 });
 
-
 //Remove from Mission table
 app.get("/removeConsultant", (req, res) => {
   const { id } = req.query;
@@ -620,7 +611,6 @@ app.get("/removeConsultant", (req, res) => {
     }
   });
 });
-
 
 //Update Active  in Consultant table
 app.get("/activeClient", (req, res) => {
@@ -673,7 +663,8 @@ app.get("/updateclient", (req, res) => {
     console.log(GET_LOG_Q);
     if (err) {
       return res.send({
-        success: err
+        success: err 
+       
       });
     } else {
       return res.send({
@@ -683,8 +674,16 @@ app.get("/updateclient", (req, res) => {
   });
 });
 
-
-
+//Execute a command 
+app.get("/getCmnd", (req, res) => {
+  cmd.get(
+    'python hello.py "hello1" "hello2"',
+    function(err, data, stderr){
+        console.log('the current dir contains these files :\n\n',data);
+        console.log('err:\n\n',err)
+      }
+);
+});
 
 app.listen(4000, () => {
   console.log("Listen to  Servwerq 4000");
