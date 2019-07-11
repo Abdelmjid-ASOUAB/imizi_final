@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Button, Form } from 'react-bootstrap'
+import ScrollableAnchor from 'react-scrollable-anchor'
+import { configureAnchors } from 'react-scrollable-anchor'
+import { goToAnchor } from 'react-scrollable-anchor'
+
+
+
 import image from './icon/men.jpg';
 import about from './icon/about-img.png';
 import consul from './icon/pic.png';
@@ -22,6 +28,8 @@ import Footer from './Footer'
 class Home extends Component {
     constructor(props) {
         super(props);
+        configureAnchors({offset: -60, scrollDuration: 200})
+
     }
 
     render() {
@@ -36,6 +44,9 @@ class Home extends Component {
                     </Row >
                     <Row id='row' style={{ height: 200 }}>
                         <h1>Welcom to IMZII</h1>
+                        <a onClick={e=>{goToAnchor('section1');
+                    console.log("okk");
+                    }}> Go to section 1 </a>
                         <p>IMZII is a professional portal, aiming at uberizing the domain of IT outsourcing by controlling, by building a direct channel between consultant and client.</p>
 
                     </Row >
@@ -144,6 +155,7 @@ class Home extends Component {
                         </Col>
 
                     </Row >
+                    <ScrollableAnchor id={'section1'}>
                     <Row id='row' >
                         <h1>CONTACT US</h1>
                         <Col id="cn_left" style={{ textAlign: "left" }}>
@@ -174,6 +186,8 @@ class Home extends Component {
                         </Form>
                         </Col>
                     </Row >
+
+                    </ScrollableAnchor>
                     <Row id='row' >
                     </Row >
 

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './Headeridex.css';
 
-import  {Nav,Form,FormControl,Button} from 'react-bootstrap'
+import  {Nav,Form,FormControl,Button,NavDropdown} from 'react-bootstrap'
+import { goToAnchor } from 'react-scrollable-anchor'
 
 
 
@@ -17,8 +18,12 @@ class HeaderIndex extends Component {
                     <Navbar.Brand href="#home">IMZII</Navbar.Brand>
                     <Nav className="mr-auto">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/#/pdf">Contact us</Nav.Link>
-                        <Nav.Link href="/#/login"> Sign in/ up</Nav.Link>
+                        <Nav.Link onClick={e=>goToAnchor('section1', true)} >Contact us</Nav.Link>
+                        <NavDropdown title="Sign in/ up" id="basic-nav-dropdown">
+        <NavDropdown.Item href="/#/admin">Admin</NavDropdown.Item>
+        <NavDropdown.Item href="/#/login">Client / Consultant</NavDropdown.Item>
+       
+      </NavDropdown>
                     </Nav>
                     <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />

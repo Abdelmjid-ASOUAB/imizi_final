@@ -1,27 +1,8 @@
-import React, { Fragment, Component } from "react";
-import {
-  Card,
-  CardBody,
-  CardGroup,
-  Col,
-  Container,
-  FormFeedback,
-  Row,
-  Table
-} from "reactstrap";
-import {
-  Modal,
-  Button,
-  FormGroup,
-  FormControl,
-  Alert,
-  Form,
-  ButtonToolbar,
-  ToggleButton,
-  ToggleButtonGroup
-} from "react-bootstrap";
-let but = "warning";
+import React, { Component } from "react";
+import { Col, Table } from "reactstrap";
+import { Modal, Button, FormControl, Form } from "react-bootstrap";
 
+let but ="success";
 class tableConsultant extends Component {
   constructor(props) {
     super(props);
@@ -60,12 +41,18 @@ class tableConsultant extends Component {
     availabilitySel: "",
     tjmSel: "",
     contractSel: "",
-    telSel: ""
+    telSel: "",
+    experienceSel: "",
+    educationSel: "",
+    certificatsSel: "",
+    profileSel: "",
+    projectsSel: "",
+    languesSel: "",
+    competenceSel: ""
   };
 
   getConsultant = v => {
-    let url =
-      "http://localhost:4000/getConsultant" ;
+    let url = "http://localhost:4000/getConsultant";
     fetch(url)
       .then(response => response.json())
       .then(response => {
@@ -82,7 +69,6 @@ class tableConsultant extends Component {
 
     console.log(url);
   };
-
 
   handleClose() {
     this.setState({ Rshow: false });
@@ -106,7 +92,14 @@ class tableConsultant extends Component {
     seniorite,
     availability,
     tjm,
-    contract
+    contract,
+    experience,
+    competence,
+    certificats,
+    education,
+    projects,
+    langues,
+    profile
   ) {
     this.setState({
       Edshow: true,
@@ -119,7 +112,14 @@ class tableConsultant extends Component {
       senioriteSel: seniorite,
       availabilitySel: availability,
       tjmSel: tjm,
-      contractSel: contract
+      contractSel: contract,
+      experienceSel: experience,
+      competenceSel: competence,
+      certificatsSel: certificats,
+      educationSel: education,
+      projectsSel: projects,
+      languesSel: langues,
+      profileSel: profile
     });
   }
 
@@ -158,55 +158,37 @@ class tableConsultant extends Component {
     Tjm,
     contract,
     active,
-    tel
+    tel,
+    langues,
+    certificats,
+    competence,
+    experience,
+    education,
+    profile,
+    projects
   }) => {
-    let color = "";
-
-    if (active == "active") {
-      color = "#1fab89";
-    } else if (active == "inactive") {
-      color = "#ff5335";
-    } else if (active == "waiting") {
-      color = "#f08a5d";
-    }
+   
 
     return (
-      <tr key={id} style={{ textAlign: "center", backgroundColor: color }}>
+      <tr key={id} style={{ textAlign: "center"}}>
         <td>{nom}</td>
         <td>{prenom}</td>
         <td>{email}</td>
-        <td>{seniorite}</td>
-        <td>{disponibilite}</td>
-        <td>{Tjm}</td>
+        <td>{profile}</td>
+        
         <td>
-          <Form.Control
-            as="select"
-            onChange={e => {
-              console.log(id + "  " + e.target.value);
-              this.changeActive(id, e.target.value);
-            }}
+
+        <Button
+          onClick={e => {
+            console.log(id + "  " + e.target.value);
+            this.changeActive(id,active == "inactive" ? "active" : "inactive");
+          }}
+          variant={active == "inactive" ? "dark" : "success"}
           >
-            <option
-              style={{ backgroundColor: "#1fab89", color: "#ffffff" }}
-              selected={active == "active" ? "selected" : ""}
-            >
-              active
-            </option>
-            <option
-              style={{ backgroundColor: "#f08a5d", color: "#ffffff" }}
-              selected={active == "waiting" ? "selected" : ""}
-            >
-              waiting
-            </option>
-            <option
-              style={{ backgroundColor: "#ff5335", color: "#ffffff" }}
-              selected={active == "inactive" ? "selected" : ""}
-            >
-              inactive
-            </option>
-          </Form.Control>
+           {active == "inactive" ? "Inactive" : "Active"}
+           </Button>
         </td>
-        <td style={{ backgroundColor: "#ffffff" }}>
+        <td>
           <Button
             variant="danger"
             onClick={e => {
@@ -218,7 +200,7 @@ class tableConsultant extends Component {
             remove
           </Button>
         </td>
-        <td style={{ backgroundColor: "#ffffff", color: "#ffffff" }}>
+        <td>
           <Button
             style={{ color: "#ffffff" }}
             variant="info"
@@ -234,7 +216,14 @@ class tableConsultant extends Component {
                 seniorite,
                 disponibilite,
                 Tjm,
-                contract
+                contract,
+                experience,
+                competence,
+                certificats,
+                education,
+                projects,
+                langues,
+                profile
               );
             }}
           >
@@ -269,7 +258,21 @@ class tableConsultant extends Component {
         "&contract=" +
         v.contractSel +
         "&id=" +
-        v.idSel
+        v.idSel+
+        "&competence=" +
+        v.competenceSel+
+        "&experience=" +
+        v.experienceSel+
+        "&education=" +
+        v.educationSel+
+        "&certificats=" +
+        v.certificatsSel+
+        "&profile=" +
+        v.profileSel+
+        "&projects=" +
+        v.projectsSel+
+        "&langues=" +
+        v.languesSel
     )
       .then(response => response.json())
 
@@ -290,7 +293,7 @@ class tableConsultant extends Component {
     const { consultant } = this.state;
 
     return (
-      <div className="s">
+      <div className="main">
         <Table
           striped
           bordered
@@ -304,9 +307,7 @@ class tableConsultant extends Component {
               <th>First Name</th>
               <th>Last Name</th>
               <th>Email</th>
-              <th>seniorite</th>
-              <th>diponibilite</th>
-              <th>Tjm</th>
+              <th>Profile</th>
               <th>Active</th>
               <th colspan="2">Action</th>
             </tr>
@@ -342,7 +343,12 @@ class tableConsultant extends Component {
           <Modal.Header closeButton>
             <Modal.Title>Edite Consultant {this.state.idSel} ?</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body
+            style={{
+              "max-height": "calc(100vh - 210px)",
+              "overflow-y": "auto"
+            }}
+          >
             <form>
               <div className="input-group-prepend">
                 <Form.Group
@@ -417,7 +423,23 @@ class tableConsultant extends Component {
                   />
                 </Form.Group>
               </div>
-
+              <Form.Group
+                as={Col}
+                controlId="formGridState"
+                onChange={e =>
+                  this.setState({
+                    profileSel: e.target.value
+                  })
+                }
+              >
+                <Form.Label>Profile</Form.Label>
+                <FormControl
+                  placeholder="Profile"
+                  type="text"
+                  name="profile"
+                  defaultValue={this.state.profileSel}
+                />
+              </Form.Group>
               <div className="input-group-prepend">
                 <Form.Group
                   as={Col}
@@ -463,50 +485,49 @@ class tableConsultant extends Component {
                 </Form.Group>
               </div>
               <div className="input-group-prepend">
+                <Form.Group as={Col} controlId="formGridState">
+                  <Form.Label>Tel</Form.Label>
 
-              <Form.Group as={Col} controlId="formGridState">
-                <Form.Label>Tel</Form.Label>
-
-                <FormControl
-                  placeholder="tel"
-                  type="text"
-                  name="tel"
-                  defaultValue={this.state.telSel}
-                  onChange={e =>
-                    this.setState(
-                      {
-                        telSel: e.target.value
-                      },
-                      e => {
-                        console.log(this.state.telSel);
-                      }
-                    )
-                  }
-                />
-              </Form.Group>
-              <Form.Group as={Col} controlId="formGridState">
-              <Form.Label>TJM</Form.Label>
-
-              <FormControl
-                placeholder="Tjm"
-                type="number"
-                name="tjm"
-                min="1000"
-                max="4946"
-                step="100"
-                defaultValue={this.state.tjmSel}
-                onChange={e =>
-                  this.setState(
-                    {
-                      tjmSel: e.target.value
-                    },
-                    e => {
-                      console.log(this.state.tjmSel);
+                  <FormControl
+                    placeholder="tel"
+                    type="text"
+                    name="tel"
+                    defaultValue={this.state.telSel}
+                    onChange={e =>
+                      this.setState(
+                        {
+                          telSel: e.target.value
+                        },
+                        e => {
+                          console.log(this.state.telSel);
+                        }
+                      )
                     }
-                  )
-                }
-              />
-              </Form.Group>
+                  />
+                </Form.Group>
+                <Form.Group as={Col} controlId="formGridState">
+                  <Form.Label>TJM</Form.Label>
+
+                  <FormControl
+                    placeholder="Tjm"
+                    type="number"
+                    name="tjm"
+                    min="1000"
+                    max="4946"
+                    step="100"
+                    defaultValue={this.state.tjmSel}
+                    onChange={e =>
+                      this.setState(
+                        {
+                          tjmSel: e.target.value
+                        },
+                        e => {
+                          console.log(this.state.tjmSel);
+                        }
+                      )
+                    }
+                  />
+                </Form.Group>
               </div>
 
               <Form.Group
@@ -528,6 +549,175 @@ class tableConsultant extends Component {
                   <option>CDI</option>
                   <option>Freelancer</option>
                 </Form.Control>
+              </Form.Group>
+
+              <Form.Group
+                as={Col}
+                controlId="formGridState"
+                onChange={e =>
+                  this.setState(
+                    {
+                      experienceSel: e.target.value
+                    },
+                    e => {
+                      console.log(this.state.experienceSel);
+                    }
+                  )
+                }
+              >
+                <Form.Label>Experience</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  style={{ fontWeight: "bold", fontSize: "15px" }}
+                  rows="3"
+                  defaultValue={this.state.experienceSel
+                    .split(",")
+                    .map((exp, index) => (index == 0 ? exp : "\n" + exp))}
+                />
+              </Form.Group>
+              <Form.Group
+                as={Col}
+                controlId="formGridState"
+                onChange={e =>
+                  this.setState(
+                    {
+                      competenceSel: e.target.value
+                    },
+                    e => {
+                      console.log(this.state.competenceSel);
+                    }
+                  )
+                }
+              >
+                <Form.Label>Competence</Form.Label>
+
+                <Form.Control
+                  style={{ fontWeight: "bold", fontSize: "15px" }}
+                  rows="3"
+                  as="textarea"
+                  placeholder="Insert Competence"
+                  defaultValue={
+                    this.state.competenceSel != null
+                      ? this.state.competenceSel
+                          .split(",")
+                          .map((exp, index) => (index == 0 ? exp : "\n" + exp))
+                      : ""
+                  }
+                />
+              </Form.Group>
+
+              <Form.Group
+                as={Col}
+                controlId="formGridState"
+                onChange={e =>
+                  this.setState(
+                    {
+                      educationSel: e.target.value
+                    },
+                    e => {
+                      console.log(this.state.educationSel);
+                    }
+                  )
+                }
+              >
+                <Form.Label>Education</Form.Label>
+
+                <Form.Control
+                  style={{ fontWeight: "bold", fontSize: "15px" }}
+                  rows="3"
+                  as="textarea"
+                  placeholder="Insert Education"
+                  defaultValue={
+                    this.state.educationSel != null
+                      ? this.state.educationSel
+                          .split(",")
+                          .map((exp, index) => (index == 0 ? exp : "\n" + exp))
+                      : ""
+                  }
+                />
+              </Form.Group>
+
+              <Form.Group
+                as={Col}
+                controlId="formGridState"
+                onChange={e =>
+                  this.setState(
+                    {
+                      certificatsSel: e.target.value
+                    },
+                    e => {
+                      console.log(this.state.certificatsSel);
+                    }
+                  )
+                }
+              >
+                <Form.Label>Certificats</Form.Label>
+
+                <Form.Control
+                  style={{ fontWeight: "bold", fontSize: "15px" }}
+                  rows="3"
+                  as="textarea"
+                  placeholder="Insert Certificats"
+                  defaultValue={
+                    this.state.certificatsSel != null
+                      ? this.state.certificatsSel
+                          .split(",")
+                          .map((exp, index) => (index == 0 ? exp : "\n" + exp))
+                      : ""
+                  }
+                />
+              </Form.Group>
+
+              <Form.Group
+                as={Col}
+                controlId="formGridState"
+                onChange={e =>
+                  this.setState(
+                    {
+                      projectsSel: e.target.value
+                    },
+                    e => {
+                      console.log(this.state.projectsSel);
+                    }
+                  )
+                }
+              >
+                <Form.Label>Projects</Form.Label>
+
+                <Form.Control
+                  style={{ fontWeight: "bold", fontSize: "15px" }}
+                  rows="3"
+                  as="textarea"
+                  placeholder="Insert Projects"
+                  defaultValue={
+                    this.state.projectsSel != null
+                      ? this.state.projectsSel
+                          .split(",")
+                          .map((exp, index) => (index == 0 ? exp : "\n" + exp))
+                      : ""
+                  }
+                />
+              </Form.Group>
+
+              <Form.Group
+                as={Col}
+                controlId="formGridState"
+                onChange={e =>
+                  this.setState({
+                    languesSel: e.target.value
+                  },
+                  e => {
+                    console.log(this.state.languesSel)
+                  })
+                }
+              >
+                <Form.Label>First Name</Form.Label>
+                <FormControl
+                  placeholder="Insert langues"
+                  type="text"
+                  name="langues"
+                  defaultValue={this.state.languesSel}
+                />
               </Form.Group>
             </form>
           </Modal.Body>

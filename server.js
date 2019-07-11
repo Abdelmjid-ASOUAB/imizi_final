@@ -1,7 +1,7 @@
 const exprss = require("express");
 const cors = require("cors");
 const mysql = require("mysql");
-const cmd =require("node-cmd");
+const cmd = require("node-cmd");
 const app = exprss();
 const fileUpload = require("express-fileupload");
 
@@ -54,16 +54,11 @@ app.get("/login", (req, res) => {
   });
 });
 
-
 //Login Admin
 app.get("/admin", (req, res) => {
   const { email, pwd } = req.query;
   const GET_LOG_Q =
-    'SELECT email FROM admin where email="' +
-    email +
-    '" and pwd="' +
-    pwd +
-    '"';
+    'SELECT email FROM admin where email="' + email + '" and pwd="' + pwd + '"';
   connection.query(GET_LOG_Q, (err, result) => {
     if (err) {
       return res.send(err);
@@ -98,23 +93,36 @@ app.post("/upload", (req, res) => {
   }
 
   const file = req.files.file;
-  const email= req.body.Namefile;
+  const email = req.body.Namefile;
 
   console.log(name);
-  
+
   file.mv(`/opt/lampp/htdocs/${email}.pdf`, err => {
     if (err) {
       console.error(err);
       return res.status(500).send(err);
     }
 
-    res.json({ fileName: file.name, filePath: `/opt/lampp/htdocs/${email}.pdf` });
+    res.json({
+      fileName: file.name,
+      filePath: `/opt/lampp/htdocs/${email}.pdf`
+    });
   });
 });
 
 //Consultant Regester
 app.get("/ConsultantRegister", (req, res) => {
-  const { nom, prenom, tel, email, pwd, seniorite, availability,tjm,contract} = req.query;
+  const {
+    nom,
+    prenom,
+    tel,
+    email,
+    pwd,
+    seniorite,
+    availability,
+    tjm,
+    contract
+  } = req.query;
   const GET_LOG_Q =
     'INSERT INTO `consultant`(`nom`, `prenom`, `email`, `pwd`, `tel`,  `seniorite`, `disponibilite`, `Tjm`, `contract`) VALUES ("' +
     nom +
@@ -200,7 +208,7 @@ app.get("/getmission", (req, res) => {
 app.get("/getConsultant", (req, res) => {
   const Select_All_Client = "SELECT * FROM `consultant`  ";
   console.log();
-  
+
   connection.query(Select_All_Client, (err, result) => {
     if (err) {
       return err;
@@ -214,7 +222,6 @@ app.get("/getConsultant", (req, res) => {
 
 //get All Client
 app.get("/getClient", (req, res) => {
-  
   const Select_All_Client = "SELECT * FROM client";
   connection.query(Select_All_Client, (err, result) => {
     if (err) {
@@ -229,13 +236,11 @@ app.get("/getClient", (req, res) => {
 
 //get  Client By Email
 app.get("/getClientEmail", (req, res) => {
+  const { email } = req.query;
 
-  
-  const {email} = req.query;
-
-  const Select_All_Client = "SELECT * FROM client where mail ='"+email+"'";
+  const Select_All_Client = "SELECT * FROM client where mail ='" + email + "'";
   console.log(Select_All_Client);
-  
+
   connection.query(Select_All_Client, (err, result) => {
     if (err) {
       return err;
@@ -422,7 +427,8 @@ app.get("/searchconsultant", (req, res) => {
     diponibilite2,
     diponibilite3,
     diponibilite4,
-    tjm,contract
+    tjm,
+    contract
   } = req.query;
   let typ = "";
   let sql = "SELECT * FROM consultant";
@@ -437,7 +443,6 @@ app.get("/searchconsultant", (req, res) => {
     seniorite4 != ""
   ) {
     sql +=
-     
       " where seniorite IN ('" +
       seniorite1 +
       "','" +
@@ -455,7 +460,6 @@ app.get("/searchconsultant", (req, res) => {
     diponibilite4 != ""
   ) {
     sql +=
-      
       " where disponibilite IN ('" +
       diponibilite1 +
       "','" +
@@ -466,11 +470,11 @@ app.get("/searchconsultant", (req, res) => {
       diponibilite4 +
       "')";
     typ = "disponibilité";
-  }else if (tjm != "") {
-    sql += " where Tjm = '" + tjm+ "'";
+  } else if (tjm != "") {
+    sql += " where Tjm = '" + tjm + "'";
     typ = "tjm";
-  }else if (contract != "") {
-    sql += " where contract = '" + contract+ "'";
+  } else if (contract != "") {
+    sql += " where contract = '" + contract + "'";
     typ = "contract";
   }
 
@@ -485,16 +489,15 @@ app.get("/searchconsultant", (req, res) => {
     typ != "seniorite"
   ) {
     sql +=
-  
-    " and seniorite IN ('" +
-    seniorite1 +
-    "','" +
-    seniorite2 +
-    "','" +
-    seniorite3 +
-    "','" +
-    seniorite4 +
-    "')";
+      " and seniorite IN ('" +
+      seniorite1 +
+      "','" +
+      seniorite2 +
+      "','" +
+      seniorite3 +
+      "','" +
+      seniorite4 +
+      "')";
   }
   if (
     (diponibilite1 != "" ||
@@ -504,38 +507,32 @@ app.get("/searchconsultant", (req, res) => {
     typ != "disponibilité"
   ) {
     sql +=
-   
-    " and disponibilite IN ('" +
-    diponibilite1 +
-    "','" +
-    diponibilite2 +
-    "','" +
-    diponibilite3 +
-    "','" +
-    diponibilite4 +
-    "')";
+      " and disponibilite IN ('" +
+      diponibilite1 +
+      "','" +
+      diponibilite2 +
+      "','" +
+      diponibilite3 +
+      "','" +
+      diponibilite4 +
+      "')";
   }
 
   if (tjm != "" && typ != "tjm") {
-    sql +=  " and Tjm= '" + competence + "'";
-
+    sql += " and Tjm= '" + competence + "'";
   }
 
   if (contract != "" && typ != "contract") {
-    sql +=  " and contract= '" + contract + "'";
-
+    sql += " and contract= '" + contract + "'";
   }
 
-
-  if(sql==="SELECT * FROM consultant"){
+  if (sql === "SELECT * FROM consultant") {
     sql += " where active ='active'";
-  }else{
+  } else {
     sql += " and active ='active'";
-
   }
 
   console.log(sql);
-  
 
   connection.query(sql, (err, result) => {
     if (err) {
@@ -546,17 +543,13 @@ app.get("/searchconsultant", (req, res) => {
       });
     }
   });
-  
 });
-
 
 //Update Active  in Consultant table
 app.get("/activeConsultant", (req, res) => {
-  const { id,active } = req.query;
+  const { id, active } = req.query;
   const GET_LOG_Q =
-    'UPDATE consultant SET active = "'+active+'"  WHERE `id` ="' +
-    id +
-    '"';
+    'UPDATE consultant SET active = "' + active + '"  WHERE `id` ="' + id + '"';
   connection.query(GET_LOG_Q, (err, result) => {
     console.log("remove 2  " + GET_LOG_Q);
     if (err) {
@@ -573,11 +566,60 @@ app.get("/activeConsultant", (req, res) => {
 
 //Update All  in Consultant table
 app.get("/updateconsultant", (req, res) => {
-  const { id,nom, prenom, tel, email, pwd, seniorite, availability,tjm,contract} = req.query;
+  const {
+    id,
+    nom,
+    prenom,
+    tel,
+    email,
+    pwd,
+    seniorite,
+    availability,
+    tjm,
+    contract,
+    competence,
+    experience,
+    education,
+    certificats,
+    profile,
+    projects,
+    langues
+  } = req.query;
   const GET_LOG_Q =
-    'UPDATE consultant SET `nom` = "'+nom+'" , `prenom` = "'+prenom+'" , `email` = "'+email+'" , `pwd` = "'+pwd+'" , `tel` = "'+tel+'" ,  `seniorite` = "'+seniorite+'" , `disponibilite` = "'+availability+'" , `Tjm` = "'+tjm+'" , `contract`= "'+contract+'" '
-    
-    +'  WHERE `id` ="' +
+    'UPDATE consultant SET `nom` = "' +
+    nom +
+    '" , `prenom` = "' +
+    prenom +
+    '" , `email` = "' +
+    email +
+    '" , `pwd` = "' +
+    pwd +
+    '" , `tel` = "' +
+    tel +
+    '" ,  `seniorite` = "' +
+    seniorite +
+    '" , `disponibilite` = "' +
+    availability +
+    '" , `Tjm` = "' +
+    tjm +
+    '" , `contract`= "' +
+    contract +
+    '"  , `competence`= "' +
+    competence +
+    '"  , `experience`= "' +
+    experience +
+    '"  , `education`= "' +
+    education +
+    '"  , `certificats`= "' +
+    certificats +
+    '"  , `profile`= "' +
+    profile +
+    '"  , `projects`= "' +
+    projects +
+    '"  , `langues`= "' +
+    langues +
+    '" ' +
+    '  WHERE `id` ="' +
     id +
     '"';
   connection.query(GET_LOG_Q, (err, result) => {
@@ -597,7 +639,8 @@ app.get("/updateconsultant", (req, res) => {
 //Remove from Mission table
 app.get("/removeConsultant", (req, res) => {
   const { id } = req.query;
-  const GET_LOG_Q = 'DELETE FROM `consultant` WHERE `consultant`.`id` = "' + id + '"';
+  const GET_LOG_Q =
+    'DELETE FROM `consultant` WHERE `consultant`.`id` = "' + id + '"';
   connection.query(GET_LOG_Q, (err, result) => {
     console.log(GET_LOG_Q);
     if (err) {
@@ -614,11 +657,9 @@ app.get("/removeConsultant", (req, res) => {
 
 //Update Active  in Consultant table
 app.get("/activeClient", (req, res) => {
-  const { id,active } = req.query;
+  const { id, active } = req.query;
   const GET_LOG_Q =
-    'UPDATE client SET active = "'+active+'"  WHERE `id` ="' +
-    id +
-    '"';
+    'UPDATE client SET active = "' + active + '"  WHERE `id` ="' + id + '"';
   connection.query(GET_LOG_Q, (err, result) => {
     console.log("remove 2  " + GET_LOG_Q);
     if (err) {
@@ -652,19 +693,27 @@ app.get("/removeClient", (req, res) => {
 
 //Update All  in Consultant table
 app.get("/updateclient", (req, res) => {
-  const { id,representant, societe, tel, email, pwd} = req.query;
+  const { id, representant, societe, tel, email, pwd } = req.query;
   const GET_LOG_Q =
-    'UPDATE client SET `representant` = "'+representant+'" , `societe` = "'+societe+'" , `mail` = "'+email+'" , `pwd` = "'+pwd+'" , `tel` = "'+tel+'"'
-    
-    +'  WHERE `id` ="' +
+    'UPDATE client SET `representant` = "' +
+    representant +
+    '" , `societe` = "' +
+    societe +
+    '" , `mail` = "' +
+    email +
+    '" , `pwd` = "' +
+    pwd +
+    '" , `tel` = "' +
+    tel +
+    '"' +
+    '  WHERE `id` ="' +
     id +
     '"';
   connection.query(GET_LOG_Q, (err, result) => {
     console.log(GET_LOG_Q);
     if (err) {
       return res.send({
-        success: err 
-       
+        success: err
       });
     } else {
       return res.send({
@@ -674,17 +723,16 @@ app.get("/updateclient", (req, res) => {
   });
 });
 
-//Execute a command 
+//Execute a command
 app.get("/getCmnd", (req, res) => {
-  cmd.get(
-    'python hello.py "hello1" "hello2"',
-    function(err, data, stderr){
-        console.log('the current dir contains these files :\n\n',data);
-        console.log('err:\n\n',err)
-      }
-);
+  cmd.get("python affichage.py", function(err, data, stderr) {
+    console.log("the current dir contains these files :\n\n", data);
+    return res.send({
+      success: data
+      });
+  });
 });
 
 app.listen(4000, () => {
-  console.log("Listen to  Servwerq 4000");
+  console.log("Listen to  Server 4000");
 });

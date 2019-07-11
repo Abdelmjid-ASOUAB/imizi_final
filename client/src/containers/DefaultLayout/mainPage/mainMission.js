@@ -101,7 +101,7 @@ class MainMission extends Component {
       </main>
     );
   }
-  //  return
+
 }
 
 export default MainMission;

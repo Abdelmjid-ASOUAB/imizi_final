@@ -490,7 +490,7 @@ class Register extends Component {
                   <Col>
                     <FormControl
                       isInvalid={errors.prenom && touched.prenom}
-                      placeholder="First Name"
+                      placeholder="Representant First Name"
                       type="text"
                       name="prenom"
                       onChange={handleChange}
@@ -505,7 +505,7 @@ class Register extends Component {
                   <Col>
                     <FormControl
                       isInvalid={errors.nom && touched.nom}
-                      placeholder="Last Name"
+                      placeholder=" Representant Last Name"
                       type="text"
                       name="nom"
                       onChange={handleChange}

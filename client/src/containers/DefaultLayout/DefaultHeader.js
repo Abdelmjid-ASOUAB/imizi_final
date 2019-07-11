@@ -59,7 +59,9 @@ class DefaultHeader extends Component {
     prenomSel: "",
     senioriteSel: "",
     availabilitySel: "",
-    contractSel: ""
+    contractSel: "",
+    competence:""
+    
   };
 
   handleCloseEd() {
@@ -130,8 +132,22 @@ class DefaultHeader extends Component {
     fetch(  "http://localhost:4000/getCmnd")
       .then(response => response.json())
       .then(response => {
-       
+        var arry =response.success.split("\n").map((exp, index) => (exp.split(":").map((exp, index) => (exp))));
+        console.log(arry[29][0]+" ===== "+arry[29][1])
+        for(var i;i<arry.length;i++){
+          /*if(arry[i][0]=="competence:"){
+            this.setState({
+              competence:this.state.competence+" , "+arry[i][1]
+            },
+           
+            )
+          }*/
+        console.log(i);
+          
+        }
+      
       })
+     
       .catch(err => console.error(err));
   };
 
@@ -246,7 +262,7 @@ class DefaultHeader extends Component {
                 <i className="fa fa-user" />
                 Edite Profile
               </DropdownItem>
-              <DropdownItem>
+              <DropdownItem  onClick={e => console.log(this.state.competence)}>
                 <i className="fa fa-wrench" /> Settings
               </DropdownItem>
               <DropdownItem>
