@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 07, 2019 at 04:13 PM
+-- Generation Time: Jul 12, 2019 at 06:07 PM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -92,6 +92,11 @@ CREATE TABLE `consultant` (
   `Tjm` int(11) DEFAULT NULL,
   `competence` varchar(500) DEFAULT NULL,
   `experience` varchar(500) NOT NULL,
+  `education` varchar(1000) NOT NULL,
+  `certificats` varchar(1000) NOT NULL,
+  `profile` varchar(50) NOT NULL,
+  `projects` varchar(1000) NOT NULL,
+  `langues` varchar(50) NOT NULL,
   `contract` varchar(10) DEFAULT NULL,
   `active` varchar(10) NOT NULL DEFAULT 'inactive'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -100,32 +105,32 @@ CREATE TABLE `consultant` (
 -- Dumping data for table `consultant`
 --
 
-INSERT INTO `consultant` (`id`, `nom`, `prenom`, `email`, `pwd`, `tel`, `seniorite`, `disponibilite`, `Tjm`, `competence`, `experience`, `contract`, `active`) VALUES
-(1, 'hanane', 'Saadi', 'h@h.com', 'aaa', '0185090003', 'Expert [ 10 years]', '1 month', 1500, 'java', '', 'CDI', 'active'),
-(6, 'saadi', 'hanan', 'hanan@homtail.com', '11111', '0610573342', 'Expert [ 10 years]', ' 1 month', 1100, 'c++,php', '', 'Freelancer', 'active'),
-(7, 'hiha hiho', 'hiho hiho', 'h@h.fr', 'hhh', '0185090003', 'intermediate [3 to 5 years]', 'In 2 weeks', 0, 'sql,php', '', 'Freelancer', 'active'),
-(31, 'asouab', 'abdelmjid', 'h@h.ma', 'hhh', '0610573342', 'Senior [5 to 10 years]', ' 1 month', NULL, 'javascript,php', '', NULL, 'inactive'),
-(33, 'asouab', 'abdelmjid', 'abde.asouab@gmail.com', 'hhh', '0610573342', 'Expert [ 10 years]', 'immediate', NULL, 'reactjs,flutter', '', NULL, 'waiting'),
-(35, 'hiha', 'hiho', 'h@h.mama', 'hhh', '0185090003', 'Senior [5 to 10 years]', 'In 2 weeks', NULL, 'Angular', '', NULL, 'inactive'),
-(37, 'hiha', 'hiho', 'h@h.frq', 'hhh', '0185090003', 'Senior [5 to 10 years]', 'In 2 weeks', NULL, 'jee,java swing', '', NULL, 'inactive'),
-(38, 'asouab', 'abdelmjid', 'h@h.bb', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', NULL, '.net,c#', '', NULL, 'inactive'),
-(40, 'asouab', 'abdelmjid', 'h@h.frqqqqq', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', NULL, 'sql,mongodb', '', NULL, 'active'),
-(42, 'haho', 'tata', 'h@h.c', 'hhh', '123456', 'intermediate [3 to 5 years]', ' 1 month', NULL, 'flutter,firebase', '', NULL, 'active'),
-(43, 'asouab', 'abdelmjid', 'h@h.frqq', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', NULL, 'symfony,php,html,css', '', NULL, 'active'),
-(45, 'asouab', 'abdelmjid', 'h@h.frss', 'hhh', '0610573342', 'Senior [5 to 10 years]', 'In 2 weeks', NULL, 'react native', '', NULL, 'active'),
-(49, 'alah', 'alah', 'h@h.aaa', 'hhh', ' 212', 'Expert [ 10 years]', 'immediate', NULL, 'ios', '', NULL, 'active'),
-(50, 'asouab', 'abdelmjid', 'con@con.con', 'hhh', '0610573342', 'Expert [ 10 years]', '1 month', NULL, 'networking', '', NULL, 'inactive'),
-(52, 'ahmed', 'ahmed', 'ahmed@gmail.com', '0000', '05555555', 'Senior [5 to 10 years]', 'In 2 weeks', NULL, NULL, '', NULL, 'inactive'),
-(53, 'hh', 'azert', 'aa@aa.aa', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', 1300, NULL, '', 'Freelancer', 'inactive'),
-(54, 'ddd', 'zzz', 'seo.seo.2019@gmail.com', 'hhh', '1233', 'intermediate [3 to 5 years]', '  1 month', 1200, NULL, '', 'Freelancer', 'inactive'),
-(55, 'hiha', 'hiho', 'seo.seo.2019@sgmail.com', 'hhh', 'h@h.coms', 'Senior [5 to 10 years]', 'In 2 weeks', 1000, NULL, '', 'CDI', 'inactive'),
-(57, 'aaaaaaaaa', 'aaaaaaaaaaaaa', 'abde.asouab@gmail.comaaa', 'hhh', 'h@h.com', 'Senior [5 to 10 years]', '1 month', 1100, NULL, '', 'CDI', 'inactive'),
-(59, 'asouabaa', 'abdelmjidaa', 'abde.aasouab@gmail.coma', 'hhh', 'h@h.com', 'beginner [0 to 5 years]', 'In 2 weeks', 1300, NULL, '', 'CDI', 'waiting'),
-(60, 'ssasouab', 'abdelmjidss', 'ssabde.asouab@gmail.com', 'hhh', 'ssh@h.com', 'intermediate [3 to 5 years]', 'In 2 weeks', 1200, NULL, '', 'CDI', 'waiting'),
-(61, 'aaaaa', 'aaaaa', 'abdea.asouaba@gmaila.coma', 'hhh', 'h@h.com', 'intermediate [3 to 5 years]', '1 month', 1200, NULL, '', 'CDI', 'waiting'),
-(63, 'asouaba', 'abdelmjida', 'haa@haa.comaaa', 'hhh', '0610573342', 'Senior [5 to 10 years]', 'immediate', 1000, NULL, '', 'CDI', 'waiting'),
-(69, 'aaa', 'aaa', 'aa.bb@bb.cc', 'hhh', '1111', 'beginner [0 to 5 years]', 'immediate', 2000, NULL, '', 'Freelancer', 'inactive'),
-(70, 'aazz', 'aazz', 'az.az@az.az', 'undefined', 'h@h.comz', 'intermediate [3 to 5 years]', 'In 2 weeks', 2000, NULL, '', 'Freelancer', 'active');
+INSERT INTO `consultant` (`id`, `nom`, `prenom`, `email`, `pwd`, `tel`, `seniorite`, `disponibilite`, `Tjm`, `competence`, `experience`, `education`, `certificats`, `profile`, `projects`, `langues`, `contract`, `active`) VALUES
+(1, 'hanane', 'Saadi', 'h@h.com', 'aaa', '0185090003', 'Expert [ 10 years]', '1 month', 1500, 'java', 'Exp1,Exp2,Exp3,Exp4,Exp5,Exp6,Exp7,Exp00', 'Education 1,2?3,4,5', 'Certificats1,Certificats3,Certificats2,Certificats4,Certificats5,Certificats6', 'IT Profile', 'Projet1,Project2,Project 3 ', 'arabe ,fr ,Eng, Espa,tamazight', 'CDI', 'active'),
+(6, 'saadi', 'hanan', 'hanan@homtail.com', '11111', '0610573342', 'Expert [ 10 years]', ' 1 month', 1100, 'c  ,php', 'test,test2', 'a', 'b', '', 'c', 'arabic', 'Freelancer', 'inactive'),
+(7, 'hiha hiho', 'hiho hiho', 'h@h.fr', 'hhh', '0185090003', 'intermediate [3 to 5 years]', 'In 2 weeks', 0, 'sql,php', '', '', '', '', '', '0', 'Freelancer', 'inactive'),
+(31, 'asouab', 'abdelmjid', 'h@h.ma', 'hhh', '0610573342', 'Senior [5 to 10 years]', ' 1 month', NULL, 'javascript,php', '', '', '', '', '', '0', NULL, 'active'),
+(33, 'asouab', 'abdelmjid', 'abde.asouab@gmail.com', 'hhh', '0610573342', 'Expert [ 10 years]', 'immediate', NULL, 'reactjs,flutter', '', '', '', '', '', '0', NULL, 'active'),
+(35, 'hiha', 'hiho', 'h@h.mama', 'hhh', '0185090003', 'Senior [5 to 10 years]', 'In 2 weeks', NULL, 'Angular', '', '', '', '', '', '0', NULL, 'active'),
+(37, 'hiha', 'hiho', 'h@h.frq', 'hhh', '0185090003', 'Senior [5 to 10 years]', 'In 2 weeks', NULL, 'jee,java swing', '', '', '', '', '', '0', NULL, 'active'),
+(38, 'asouab', 'abdelmjid', 'h@h.bb', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', NULL, '.net,c#', '', '', '', '', '', '0', NULL, 'active'),
+(40, 'asouab', 'abdelmjid', 'h@h.frqqqqq', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', NULL, 'sql,mongodb', '', '', '', '', '', '0', NULL, 'active'),
+(42, 'haho', 'tata', 'h@h.c', 'hhh', '123456', 'intermediate [3 to 5 years]', ' 1 month', NULL, 'flutter,firebase', '', '', '', '', '', '0', NULL, 'active'),
+(43, 'asouab', 'abdelmjid', 'h@h.frqq', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', NULL, 'symfony,php,html,css', '', '', '', '', '', '0', NULL, 'active'),
+(45, 'asouab', 'abdelmjid', 'h@h.frss', 'hhh', '0610573342', 'Senior [5 to 10 years]', 'In 2 weeks', NULL, 'react native', '', '', '', '', '', '0', NULL, 'active'),
+(49, 'alah', 'alah', 'h@h.aaa', 'hhh', ' 212', 'Expert [ 10 years]', 'immediate', NULL, 'ios', '', '', '', '', '', '0', NULL, 'active'),
+(50, 'asouab', 'abdelmjid', 'con@con.con', 'hhh', '0610573342', 'Expert [ 10 years]', '1 month', NULL, 'networking', '', '', '', '', '', '0', NULL, 'active'),
+(52, 'ahmed', 'ahmed', 'ahmed@gmail.com', '0000', '05555555', 'Senior [5 to 10 years]', 'In 2 weeks', NULL, NULL, '', '', '', '', '', '0', NULL, 'active'),
+(53, 'hh', 'azert', 'aa@aa.aa', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', 1300, NULL, '', '', '', '', '', '0', 'Freelancer', 'active'),
+(54, 'ddd', 'zzz', 'seo.seo.2019@gmail.com', 'hhh', '1233', 'intermediate [3 to 5 years]', '  1 month', 1200, NULL, '', '', '', '', '', '0', 'Freelancer', 'active'),
+(55, 'hiha', 'hiho', 'seo.seo.2019@sgmail.com', 'hhh', 'h@h.coms', 'Senior [5 to 10 years]', 'In 2 weeks', 1000, NULL, '', '', '', '', '', '0', 'CDI', 'active'),
+(57, 'aaaaaaaaa', 'aaaaaaaaaaaaa', 'abde.asouab@gmail.comaaa', 'hhh', 'h@h.com', 'Senior [5 to 10 years]', '1 month', 1100, NULL, '', '', '', '', '', '0', 'CDI', 'active'),
+(59, 'asouabaa', 'abdelmjidaa', 'abde.aasouab@gmail.coma', 'hhh', 'h@h.com', 'beginner [0 to 5 years]', 'In 2 weeks', 1300, NULL, '', '', '', '', '', '0', 'CDI', 'active'),
+(60, 'ssasouab', 'abdelmjidss', 'ssabde.asouab@gmail.com', 'hhh', 'ssh@h.com', 'intermediate [3 to 5 years]', 'In 2 weeks', 1200, NULL, '', '', '', '', '', '0', 'CDI', 'active'),
+(61, 'aaaaa', 'aaaaa', 'abdea.asouaba@gmaila.coma', 'hhh', 'h@h.com', 'intermediate [3 to 5 years]', '1 month', 1200, NULL, '', '', '', '', '', '0', 'CDI', 'active'),
+(63, 'asouaba', 'abdelmjida', 'haa@haa.comaaa', 'hhh', '0610573342', 'Senior [5 to 10 years]', 'immediate', 1000, NULL, '', '', '', '', '', '0', 'CDI', 'active'),
+(69, 'aaa', 'aaa', 'aa.bb@bb.cc', 'hhh', '1111', 'beginner [0 to 5 years]', 'immediate', 2000, NULL, '', '', '', '', '', '0', 'Freelancer', 'active'),
+(70, 'aazz', 'aazz', 'az.az@az.az', 'undefined', 'h@h.comz', 'intermediate [3 to 5 years]', 'In 2 weeks', 2000, NULL, '', '', '', '', '', '0', 'Freelancer', 'active');
 
 -- --------------------------------------------------------
 
@@ -152,7 +157,8 @@ INSERT INTO `mission` (`id`, `Titel`, `description`, `date`, `visible`) VALUES
 (3, 'networking ', 'networkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworking', '2019-06-02', 0),
 (25, 'hackers', 'hackers hackers hackers hackers hackers hackers ', '2019-06-16', 0),
 (27, 'hanane', 'hanane ', '2019-06-24', 0),
-(28, 'java', 'html', '2019-07-02', 0);
+(28, 'java', 'html', '2019-07-02', 0),
+(33, 'test', 'test', '2019-07-09', 0);
 
 -- --------------------------------------------------------
 
@@ -176,7 +182,8 @@ INSERT INTO `Missionclient` (`id`, `client_email`, `mission_id`) VALUES
 (2, 'contact@inwi.com', 2),
 (19, 'cli@cli.cli', 25),
 (21, 'cli@cli.cli', 27),
-(22, 'cli@cli.cli', 28);
+(22, 'cli@cli.cli', 28),
+(27, 'cli@cli.cli', 33);
 
 --
 -- Indexes for dumped tables
@@ -241,13 +248,13 @@ ALTER TABLE `consultant`
 -- AUTO_INCREMENT for table `mission`
 --
 ALTER TABLE `mission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `Missionclient`
 --
 ALTER TABLE `Missionclient`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
