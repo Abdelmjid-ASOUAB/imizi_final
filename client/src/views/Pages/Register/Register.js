@@ -314,6 +314,8 @@ class Register extends Component {
               id="inputGroupFile01"
               aria-describedby="inputGroupFileAddon01"
               onChange={this.onFileChange}
+              accept=".pdf"
+
             />
             <label className="custom-file-label" htmlFor="inputGroupFile01">
               {this.state.fileName}
@@ -324,7 +326,6 @@ class Register extends Component {
             type="submit"
             className="btn btn-primary btn-block mt-4"
             value="upload"
-            accept=".pdf"
           />
         </div>
       </form>

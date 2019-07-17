@@ -7,6 +7,8 @@ import MainSetting from "./mainPage/mainSetting";
 import MainConsultant from "./mainPage/searshConsultant";
 import TableConsultant from "./mainPage/tableConsultant";
 import TableClient from "./mainPage/tableClient";
+import Profile from "./mainPage/Profile";
+
 
 import {
   AppFooter,
@@ -30,7 +32,6 @@ import home from "./icons/home.png";
 import message from "./icons/message.png";
 import setting from "./icons/setting.png";
 import consultant from "./icons/consultant.png";
-import tableClient from "./mainPage/tableClient";
 
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
 const DefaultHeader = React.lazy(() => import("./DefaultHeader"));
@@ -50,65 +51,6 @@ class DefaultLayout extends Component {
     e.preventDefault();
     this.props.history.push("/login");
   }
-
-  boot = newMessage => {
-    if (localStorage.getItem("compte") === "client") {
-      return (
-        <div
-          onClick={() => {
-            this.setState(
-              {
-                open: true
-              },
-              () => {
-                console.log(this.state.open);
-              }
-            );
-          }}
-        >
-          <Fab color="primary" aria-label="Add">
-            <img src={robot} alt="home" style={{ height: 50, width: 50 }} />
-          </Fab>
-        </div>
-      );
-    }
-  };
-
-  boot2 = newMessage => {
-    return (
-      <div
-        onClick={() => {
-          this.setState(
-            {
-              open: false
-            },
-            () => {
-              console.log(this.state.open);
-            }
-          );
-        }}
-      >
-        <Close
-          style={{
-            right: "7",
-            top: "5",
-            position: "absolute",
-            color: "#FFFFFF",
-            cursor: "pointer"
-          }}
-        />
-
-        <iframe
-          allow="microphone;"
-          width="350"
-          height="430"
-          src="https://console.dialogflow.com/api-client/demo/embedded/e1b71eb6-86f2-4c70-b3e2-798b315edd7d"
-        >
-          {" "}
-        </iframe>
-      </div>
-    );
-  };
 
   render() {
     const colorSelect = "list-group-item-accent-light";

@@ -737,6 +737,7 @@ class tableConsultant extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
+   
       </div>
     );
   }
