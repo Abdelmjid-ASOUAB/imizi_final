@@ -209,6 +209,26 @@ app.get("/getConsultant", (req, res) => {
   });
 });
 
+
+//get  Client By Email
+app.get("/getExperience", (req, res) => {
+  const { email } = req.query;
+
+  const Select_All_Client = "SELECT * FROM experience where email ='" + email + "'";
+  console.log(Select_All_Client);
+
+  connection.query(Select_All_Client, (err, result) => {
+    if (err) {
+      return err;
+    } else {
+      return res.json({
+        data: result
+      });
+    }
+  });
+});
+
+
 //get  Client By Email
 app.get("/getConsultanttEmail", (req, res) => {
   const { email } = req.query;

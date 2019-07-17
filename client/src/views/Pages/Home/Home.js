@@ -182,6 +182,15 @@ class Home extends Component {
                         <br />
 
                         <Form.Control as="textarea" rows="5"  placeholder="Message" />
+                        <br />
+
+
+                        <Button
+                          color="sccess"
+                        >
+
+                          Send
+                        </Button>
 
                         </Form>
                         </Col>
@@ -193,6 +202,7 @@ class Home extends Component {
 
 
                 </Container >
+                <br />
 
                 <Footer/ >
             </div>
