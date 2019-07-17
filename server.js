@@ -118,13 +118,10 @@ app.get("/ConsultantRegister", (req, res) => {
     tel,
     email,
     pwd,
-    seniorite,
-    availability,
-    tjm,
-    contract
+    
   } = req.query;
   const GET_LOG_Q =
-    'INSERT INTO `consultant`(`nom`, `prenom`, `email`, `pwd`, `tel`,  `seniorite`, `disponibilite`, `Tjm`, `contract`) VALUES ("' +
+    'INSERT INTO `consultant`(`nom`, `prenom`, `email`, `pwd`, `tel`) VALUES ("' +
     nom +
     '","' +
     prenom +
@@ -134,14 +131,6 @@ app.get("/ConsultantRegister", (req, res) => {
     pwd +
     '","' +
     tel +
-    '","' +
-    seniorite +
-    '","' +
-    availability +
-    '","' +
-    tjm +
-    '","' +
-    contract +
     '")';
   connection.query(GET_LOG_Q, (err, result) => {
     console.log(GET_LOG_Q);

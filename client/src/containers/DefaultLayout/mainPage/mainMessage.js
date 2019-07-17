@@ -295,7 +295,9 @@ class MainMessage extends Component {
               as="textarea"
               style={{ fontWeight: "bold", fontSize: "15px" }}
               rows="3"
-              defaultValue={this.state.experienceSel
+              defaultValue={
+                this.state.experienceSel=""?"":
+                this.state.experienceSel
                 .split(",")
                 .map((exp, index) => (index == 0 ? exp : "\n" + exp))}
             />
@@ -321,9 +323,14 @@ class MainMessage extends Component {
               rows="3"
               as="textarea"
               placeholder="Insert Competence"
-              defaultValue={this.state.competenceSel
+              defaultValue={
+                this.state.competenceSel != null
+                ?
+                this.state.competenceSel
                 .split(",")
-                .map((exp, index) => (index == 0 ? exp : "\n" + exp))}
+                .map((exp, index) => (index == 0 ? exp : "\n" + exp))
+                :""
+              }
             />
           </Form.Group>
 
@@ -338,10 +345,15 @@ class MainMessage extends Component {
               style={{ fontWeight: "bold", fontSize: "15px" }}
               rows="3"
               as="textarea"
-              placeholder={this.state.educationSel}
-              defaultValue={this.state.educationSel
+              placeholder="Edducation"
+              defaultValue={
+                this.state.educationSel != null
+                ?
+                this.state.educationSel
                 .split(",")
-                .map((exp, index) => (index == 0 ? exp : "\n" + exp))}
+                .map((exp, index) => (index == 0 ? exp : "\n" + exp))
+              : ""
+            }
               
             />
           </Form.Group>
@@ -367,9 +379,13 @@ class MainMessage extends Component {
               rows="3"
               as="textarea"
               placeholder="Insert Certificats"
-              defaultValue={this.state.certificatsSel
+              defaultValue={
+                this.state.certificatsSel != null
+                ?
+                this.state.certificatsSel
                 .split(",")
-                .map((exp, index) => (index == 0 ? exp : "\n" + exp))}
+                .map((exp, index) => (index == 0 ? exp : "\n" + exp))
+              : ""}
             />
           </Form.Group>
 
@@ -394,9 +410,13 @@ class MainMessage extends Component {
               rows="3"
               as="textarea"
               placeholder="Insert Projects"
-              defaultValue={this.state.projectsSel
+              defaultValue={
+                this.state.projectsSel != null
+                ?
+                this.state.projectsSel
                 .split(",")
-                .map((exp, index) => (index == 0 ? exp : "\n" + exp))}
+                .map((exp, index) => (index == 0 ? exp : "\n" + exp))
+              : ""}
             />
           </Form.Group>
 

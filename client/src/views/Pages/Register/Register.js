@@ -52,26 +52,19 @@ class Register extends Component {
     tjm:''
   };
 
-  //Go to next Next Form Consultant
-  _Next(value) {
-    // console.log(value);
-    this.setState({
-      nom: value.nom,
-      prenom: value.prenom,
-      email: value.email,
-      pwd: value.password,
-      tel: value.tel
-    });
-
-    this.setState({
-      next: true
-    });
-
-    console.log(this.state);
-  }
-
   //Regester Consultant
   getRegesterConsultant = v => {
+    console.log("nom=" +
+    v.nom +
+    "&prenom=" +
+    v.prenom +
+    "&tel=" +
+    v.tel +
+    "&email=" +
+    v.email +
+    "&pwd=" +
+    v.password);
+           
     fetch(
       "http://localhost:4000/ConsultantRegister?nom=" +
         v.nom +
@@ -82,15 +75,7 @@ class Register extends Component {
         "&email=" +
         v.email +
         "&pwd=" +
-        v.pwd +
-        "&seniorite=" +
-        v.seniorite +
-        "&availability=" +
-        v.availability+
-        "&tjm=" +
-        v.tjm+
-        "&contract=" +
-        v.contractType
+        v.password
     )
       .then(response => response.json())
 
@@ -98,7 +83,9 @@ class Register extends Component {
         if (response.success === true) {
           this.setState({ isRegester: true }, () => {
             console.log(this.state.isRegester);
-            this.upload();
+          });
+          this.setState({
+            auth: true
           });
 
           console.log(response.success);
@@ -112,6 +99,8 @@ class Register extends Component {
         }
       })
       .catch(err => console.error(err));
+
+      
   };
 
   //Regester Client
@@ -331,7 +320,6 @@ class Register extends Component {
       </form>
     );
     //Consultant Form Compte
-    if (this.state.next === false) {
       log1 = (
         <Formik
           initialValues={{
@@ -341,7 +329,7 @@ class Register extends Component {
             tel: "+212",
             password: ""
           }}
-          onSubmit={this._Next.bind(this)}
+          onSubmit={this.getRegesterConsultant}
           validationSchema={Yup.object().shape({
             prenom: Yup.string().required(),
             nom: Yup.string().required(),
@@ -451,7 +439,7 @@ class Register extends Component {
           )}
         />
       );
-    }
+    
 
     // Sweetch to Client Form
     if (this.state.typeCompt == 2) {

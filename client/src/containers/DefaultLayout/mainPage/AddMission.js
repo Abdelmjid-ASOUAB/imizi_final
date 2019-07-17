@@ -51,7 +51,7 @@ class AddMisison extends Component {
       .catch(err => console.error(err));
   }
   insertMission(v,{resetForm}) {
-    const date = new Date().toLocaleString();
+    const date = new Date();
     fetch(
       "http://localhost:4000/insertmission?titel=" +
         v.titel +
