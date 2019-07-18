@@ -1,24 +1,13 @@
-import React, { Fragment, Component } from "react";
+import React, {  Component } from "react";
 import {
-  Card,
-  CardBody,
-  CardGroup,
   Col,
-  Container,
-  FormFeedback,
-  Row,
   Table
 } from "reactstrap";
 import {
   Modal,
   Button,
-  FormGroup,
   FormControl,
-  Alert,
   Form,
-  ButtonToolbar,
-  ToggleButton,
-  ToggleButtonGroup
 } from "react-bootstrap";
 let but = "warning";
 
@@ -143,39 +132,20 @@ class tableClient extends Component {
     }
 
     return (
-      <tr key={id} style={{ textAlign: "center", backgroundColor: color }}>
+      <tr key={id} style={{ textAlign: "center"}}>
         <td>{societe}</td>
         <td>{representant}</td>
-        <td>{tel}</td>
         <td>{mail}</td>
-        <td>{pwd}</td>
         <td>
-          <Form.Control
-            as="select"
-            onChange={e => {
-              console.log(id + "  " + e.target.value);
-              this.changeActive(id, e.target.value);
-            }}
+        <Button
+          onClick={e => {
+            console.log(id + "  " + e.target.value);
+            this.changeActive(id,active == "inactive" ? "active" : "inactive");
+          }}
+          variant={active == "inactive" ? "dark" : "success"}
           >
-            <option
-              style={{ backgroundColor: "#1fab89", color: "#ffffff" }}
-              selected={active == "active" ? "selected" : ""}
-            >
-              active
-            </option>
-            <option
-              style={{ backgroundColor: "#f08a5d", color: "#ffffff" }}
-              selected={active == "waiting" ? "selected" : ""}
-            >
-              waiting
-            </option>
-            <option
-              style={{ backgroundColor: "#ff5335", color: "#ffffff" }}
-              selected={active == "inactive" ? "selected" : ""}
-            >
-              inactive
-            </option>
-          </Form.Control>
+           {active == "inactive" ? "Inactive" : "Active"}
+           </Button>
         </td>
         <td style={{ backgroundColor: "#ffffff" }}>
           <Button
@@ -186,7 +156,7 @@ class tableClient extends Component {
             }}
           >
             {" "}
-            remove
+            Remove
           </Button>
         </td>
         <td style={{ backgroundColor: "#ffffff", color: "#ffffff" }}>
@@ -206,7 +176,7 @@ class tableClient extends Component {
             }}
           >
             {" "}
-            Edite
+            Edit
           </Button>
         </td>
       </tr>
@@ -250,20 +220,15 @@ class tableClient extends Component {
     const { consultant } = this.state;
 
     return (
-      <div className="s">
+      <div className="main">
         <Table striped bordered hover responsive size="sm" style={{ textAlign: "center" }}>
           <thead>
             <tr>
               <th>society</th>
               <th>Representative</th>
-              <th>Tel</th>
-              <th>Mail</th>
-              <th>Pwd</th>
-              <th>Active</th>
-            
+              <th>address mail</th>
+              <th>Activation</th>
               <th  colspan="2">Action</th>
-
-             
             </tr>
           </thead>
           <tbody>{consultant.map(this.renderConsultant)}</tbody>
@@ -295,8 +260,8 @@ class tableClient extends Component {
         </Modal>
 
         <Modal show={this.state.Edshow} onHide={this.handleCloseEd}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edite Consultant {this.state.idSel} ?</Modal.Title>
+          <Modal.Header  center closeButton>
+            <Modal.Title>Edit client {this.state.idSel}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
@@ -347,7 +312,7 @@ class tableClient extends Component {
                     })
                   }
                 >
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label>Address mail</Form.Label>
                   <FormControl
                     placeholder="First Name"
                     type="email"
@@ -367,7 +332,7 @@ class tableClient extends Component {
                   <Form.Label>Password</Form.Label>
                   <FormControl
                     placeholder="First Name"
-                    type="password"
+                    type="text"
                     name="pwd"
                     defaultValue={this.state.pwdSel}
                   />
@@ -379,8 +344,11 @@ class tableClient extends Component {
                 className="justify-content-center"
                 style={{ marginBottom: 10 }}
               >
-                <Form.Group>
-                  <Form.Label>Tel</Form.Label>
+                <Form.Group
+                 as={Col}
+                 controlId="formGridState"
+                >
+                  <Form.Label>Phone number</Form.Label>
 
                   <FormControl
                     placeholder="tel"
@@ -402,10 +370,7 @@ class tableClient extends Component {
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleCloseEd}>
-              Close
-            </Button>
-            <Button
+                      <Button
               variant="outline-success"
               onClick={e => {
                 this.updateConsultant(this.state);
@@ -415,7 +380,10 @@ class tableClient extends Component {
                 
               }}
             >
-              Edite Client
+              Submit
+            </Button>
+            <Button variant="outline-danger" onClick={this.handleCloseEd}>
+              Close
             </Button>
           </Modal.Footer>
         </Modal>

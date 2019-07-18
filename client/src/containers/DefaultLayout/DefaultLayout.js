@@ -30,7 +30,7 @@ import { Widget } from "react-chat-widget";
 
 import home from "./icons/home.png";
 import message from "./icons/message.png";
-import setting from "./icons/setting.png";
+import prof from "./icons/profile.png";
 import consultant from "./icons/consultant.png";
 
 const DefaultFooter = React.lazy(() => import("./DefaultFooter"));
@@ -43,7 +43,6 @@ class DefaultLayout extends Component {
 
   state = {
     page: 0,
-    test: 2,
     open: false
   };
 
@@ -52,7 +51,7 @@ class DefaultLayout extends Component {
     this.props.history.push("/login");
   }
 
-  
+ 
   boot = newMessage => {
     return (
       <div
@@ -99,6 +98,7 @@ boot2 = newMessage => {
   );
 
 };
+
 
   render() {
     const colorSelect = "list-group-item-accent-light";
@@ -171,6 +171,53 @@ boot2 = newMessage => {
             <Suspense>
               {localStorage.getItem("compte") != "admin" ? (
                 <Container>
+           
+           
+           <Row
+                    style={{
+                      marginBottom: 5,
+                      cursor: "pointer"
+                    }}
+                    onClick={e =>
+                      this.setState({
+                        page: 1
+                      })
+                    }
+                  >
+                    <ListGroupItem
+                      action
+                      href="#"
+                      className={
+                        this.state.page == 1 ? colorSelect : colorNotSelect
+                      }
+                      style={{ backgroundColor: "#2f353a", color: "#f0f3f5" }}
+                    >
+                      <div className="avatar float-left">
+                        <div className="page">
+                          <div className="page__demo">
+                            <div className="page__toggle">
+                              <label className="toggle">
+                                <img
+                                  src={prof}
+                                  alt="home"
+                                  style={{ height: 30, width: 30 }}
+                                />
+                                <span className="toggle__label">
+                                  <span className="toggle__text" />
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <strong>Profil</strong>
+                      </div>
+                    </ListGroupItem>
+                  </Row>
+
+           
+           
                   <Row
                     style={{
                       marginTop: 5,
@@ -212,97 +259,11 @@ boot2 = newMessage => {
                         </div>
                       </div>
                       <div>
-                        <strong>All Missions</strong>
+                        <strong>Missions</strong>
                       </div>
                     </ListGroupItem>
                   </Row>
-
-                  <Row
-                    style={{
-                      marginBottom: 5,
-                      cursor: "pointer"
-                    }}
-                    onClick={e =>
-                      this.setState({
-                        page: 1
-                      })
-                    }
-                  >
-                    <ListGroupItem
-                      action
-                      href="#"
-                      className={
-                        this.state.page == 1 ? colorSelect : colorNotSelect
-                      }
-                      style={{ backgroundColor: "#2f353a", color: "#f0f3f5" }}
-                    >
-                      <div className="avatar float-left">
-                        <div className="page">
-                          <div className="page__demo">
-                            <div className="page__toggle">
-                              <label className="toggle">
-                                <img
-                                  src={message}
-                                  alt="home"
-                                  style={{ height: 25, width: 25 }}
-                                />
-                                <span className="toggle__label">
-                                  <span className="toggle__text" />
-                                </span>
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <strong>Messages</strong>
-                      </div>
-                    </ListGroupItem>
-                  </Row>
-
-                  <Row
-                    style={{
-                      marginBottom: 5,
-                      cursor: "pointer"
-                    }}
-                    onClick={e =>
-                      this.setState({
-                        page: 2
-                      })
-                    }
-                  >
-                    <ListGroupItem
-                      action
-                      href="#"
-                      className={
-                        this.state.page == 2 ? colorSelect : colorNotSelect
-                      }
-                      style={{ backgroundColor: "#2f353a", color: "#f0f3f5" }}
-                    >
-                      <div className="avatar float-left">
-                        <div className="page">
-                          <div className="page__demo">
-                            <div className="page__toggle">
-                              <label className="toggle">
-                                <img
-                                  src={setting}
-                                  alt="home"
-                                  style={{ height: 25, width: 25 }}
-                                />
-                                <span className="toggle__label">
-                                  <span className="toggle__text" />
-                                </span>
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <strong>Setting</strong>
-                      </div>
-                    </ListGroupItem>
-                  </Row>
-
+                  
                   {localStorage.getItem("compte") == "client" ? (
                     <Row
                       style={{
@@ -347,8 +308,24 @@ boot2 = newMessage => {
                       </ListGroupItem>
                     </Row>
                   ) : (
-                    <br />
+                " "
                   )}
+                  {//Message
+                  }
+                  <Row
+                    style={{
+                      marginBottom: 5,
+                      cursor: "pointer"
+                    }}
+                    onClick={e =>
+                      this.setState({
+                        page: 2
+                      })
+                    }
+                  >
+                
+                  </Row>
+
                 </Container>
               ) : (
                 <Container>
@@ -453,6 +430,9 @@ boot2 = newMessage => {
                 <Widget
                   launcher={this.state.open == false ? this.boot : this.boot2}
                 />
+                
+              
+             
               </div>
             </div>
           </Container>

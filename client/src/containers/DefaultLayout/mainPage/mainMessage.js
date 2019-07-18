@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { Col, Table } from "reactstrap";
 import {Button, FormControl, Form } from "react-bootstrap";
 let nbr = 0;
-let projet,education,langues,certificats,competence = "";
+let projet ;
+let education ;
+let langues;
+let certificats;
+let competence = "ddd";
+
 
 
 class MainMessage extends Component {
@@ -78,10 +83,10 @@ class MainMessage extends Component {
     nbr += parseInt(duree);
 
     return (
-      <tr key={id} style={{}}>
+      <tr key={id}>
         <td>{dateDebut}</td>
         <td>{dateFin}</td>
-        <td>{duree}{duree != 1 ? "years" : "year"}</td>
+        <td>{duree} {duree != 1 ? " years" : " year"}</td>
         <td style={{ textAlign: "left" }}>{intitule}</td>
         <td style={{ textAlign: "left" }}>{description}</td>
 
@@ -372,7 +377,7 @@ class MainMessage extends Component {
               <tbody>{experience.map(this.renderConsultant)}
                 <tr>
                   <th colSpan="4" style={{ backgroundColor: "#8ac6d1", color: "#204969", }}>Number of experience</th>
-                  <td  >{nbr}  {nbr != 1 ? "years" : "year"}</td>
+                  <td  >{nbr}  {nbr != 1 ? " years" : " year"}</td>
                 </tr>
               </tbody>
 
@@ -595,7 +600,14 @@ class MainMessage extends Component {
         >Danger</Button>
 
  <Button
- onClick={e=>console.log(certificats)
+ onClick={e=>{
+  console.log("certificats")
+  console.log(certificats)
+  console.log("project")
+  console.log(projet)
+  console.log("etud")
+  console.log(education)
+  }
  }
  >
  test</Button>

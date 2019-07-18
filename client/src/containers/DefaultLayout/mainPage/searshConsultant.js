@@ -1,14 +1,7 @@
 import React, { Suspense, Component } from "react";
 import {
-  Button,
   Col,
-  Container,
-  FormFeedback,
   Row,
-  Nav,
-  NavItem,
-  NavLink,
-  Progress,
   TabContent,
   TabPane,
   ListGroup,
@@ -17,11 +10,8 @@ import {
 import "./searsh.css";
 
 import {
-  FormGroup,
+  Button,
   FormControl,
-  ButtonToolbar,
-  ToggleButton,
-  ToggleButtonGroup,
   Form,
   Card
 } from "react-bootstrap";
@@ -31,7 +21,8 @@ import {
   AppBreadcrumb2 as AppBreadcrumb,
   AppSidebarNav2 as AppSidebarNav
 } from "@coreui/react";
-import avatar from "../icons/avatar.jpg";
+import avatar from "../icons/avatar.png";
+import color from "@material-ui/core/colors/blueGrey";
 var bgColors = {
   Default: "#81b71a",
   Blue: "#00B1E1",
@@ -123,10 +114,10 @@ class searshConsultant extends Component {
       <Card style={{ width: "11rem" }}>
         <Card.Img variant="top" src={avatar} />
         <Card.Body>
-          <Card.Title>{nom}</Card.Title>
-          <Card.Title>{" " + prenom}</Card.Title>
+          <Card.Title >{nom}</Card.Title>
+          <Card.Title>{" "+ prenom}</Card.Title>
           <Card.Text>{competence}</Card.Text>
-          <Button variant="primary" onClick={()=>{localStorage.setItem("constEmail",email)}}  href="/#/pdf" target="_blank">CV</Button>
+          <Button  onClick={()=>{localStorage.setItem("constEmail",email)}}  href="/#/pdf" target="_blank">Resume</Button>
           </Card.Body>
       </Card>
     </div>

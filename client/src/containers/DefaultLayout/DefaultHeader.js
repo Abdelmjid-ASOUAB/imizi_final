@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
 import {
   Badge,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
   Nav,
-  NavItem
 } from "reactstrap";
 import PropTypes from "prop-types";
 
@@ -126,7 +124,7 @@ class DefaultHeader extends Component {
         .catch(err => console.error(err));
     }
     console.log(url);
-  };
+  };  
 
   cmdExmpl = e => {
     fetch(  "http://localhost:4000/getCmnd")
@@ -184,9 +182,7 @@ class DefaultHeader extends Component {
   };
 
   render() {
-    // eslint-disable-next-line
     const { children, ...attributes } = this.props;
-
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
@@ -196,45 +192,16 @@ class DefaultHeader extends Component {
         />
         <AppSidebarToggler className="d-md-down-none" display="lg" />
 
-        <Nav className="d-md-down-none" navbar>
-          <NavItem className="px-3">
-            <Link to="/users" className="nav-link">
-              Users
-            </Link>
-          </NavItem>
-          <NavItem className="px-3">
-            <NavLink to="#" className="nav-link">
-              Settings
-            </NavLink>
-          </NavItem>
-        </Nav>
         <Nav className="ml-auto" navbar>
-          <NavItem className="d-md-down-none">
-            <NavLink to="#" className="nav-link">
-              <i className="icon-bell" />
-              <Badge pill color="danger">
-                5
-              </Badge>
-            </NavLink>
-          </NavItem>
-          <NavItem className="d-md-down-none">
-            <NavLink to="#" className="nav-link">
-              <i className="icon-list" />
-            </NavLink>
-          </NavItem>
-          <NavItem className="d-md-down-none">
-            <NavLink to="#" className="nav-link">
-              <i className="icon-location-pin" />
-            </NavLink>
-          </NavItem>
+     
           <AppHeaderDropdown direction="down">
-            <DropdownToggle nav>
+           { <DropdownToggle nav>
               <img
                 src={"../../assets/img/avatars/6.jpg"}
                 className="img-avatar"
                 alt="admin@bootstrapmaster.com"
               />
-            </DropdownToggle>
+            </DropdownToggle>}
             <DropdownMenu right style={{ right: "auto" }}>
               <DropdownItem header tag="div" className="text-center">
                 <strong>Account</strong>
@@ -275,12 +242,12 @@ class DefaultHeader extends Component {
             </DropdownMenu>
           </AppHeaderDropdown>
         </Nav>
-        <AppAsideToggler className="d-md-down-none" display="lg" />
-        {/*<AppAsideToggler className="d-lg-none" mobile />*/}
+{localStorage.getItem("compte")=="client"? <AppAsideToggler className="d-md-down-none" display="lg" />
+:""}        {/*<AppAsideToggler className="d-lg-none" mobile />*/}
 
         <Modal show={this.state.Edshow} onHide={this.handleCloseEd}>
           <Modal.Header closeButton>
-            <Modal.Title>Edite Consultant {this.state.idSel} ?</Modal.Title>
+            <Modal.Title>Edit profile </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
@@ -331,7 +298,7 @@ class DefaultHeader extends Component {
                     })
                   }
                 >
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label>Address mail</Form.Label>
                   <FormControl
                     placeholder="First Name"
                     type="email"
@@ -351,7 +318,7 @@ class DefaultHeader extends Component {
                   <Form.Label>Password</Form.Label>
                   <FormControl
                     placeholder="First Name"
-                    type="password"
+                    type="text"
                     name="pwd"
                     defaultValue={this.state.pwdSel}
                   />
@@ -362,8 +329,11 @@ class DefaultHeader extends Component {
                 className="justify-content-center"
                 style={{ marginBottom: 10 }}
               >
-                <Form.Group>
-                  <Form.Label>Tel</Form.Label>
+                <Form.Group
+                as={Col}
+                controlId="formGridState"
+                >
+                  <Form.Label>Phone number</Form.Label>
                   <FormControl
                     placeholder="tel"
                     type="text"
@@ -386,9 +356,6 @@ class DefaultHeader extends Component {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleCloseEd}>
-              Close
-            </Button>
             <Button
               variant="outline-success"
               onClick={e => {
@@ -397,7 +364,10 @@ class DefaultHeader extends Component {
                 this.setState({ SuccShow: true });
               }}
             >
-              Edite My profile
+              Submit
+            </Button>
+            <Button variant="outline-danger" onClick={this.handleCloseEd}>
+              Close
             </Button>
           </Modal.Footer>
         </Modal>
@@ -411,7 +381,7 @@ class DefaultHeader extends Component {
           <Modal.Header
             style={{ backgroundColor: "#1fab89", color: "#ffffff" }}
           >
-            <Modal.Title>Profile modified </Modal.Title>
+            <Modal.Title>Profile updated </Modal.Title>
           </Modal.Header>
 
           <Modal.Footer>
@@ -421,10 +391,12 @@ class DefaultHeader extends Component {
                 this.setState({ SuccShow: false });
               }}
             >
-              Close
+              OK
             </Button>
           </Modal.Footer>
         </Modal>
+     
+     
       </React.Fragment>
     );
   }

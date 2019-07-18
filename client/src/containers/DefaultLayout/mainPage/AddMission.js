@@ -50,6 +50,7 @@ class AddMisison extends Component {
       })
       .catch(err => console.error(err));
   }
+  
   insertMission(v,{resetForm}) {
     const date = new Date();
     fetch(
@@ -108,9 +109,7 @@ class AddMisison extends Component {
 
           <Container>
             <Row className="justify-content-center">
-              <Col>
-                <Button variant="primary" onClick={ () =>console.log("read it "+id)}  >Read </Button>
-              </Col>
+              
               <Col>
                 <Button variant="info" onClick={ () =>console.log("modife")}>Modife </Button>
               </Col>
@@ -156,8 +155,7 @@ class AddMisison extends Component {
                     handleChange,
                     handleSubmit,
                     handleBlur,
-                    errors,
-                    touched
+                  
                   }) => (
                     <div>
                       <FormGroup>

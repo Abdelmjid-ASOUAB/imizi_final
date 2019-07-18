@@ -171,11 +171,10 @@ class tableConsultant extends Component {
 
     return (
       <tr key={id} style={{ textAlign: "center"}}>
+        <td>{profile}</td>
         <td>{nom}</td>
         <td>{prenom}</td>
-        <td>{email}</td>
-        <td>{profile}</td>
-        
+        <td>{email}</td> 
         <td>
 
         <Button
@@ -197,7 +196,7 @@ class tableConsultant extends Component {
             }}
           >
             {" "}
-            remove
+            Remove
           </Button>
         </td>
         <td>
@@ -304,12 +303,12 @@ class tableConsultant extends Component {
         >
           <thead>
             <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Profile</th>
+            <th>Profile</th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Address mail</th>
               <th>Active</th>
-              <th colspan="2">Action</th>
+              <th colspan="2">Activation</th>
             </tr>
           </thead>
           <tbody>{consultant.map(this.renderConsultant)}</tbody>
@@ -341,7 +340,7 @@ class tableConsultant extends Component {
 
         <Modal show={this.state.Edshow} onHide={this.handleCloseEd}>
           <Modal.Header closeButton>
-            <Modal.Title>Edite Consultant {this.state.idSel} ?</Modal.Title>
+            <Modal.Title>Edit consultant {this.state.idSel} </Modal.Title>
           </Modal.Header>
           <Modal.Body
             style={{
@@ -360,7 +359,7 @@ class tableConsultant extends Component {
                     })
                   }
                 >
-                  <Form.Label>First Name</Form.Label>
+                  <Form.Label>First name</Form.Label>
                   <FormControl
                     placeholder="First Name"
                     type="text"
@@ -377,7 +376,7 @@ class tableConsultant extends Component {
                     })
                   }
                 >
-                  <Form.Label>Last Name</Form.Label>
+                  <Form.Label>Last name</Form.Label>
                   <FormControl
                     placeholder="First Name"
                     type="text"
@@ -397,7 +396,7 @@ class tableConsultant extends Component {
                     })
                   }
                 >
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label>Address mail</Form.Label>
                   <FormControl
                     placeholder="First Name"
                     type="email"
@@ -417,76 +416,16 @@ class tableConsultant extends Component {
                   <Form.Label>Password</Form.Label>
                   <FormControl
                     placeholder="First Name"
-                    type="password"
+                    type="text"
                     name="pwd"
                     defaultValue={this.state.pwdSel}
                   />
                 </Form.Group>
               </div>
-              <Form.Group
-                as={Col}
-                controlId="formGridState"
-                onChange={e =>
-                  this.setState({
-                    profileSel: e.target.value
-                  })
-                }
-              >
-                <Form.Label>Profile</Form.Label>
-                <FormControl
-                  placeholder="Profile"
-                  type="text"
-                  name="profile"
-                  defaultValue={this.state.profileSel}
-                />
-              </Form.Group>
-              <div className="input-group-prepend">
-                <Form.Group
-                  as={Col}
-                  controlId="formGridState"
-                  onChange={e =>
-                    this.setState({
-                      senioriteSel: e.target.value
-                    })
-                  }
-                >
-                  <Form.Label>Seniorite</Form.Label>
-                  <Form.Control
-                    as="select"
-                    defaultValue={this.state.senioriteSel}
-                  >
-                    <option>Choose your seniority</option>
-                    <option>Expert [+10 years]</option>
-                    <option>Senior [5 to 10 years]</option>
-                    <option>intermediate [3 to 5 years]</option>
-                    <option>beginner [0 to 5 years]</option>
-                  </Form.Control>
-                </Form.Group>
-                <Form.Group
-                  as={Col}
-                  controlId="formGridState"
-                  onChange={e =>
-                    this.setState({
-                      availabilitySel: e.target.value
-                    })
-                  }
-                >
-                  <Form.Label>availability</Form.Label>
-                  <Form.Control
-                    as="select"
-                    defaultValue={this.state.availabilitySel}
-                  >
-                    <option>Choose your availability</option>
-                    <option>immediate</option>
-                    <option>In 2 weeks</option>
-                    <option>1 month</option>
-                    <option>+ 1 month</option>
-                  </Form.Control>
-                </Form.Group>
-              </div>
+           
               <div className="input-group-prepend">
                 <Form.Group as={Col} controlId="formGridState">
-                  <Form.Label>Tel</Form.Label>
+                  <Form.Label>Phone number</Form.Label>
 
                   <FormControl
                     placeholder="tel"
@@ -506,7 +445,7 @@ class tableConsultant extends Component {
                   />
                 </Form.Group>
                 <Form.Group as={Col} controlId="formGridState">
-                  <Form.Label>TJM</Form.Label>
+                  <Form.Label>TJM (DHS)</Form.Label>
 
                   <FormControl
                     placeholder="Tjm"
@@ -544,187 +483,18 @@ class tableConsultant extends Component {
                   )
                 }
               >
-                <Form.Label>Type of Contracts</Form.Label>
+                <Form.Label>Type of Contract</Form.Label>
                 <Form.Control as="select" defaultValue={this.state.contractSel}>
                   <option>CDI</option>
                   <option>Freelancer</option>
                 </Form.Control>
               </Form.Group>
 
-              <Form.Group
-                as={Col}
-                controlId="formGridState"
-                onChange={e =>
-                  this.setState(
-                    {
-                      experienceSel: e.target.value
-                    },
-                    e => {
-                      console.log(this.state.experienceSel);
-                    }
-                  )
-                }
-              >
-                <Form.Label>Experience</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  style={{ fontWeight: "bold", fontSize: "15px" }}
-                  rows="3"
-                  defaultValue={this.state.experienceSel
-                    .split(",")
-                    .map((exp, index) => (index == 0 ? exp : "\n" + exp))}
-                />
-              </Form.Group>
-              <Form.Group
-                as={Col}
-                controlId="formGridState"
-                onChange={e =>
-                  this.setState(
-                    {
-                      competenceSel: e.target.value
-                    },
-                    e => {
-                      console.log(this.state.competenceSel);
-                    }
-                  )
-                }
-              >
-                <Form.Label>Competence</Form.Label>
-
-                <Form.Control
-                  style={{ fontWeight: "bold", fontSize: "15px" }}
-                  rows="3"
-                  as="textarea"
-                  placeholder="Insert Competence"
-                  defaultValue={
-                    this.state.competenceSel != null
-                      ? this.state.competenceSel
-                          .split(",")
-                          .map((exp, index) => (index == 0 ? exp : "\n" + exp))
-                      : ""
-                  }
-                />
-              </Form.Group>
-
-              <Form.Group
-                as={Col}
-                controlId="formGridState"
-                onChange={e =>
-                  this.setState(
-                    {
-                      educationSel: e.target.value
-                    },
-                    e => {
-                      console.log(this.state.educationSel);
-                    }
-                  )
-                }
-              >
-                <Form.Label>Education</Form.Label>
-
-                <Form.Control
-                  style={{ fontWeight: "bold", fontSize: "15px" }}
-                  rows="3"
-                  as="textarea"
-                  placeholder="Insert Education"
-                  defaultValue={
-                    this.state.educationSel != null
-                      ? this.state.educationSel
-                          .split(",")
-                          .map((exp, index) => (index == 0 ? exp : "\n" + exp))
-                      : ""
-                  }
-                />
-              </Form.Group>
-
-              <Form.Group
-                as={Col}
-                controlId="formGridState"
-                onChange={e =>
-                  this.setState(
-                    {
-                      certificatsSel: e.target.value
-                    },
-                    e => {
-                      console.log(this.state.certificatsSel);
-                    }
-                  )
-                }
-              >
-                <Form.Label>Certificats</Form.Label>
-
-                <Form.Control
-                  style={{ fontWeight: "bold", fontSize: "15px" }}
-                  rows="3"
-                  as="textarea"
-                  placeholder="Insert Certificats"
-                  defaultValue={
-                    this.state.certificatsSel != null
-                      ? this.state.certificatsSel
-                          .split(",")
-                          .map((exp, index) => (index == 0 ? exp : "\n" + exp))
-                      : ""
-                  }
-                />
-              </Form.Group>
-
-              <Form.Group
-                as={Col}
-                controlId="formGridState"
-                onChange={e =>
-                  this.setState(
-                    {
-                      projectsSel: e.target.value
-                    },
-                    e => {
-                      console.log(this.state.projectsSel);
-                    }
-                  )
-                }
-              >
-                <Form.Label>Projects</Form.Label>
-
-                <Form.Control
-                  style={{ fontWeight: "bold", fontSize: "15px" }}
-                  rows="3"
-                  as="textarea"
-                  placeholder="Insert Projects"
-                  defaultValue={
-                    this.state.projectsSel != null
-                      ? this.state.projectsSel
-                          .split(",")
-                          .map((exp, index) => (index == 0 ? exp : "\n" + exp))
-                      : ""
-                  }
-                />
-              </Form.Group>
-
-              <Form.Group
-                as={Col}
-                controlId="formGridState"
-                onChange={e =>
-                  this.setState({
-                    languesSel: e.target.value
-                  },
-                  e => {
-                    console.log(this.state.languesSel)
-                  })
-                }
-              >
-                <Form.Label>First Name</Form.Label>
-                <FormControl
-                  placeholder="Insert langues"
-                  type="text"
-                  name="langues"
-                  defaultValue={this.state.languesSel}
-                />
-              </Form.Group>
+     
+  
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleCloseEd}>
-              Close
-            </Button>
             <Button
               variant="outline-success"
               onClick={e => {
@@ -733,7 +503,10 @@ class tableConsultant extends Component {
                 this.handleCloseEd();
               }}
             >
-              Edite Consultant
+              Submit
+            </Button>
+            <Button variant="outline-danger" onClick={this.handleCloseEd}>
+              Close
             </Button>
           </Modal.Footer>
         </Modal>

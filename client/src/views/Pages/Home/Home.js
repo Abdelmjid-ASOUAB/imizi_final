@@ -187,6 +187,7 @@ class Home extends Component {
 
                         <Button
                           color="sccess"
+                          style={{textAlign:"right"}}
                         >
 
                           Send
