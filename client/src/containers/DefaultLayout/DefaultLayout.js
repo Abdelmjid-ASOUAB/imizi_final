@@ -436,7 +436,7 @@ boot2 = newMessage => {
             <div>
               {selectPage}
               <div className="App">
-                {localStorage.getItem("compte")!="admin"?
+                {localStorage.getItem("compte")=="client"?
                 <Widget
                   launcher={this.state.open == false ? this.boot : this.boot2}
                 />:""

@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { Col, Table } from "reactstrap";
-import {Button, FormControl, Form } from "react-bootstrap";
+import {Button, FormControl, Form,Card} from "react-bootstrap";
 let nbr = 0;
-let projet ;
-let education ;
-let langues;
-let certificats;
+let projet ="";
+let education="" ;
+let langues="";
+let certificats="";
 let competence = "ddd";
+let v=[];
+let data=[];
+let experience=[];
 
 
 
@@ -151,11 +154,14 @@ class MainMessage extends Component {
 
     return (
       <div className="main">
-              <h1 style={{marginLeft:"45%"}} >Profile</h1>
 
         <form>
 
-          <div className="input-group-prepend">
+          <Card border="primary" bg="light" style={{  }}>
+    <Card.Header>personnelle Information</Card.Header>
+    <Card.Body>
+      
+    <div className="input-group-prepend">
             <Form.Group
               as={Col}
               controlId="formGridState"
@@ -213,9 +219,21 @@ class MainMessage extends Component {
               />
             </Form.Group>
           </div>
+          <Button variant="success" style={{marginLeft:"90%"}}>Update</Button>
+
+    </Card.Body>
+  </Card>
+        
+        
           <br />
 
-          <Form.Group >
+      
+          <Card border="primary" bg="light" style={{  }}>
+    <Card.Header>professionnelle Information</Card.Header>
+    <Card.Body>
+      
+      
+    <Form.Group >
             <Form.Label>Please enter your resume file</Form.Label>
 
             <div className="custom-file">
@@ -565,10 +583,21 @@ class MainMessage extends Component {
 
           </div>
 
+
+
+    </Card.Body>
+  </Card>
+        
+      
         </form>
-     {/*
+     
         <Button variant="danger"
-        onClick={e=>{this.state.ssss
+        onClick={e=>{
+
+         data= this.state.ssss
+          .split("\n");
+
+          this.state.ssss
           .split("\n")
           .map((exp, index) => (
           exp.split(":")[0]=="competence"
@@ -591,7 +620,14 @@ class MainMessage extends Component {
             ?certificats+=
           ","+  exp.split(":")[1]
           :
-          ""
+          exp.split(":")[0]=="Date-Debut-experience"
+          ?
+            v.push(index)
+          
+          
+          :
+         ""
+          
           
           )
 
@@ -602,17 +638,29 @@ class MainMessage extends Component {
 
  <Button
  onClick={e=>{
+   
   console.log("certificats")
   console.log(certificats)
   console.log("project")
   console.log(projet)
   console.log("etud")
   console.log(education)
+for (let index = 0; index < v.length; index++) {
+  for (let i = 0; i < data.length; i++) {
+      if(i==v[index]){
+  let a = data[i]+"+"+data[i+1]+"+"+data[i+2]+"+"+data[i+3]+"+"+data[i+4];
+        experience.push(a);
+      }
+  }
+}  
+console.log("Exper")
+console.log(experience)
+
   }
  }
  >
  test</Button>
-*/ }
+
  
       </div>
  
