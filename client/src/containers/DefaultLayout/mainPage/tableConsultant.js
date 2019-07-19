@@ -293,6 +293,8 @@ class tableConsultant extends Component {
 
     return (
       <div className="main">
+              <h2 style={{marginLeft:"35%"}} >Table consultant</h2>
+
         <Table
           striped
           bordered
@@ -316,10 +318,10 @@ class tableConsultant extends Component {
 
         <Modal show={this.state.Rshow} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Remove Consultant {this.state.idSel} ?</Modal.Title>
+            <Modal.Title>Remove Consultant {this.state.idSel} </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Name : <strong> {this.state.nameSel}</strong> <br /> Email:{" "}
+            Name :  {this.state.nameSel} <br /> Email:{" "}
             {this.state.emailSel}{" "}
           </Modal.Body>
           <Modal.Footer>
@@ -333,7 +335,7 @@ class tableConsultant extends Component {
                 this.removeConsultant(this.state.idSel);
               }}
             >
-              Remove Consultant
+              Submit
             </Button>
           </Modal.Footer>
         </Modal>

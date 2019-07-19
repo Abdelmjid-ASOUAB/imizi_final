@@ -151,6 +151,7 @@ class MainMessage extends Component {
 
     return (
       <div className="main">
+              <h1 style={{marginLeft:"45%"}} >Profile</h1>
 
         <form>
 
@@ -565,7 +566,7 @@ class MainMessage extends Component {
           </div>
 
         </form>
-     
+     {/*
         <Button variant="danger"
         onClick={e=>{this.state.ssss
           .split("\n")
@@ -611,7 +612,7 @@ class MainMessage extends Component {
  }
  >
  test</Button>
- 
+*/ }
  
       </div>
  

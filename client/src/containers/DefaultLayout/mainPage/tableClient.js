@@ -221,6 +221,8 @@ class tableClient extends Component {
 
     return (
       <div className="main">
+              <h2 style={{marginLeft:"40%"}} >Table client</h2>
+
         <Table striped bordered hover responsive size="sm" style={{ textAlign: "center" }}>
           <thead>
             <tr>
@@ -236,12 +238,12 @@ class tableClient extends Component {
 
         <Modal show={this.state.Rshow} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Remove Consultant {this.state.idSel} ?</Modal.Title>
+            <Modal.Title>Remove Client {this.state.idSel} </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Name : <strong> {this.state.representantSel}</strong> <br /> 
-            society : <strong> {this.state.societyoSel}</strong> <br /> 
-            Email: <strong>{this.state.emailSel}{" "}</strong> 
+            Name : {this.state.representantSel} <br /> 
+            society : {this.state.societyoSel} <br /> 
+            Email: {this.state.emailSel}{" "}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>
@@ -254,7 +256,7 @@ class tableClient extends Component {
                 this.removeConsultant(this.state.idSel);
               }}
             >
-              Remove Consultant
+              Submit
             </Button>
           </Modal.Footer>
         </Modal>

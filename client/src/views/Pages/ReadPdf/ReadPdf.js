@@ -3,7 +3,7 @@ import { Button, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupT
 
 class ReadPdf extends Component {
   render() {
-    const url ="http://localhost/"+localStorage.getItem("constEmail")+".pdf"
+    const url ="http://localhost/CVs/"+localStorage.getItem("constEmail")+".pdf"
 
     console.log(localStorage.getItem("constEmail")  );
     

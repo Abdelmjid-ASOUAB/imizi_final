@@ -14,6 +14,7 @@ import logo from "../../Icons/logo-orange.png";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
+  Modal,
   FormGroup,
   FormControl,
   Alert,
@@ -49,7 +50,8 @@ class Register extends Component {
     isRegester: false,
     typeCompt: 1,
     contractType:"CDI",
-    tjm:''
+    tjm:'',
+    SuccShow:false
   };
 
   //Regester Consultant
@@ -85,7 +87,7 @@ class Register extends Component {
             console.log(this.state.isRegester);
           });
           this.setState({
-            auth: true
+            SuccShow: true
           });
 
           console.log(response.success);
@@ -130,7 +132,7 @@ class Register extends Component {
             console.log(this.state.isRegester);
           });
           this.setState({
-            auth: true
+            SuccShow: true
           });
 
           localStorage.setItem("email", v.email);
@@ -398,7 +400,7 @@ class Register extends Component {
                 )}
                 <FormControl
                   isInvalid={errors.tel && touched.tel}
-                  placeholder="+212 XXXXXXX"
+                  placeholder="Phone number"
                   type="text"
                   name="tel"
                   onChange={handleChange}
@@ -424,7 +426,10 @@ class Register extends Component {
                   <br />
                 )}
               </FormGroup>
-
+              <Row
+                  className="justify-content-center"
+                  style={{ marginBottom: 10 }}
+                >
               <Button
                 disabled={!isValid || isSubmitting}
                 variant="outline-warning"
@@ -432,8 +437,10 @@ class Register extends Component {
                 type="submit"
                 color="primary"
               >
-                Next >>
+                Registration
               </Button>
+              </Row>
+
               {this.renderError()}
             </div>
           )}
@@ -446,7 +453,6 @@ class Register extends Component {
       log1 = (
         <Formik
           initialValues={{
-            prenom: "",
             nom: "",
             email: "",
             tel: "+212",
@@ -455,7 +461,6 @@ class Register extends Component {
           }}
           onSubmit={this.SubmitClient.bind(this)}
           validationSchema={Yup.object().shape({
-            prenom: Yup.string().required(),
             nom: Yup.string().required(),
             email: Yup.string()
               .email()
@@ -476,25 +481,11 @@ class Register extends Component {
             <div>
               <FormGroup>
                 <Row>
-                  <Col>
-                    <FormControl
-                      isInvalid={errors.prenom && touched.prenom}
-                      placeholder="Representant First Name"
-                      type="text"
-                      name="prenom"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                    {errors.prenom && touched.prenom ? (
-                      <FormFeedback> {errors.prenom} </FormFeedback>
-                    ) : (
-                      <br />
-                    )}
-                  </Col>
+                  
                   <Col>
                     <FormControl
                       isInvalid={errors.nom && touched.nom}
-                      placeholder=" Representant Last Name"
+                      placeholder=" Representant Name"
                       type="text"
                       name="nom"
                       onChange={handleChange}
@@ -523,7 +514,7 @@ class Register extends Component {
 
                 <FormControl
                   isInvalid={errors.email && touched.email}
-                  placeholder="email"
+                  placeholder="Address mail"
                   type="email"
                   name="email"
                   onChange={handleChange}
@@ -575,7 +566,7 @@ class Register extends Component {
                     type="submit"
                     color="primary"
                   >
-                    registration
+                    Registration
                   </Button>
                 </Row>
               </Container>
@@ -616,7 +607,7 @@ class Register extends Component {
               <Card className="mx-4">
                 <CardBody className="p-4">
                   <Container>
-                    <Row className="justify-content-center" style={{fontWeight:"bolder",fontSize:20,color:"#2980b9"}}>YOU ARE :</Row>
+                    <Row className="justify-content-center" style={{fontWeight:"bolder",fontSize:20,color:"#2980b9"}}>Register as :</Row>
                     <Row
                       className="justify-content-center"
                       style={{ marginBottom: 10 }}
@@ -656,6 +647,39 @@ class Register extends Component {
             </Col>
           </Row>
         </Container>
+
+
+
+        
+        <Modal
+          show={this.state.SuccShow}
+          onHide={e => {
+            this.setState({ SuccShow: false });
+          }}
+        >
+          <Modal.Header
+            style={{ backgroundColor: "#1fab89", color: "#ffffff" }}
+          >
+            <Modal.Title>Thanks for your Registration!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body style={{fontSize:"60"}}>
+
+            Wait for IMZII administration to active your account
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button
+              variant="success"
+              onClick={e => {
+                this.setState({ SuccShow: false });
+              }}
+            >
+              OK
+            </Button>
+          </Modal.Footer>
+        </Modal>
+     
+     
       </div>
     );
   }

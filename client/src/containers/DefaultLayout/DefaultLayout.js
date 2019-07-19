@@ -172,7 +172,8 @@ boot2 = newMessage => {
               {localStorage.getItem("compte") != "admin" ? (
                 <Container>
            
-           
+          { localStorage.getItem("compte")=="consultant"?
+
            <Row
                     style={{
                       marginBottom: 5,
@@ -215,8 +216,9 @@ boot2 = newMessage => {
                       </div>
                     </ListGroupItem>
                   </Row>
-
            
+           :""
+           }
            
                   <Row
                     style={{
@@ -416,9 +418,16 @@ boot2 = newMessage => {
                         <strong> Table Client</strong>
                       </div>
                     </ListGroupItem>
+
+
                   </Row>
+                  
                 </Container>
-              )}
+                
+              )
+              
+              }
+              
             </Suspense>
 
             {AppSidebarMinimizer}
@@ -427,10 +436,11 @@ boot2 = newMessage => {
             <div>
               {selectPage}
               <div className="App">
+                {localStorage.getItem("compte")!="admin"?
                 <Widget
                   launcher={this.state.open == false ? this.boot : this.boot2}
-                />
-                
+                />:""
+                }
               
              
               </div>

@@ -13,6 +13,7 @@ import {
 import sample from "./video.webm";
 import { Formik } from "formik";
 import {
+  Modal,
   FormGroup,
   FormControl,
   ButtonToolbar,
@@ -29,7 +30,8 @@ class Login extends Component {
     email: "ddd",
     auth: false,
     typeCompt: 2,
-    notFound:false
+    notFound:false,
+    SuccShow: false
   };
 
   getAuthConsultant = v => {
@@ -42,9 +44,11 @@ class Login extends Component {
         if (Object.keys(response.result).length>0) {
           console.log("illaa");
           if (response.result[0].email === v.email) {
-            this.setState({ auth: true }, () => {
+            if (response.result[0].active === "active") { this.setState({ auth: true }, () => {
               console.log(this.state.auth);
-            });
+            });}else{
+              this.setState({SuccShow:true});
+            }
           }
         }else{
           console.log("ikhwaa");
@@ -146,7 +150,7 @@ class Login extends Component {
                 <Card className="p-4">
                   <CardBody>
                     <Container>
-                    <Row className="justify-content-center" style={{fontWeight:"bold",fontSize:20,color:"#2980b9"}}>YOU ARE :</Row>
+                    <Row className="justify-content-center" style={{fontWeight:"bold",fontSize:20,color:"#2980b9"}}>Connect as:</Row>
 
                       <Row
                         className="justify-content-center"
@@ -256,6 +260,37 @@ class Login extends Component {
             </Col>
           </Row>
         </Container>
+
+         
+        <Modal
+          show={this.state.SuccShow}
+          onHide={e => {
+            this.setState({ SuccShow: false });
+          }}
+        >
+          <Modal.Header
+            style={{ backgroundColor: "#e23e57", color: "#ffffff" }}
+          >
+            <Modal.Title>Your Account is not active!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body style={{fontSize:"60"}}>
+
+           Please wait for IMZII administration to active your account
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button
+              variant="success"
+              onClick={e => {
+                this.setState({ SuccShow: false });
+              }}
+            >
+              OK
+            </Button>
+          </Modal.Footer>
+        </Modal>
+     
+     
       </div>
     );
   }

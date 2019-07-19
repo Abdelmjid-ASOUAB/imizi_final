@@ -38,7 +38,7 @@ app.get("/user", (req, res) => {
 app.get("/login", (req, res) => {
   const { email, pwd } = req.query;
   const GET_LOG_Q =
-    'SELECT email FROM consultant where email="' +
+    'SELECT * FROM consultant where email="' +
     email +
     '" and pwd="' +
     pwd +

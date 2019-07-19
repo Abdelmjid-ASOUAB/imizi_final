@@ -201,6 +201,7 @@ class MyMission extends Component {
             style={{ backgroundColor: "#28c3d4", color: "#ffffff" }}
           >
             <Modal.Title>
+              Add Mission
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>

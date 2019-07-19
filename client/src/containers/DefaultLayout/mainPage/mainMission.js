@@ -80,7 +80,8 @@ class MainMission extends Component {
     const { mission } = this.state;
     return (
       <main className="main">
-        <h1>Mission</h1>
+                 
+              <h1 style={{marginLeft:"45%"}} >Mission</h1>
 
         <div>
           <Form.Control
