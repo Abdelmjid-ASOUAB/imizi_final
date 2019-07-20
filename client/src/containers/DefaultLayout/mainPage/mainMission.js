@@ -81,7 +81,7 @@ class MainMission extends Component {
     return (
       <main className="main">
                  
-              <h1 style={{marginLeft:"45%"}} >Mission</h1>
+              <h2 style={{marginLeft:"45%"}} >Mission</h2>
 
         <div>
           <Form.Control

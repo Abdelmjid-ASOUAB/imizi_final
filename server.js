@@ -5,6 +5,7 @@ const cmd = require("node-cmd");
 const app = exprss();
 const fileUpload = require("express-fileupload");
 
+
 app.use(fileUpload());
 app.use(cors());
 
@@ -662,6 +663,95 @@ app.get("/updateconsultant", (req, res) => {
   });
 });
 
+//Update personnelle Information in Consultant table
+app.get("/updateconsultantPersonnelle", (req, res) => {
+  const {
+    id,
+    nom,
+    prenom,
+    tel,
+    email,
+    pwd,
+    } = req.query;
+  const GET_LOG_Q =
+    'UPDATE consultant SET `nom` = "' +
+    prenom +
+    '" , `prenom` = "' +
+    nom +
+    '" , `email` = "' +
+    email +
+    '" , `pwd` = "' +
+    pwd +
+    '" , `tel` = "' +
+    tel +
+    '" ' +
+    '  WHERE `id` ="' +
+    id +
+    '"';
+  console.log(GET_LOG_Q);
+  
+  
+    connection.query(GET_LOG_Q, (err, result) => {
+    if (err) {
+      return res.send({
+        success: err
+      });
+    } else {
+      return res.send({
+        success: result.insertId
+      });
+    }
+  });
+});
+
+//Update All  in Consultant table
+app.get("/updateconsultantProfessionnelle", (req, res) => {
+  const {
+    id,
+    competence,
+    experience,
+    education,
+    certificats,
+    profile,
+    projects,
+    langues
+  } = req.query;
+  const GET_LOG_Q =
+    'UPDATE consultant SET  `competence`= "' +
+    competence +
+    '"  , `experience`= "' +
+    experience +
+    '"  , `education`= "' +
+    education +
+    '"  , `certificats`= "' +
+    certificats +
+    '"  , `profile`= "' +
+    profile +
+    '"  , `projects`= "' +
+    projects +
+    '"  , `langues`= "' +
+    langues +
+    '" ' +
+    '  WHERE `id` ="' +
+    id +
+    '"';
+    console.log("=====langues=====");
+    console.log(langues);
+    
+ /* connection.query(GET_LOG_Q, (err, result) => {
+    console.log("remove 2  " + GET_LOG_Q);
+    if (err) {
+      return res.send({
+        success: err
+      });
+    } else {
+      return res.send({
+        success: result.insertId
+      });
+    }
+  });*/
+});
+
 //Remove from Mission table
 app.get("/removeConsultant", (req, res) => {
   const { id } = req.query;
@@ -752,11 +842,138 @@ app.get("/updateclient", (req, res) => {
 //Execute a command
 app.get("/getCmnd", (req, res) => {
   cmd.get("python affichage.py", function(err, data, stderr) {
-    console.log("the current dir contains these files :\n\n", data);
+
+
+   setTimeout (()=>{},3000)
+   console.log("wait the current dir contains these files :\n\n", data);
+
     return res.send({
       success: data
-      });
+    });
   });
+});
+//ClaneExperEmail
+app.get("/claneExp", (req, res) => {
+  const { email } = req.query;
+  const GET_LOG_Q = 'DELETE FROM `experience` WHERE `experience`.`email` = "' + email + '"';
+  connection.query(GET_LOG_Q, (err, result) => {
+    console.log(GET_LOG_Q);
+    if (err) {
+      return res.send({
+        success: err
+      });
+    } else {
+      return res.send({
+        success: result.insertId
+      });
+    }
+  });
+});
+
+app.post("/updateconsultantProfessionnelle", (req, res) => {
+  
+
+  const id = req.body.id;
+  const langues = req.body.langues;
+  const competence = req.body.competence;
+
+  
+  const experience =req.body.experience;
+  const education =req.body.education;
+  const certificats =req.body.certificats;
+  const profile = req.body.profile;
+  const projects = req.body.projects;
+
+
+  const vv =
+  'UPDATE consultant SET  `competence`= "' +
+  competence +
+  '"  , `experience`= "' +
+  experience +
+  '"  , `education`= "' +
+  education +
+  '"  , `certificats`= "' +
+  certificats +
+  '"  , `profile`= "' +
+  profile +
+  '"  , `projects`= "' +
+  projects +
+  '"  , `langues`= "' +
+  langues +
+  '" ' +
+  '  WHERE `id` ="' +
+  id +
+  '"';
+
+
+  console.log("remove 2  " + vv);
+
+
+   connection.query(vv, (err, result) => {
+     // console.log("remove 2  " + vv);
+      if (err) {
+        return res.send({
+          success: err
+        });
+      } else {
+        return res.send({
+          success: result.insertId
+        });
+      }
+    });
+
+   
+});
+
+
+app.post("/insertExp", (req, res) => {
+  
+
+  const email = req.body.email;
+  const intitule= req.body.intitule;
+  const description= req.body.description;
+  const dateDebut= req.body.dateDebut;
+  const dateFin= req.body.dateFin;
+  const duree= req.body.duree;
+
+  console.log(intitule);
+  console.log(description);
+  console.log(dateDebut);
+  console.log(dateFin);
+  console.log(duree);
+  
+  const vv =
+  'INSERT INTO `experience`(`intitule`, `description`, `dateDebut`, `dateFin`, `duree`, `email`) VALUES ("' +
+ intitule +
+  '","' +
+ description +
+  '","' +
+ dateDebut  +
+  '","' +
+  dateFin  +
+  '","' +
+ duree  +
+  '","' +
+  email +
+  '")';
+  const delet ="DELETE FROM `experience` WHERE email='"+email+"'"
+
+  console.log( delet);
+
+   connection.query(vv, (err, result) => {
+     // console.log("remove 2  " + vv);
+      if (err) {
+        return res.send({
+          success: err
+        });
+      } else {
+        return res.send({
+          success: result.insertId
+        });
+      }
+    });
+
+
 });
 
 app.listen(4000, () => {

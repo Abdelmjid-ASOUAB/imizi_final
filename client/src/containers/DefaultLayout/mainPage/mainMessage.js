@@ -1,19 +1,30 @@
 import React, { Component } from "react";
 import { Col, Table } from "reactstrap";
 import {Button, FormControl, Form,Card} from "react-bootstrap";
+import Linear from './LinearProgress';
+//https://material-ui.com/components/progress/
+
+import axios from "axios";
+
 let nbr = 0;
-let projet ="";
-let education="" ;
-let langues="";
-let certificats="";
-let competence = "ddd";
-let v=[];
+let projet ='';
+let education='' ;
+let langues='';
+let certificats='';
+let competence = '';
+let profile = '';
 let data=[];
-let experience=[];
+let posExp=[];
+let Experience=[];
+
+
 
 
 
 class MainMessage extends Component {
+
+
+
   state = {
     Edshow: false,
     consultant: [],
@@ -43,6 +54,7 @@ class MainMessage extends Component {
     super(props);
 
     this.handleCloseEd = this.handleCloseEd.bind(this);
+    this.LinearIndeterminate = this.LinearIndeterminate.bind(this);
     this.getConsultant();
     this.getExperience();
     this.cmdExmpl()
@@ -137,6 +149,29 @@ class MainMessage extends Component {
     });
   };
 
+  
+  updatePerson = v => {
+    let url = "http://localhost:4000/updateconsultantPersonnelle?id="+this.state.idSel+"&nom="+this.state.nameSel+"&prenom="+this.state.prenomSel+"&email="+this.state.emailSel+"&pwd="+this.state.pwdSel+"&tel="+this.state.telSel;
+    fetch(url)
+      .then(response => response.json())
+      .then(response => {
+        console.log("get Expr");
+
+        this.setState(
+          {
+            experience: response.data
+          },
+          () => {
+            console.log(this.state.consultant);
+          }
+        );
+      })
+      .catch(err => console.error(err));
+
+    console.log(url);
+  };
+
+  
   cmdExmpl = e => {
     fetch(  "http://localhost:4000/getCmnd")
       .then(response => response.json())
@@ -148,9 +183,73 @@ class MainMessage extends Component {
      
       .catch(err => console.error(err));
   };
+
+  
+  uploadProfs = async e => {
+    const formData = new FormData();
+    formData.append("competence", competence);
+    formData.append("id", this.state.idSel);
+    formData.append("langues", langues);
+
+    formData.append("education", education);
+    formData.append("profile", profile);
+    formData.append("projet", projet);
+    formData.append("experience", "");
+    formData.append("certificats", certificats);
+
+    try {
+      const res = await axios.post("http://localhost:4000/updateconsultantProfessionnelle", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
+     
+    } catch (err) {}
+  };
+
+
+  
+  insertExper = async exp => {
+    const formData = new FormData();
+    formData.append("email", localStorage.getItem("email"));
+    formData.append("intitule",exp.intitule);
+    formData.append("description",exp.description);
+    formData.append("dateDebut",exp.dateDebut);
+    formData.append("dateFin",exp.dateFin);
+    formData.append("duree",exp.duree);
+    
+    try {
+      const res = await axios.post("http://localhost:4000/insertExp", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
+     
+    } catch (err) {}
+  };
+
+  
+  ClaneExper = id => {
+    let url = "http://localhost:4000/claneExp?email=" + localStorage.getItem("email");
+
+    fetch(url)
+      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+        this.getConsultant();
+      })
+      .catch(err => console.error(err));
+  };
+
+  
+
+
+
+
   render() {
     nbr = 0;
     const { experience } = this.state;
+
 
     return (
       <div className="main">
@@ -218,8 +317,27 @@ class MainMessage extends Component {
                 defaultValue={this.state.pwdSel}
               />
             </Form.Group>
+            <Form.Group 
+            as={Col} 
+            controlId="formGridState"
+            onChange={e =>
+              this.setState({
+                telSel: e.target.value
+              })
+            }
+            >
+
+              <Form.Label>Phone Number</Form.Label>
+
+              <FormControl placeholder="tel" type="text" name="tel" defaultValue={this.state.telSel} />
+            </Form.Group>
+      
           </div>
-          <Button variant="success" style={{marginLeft:"90%"}}>Update</Button>
+     
+          <Button variant="success" style={{marginLeft:"90%"}}
+          onClick={e=>{this.updatePerson();this.getConsultant();
+            this.getExperience();}}
+          >Update</Button>
 
     </Card.Body>
   </Card>
@@ -249,11 +367,11 @@ class MainMessage extends Component {
                 {this.state.fileName}
               </label>
             </div>
-
+         
           </Form.Group>
-
+          < Linear/>
           <div className="input-group-prepend">
-
+         
           <Form.Group
             as={Col}
             controlId="formGridState"
@@ -287,6 +405,33 @@ class MainMessage extends Component {
               <option>aa</option>
             </Form.Control>
           </Form.Group>
+          <Form.Group as={Col} controlId="formGridState">
+              <Form.Label>TJM (DHS)</Form.Label>
+
+              <FormControl
+                placeholder="Tjm"
+                type="number"
+                name="tjm"
+                min="1000"
+                max="4946"
+                step="100"
+
+                defaultValue={this.state.tjmSel}
+
+                onChange={e =>
+                  this.setState(
+                    {
+                      tjmSel: e.target.value
+                    },
+                    e => {
+                      console.log(this.state.tjmSel);
+                    }
+                  )
+                }
+              />
+            </Form.Group>
+ 
+         
           </div>
 
 
@@ -329,36 +474,7 @@ class MainMessage extends Component {
             </Form.Group>
           </div>
           <div className="input-group-prepend">
-            <Form.Group as={Col} controlId="formGridState">
-              <Form.Label>Phone Number</Form.Label>
-
-              <FormControl placeholder="tel" type="text" name="tel" defaultValue={this.state.telSel} />
-            </Form.Group>
-            <Form.Group as={Col} controlId="formGridState">
-              <Form.Label>TJM (DHS)</Form.Label>
-
-              <FormControl
-                placeholder="Tjm"
-                type="number"
-                name="tjm"
-                min="1000"
-                max="4946"
-                step="100"
-
-                defaultValue={this.state.tjmSel}
-
-                onChange={e =>
-                  this.setState(
-                    {
-                      tjmSel: e.target.value
-                    },
-                    e => {
-                      console.log(this.state.tjmSel);
-                    }
-                  )
-                }
-              />
-            </Form.Group>
+ 
           </div>
 
           
@@ -393,7 +509,10 @@ class MainMessage extends Component {
                   <th>Description</th>
                 </tr>
               </thead>
-              <tbody>{experience.map(this.renderConsultant)}
+              <tbody>{
+                this.state.experience?experience.map(this.renderConsultant):""
+                
+                }
                 <tr>
                   <th colSpan="4" style={{ backgroundColor: "#8ac6d1", color: "#204969", }}>Number of experience</th>
                   <td  >{nbr}  {nbr != 1 ? " years" : " year"}</td>
@@ -593,7 +712,10 @@ class MainMessage extends Component {
      
         <Button variant="danger"
         onClick={e=>{
+          posExp=[];
 
+          console.log(this.state.ssss);
+          
          data= this.state.ssss
           .split("\n");
 
@@ -602,7 +724,7 @@ class MainMessage extends Component {
           .map((exp, index) => (
           exp.split(":")[0]=="competence"
             ?competence+=
-            ","+  exp.split(":")[1]
+            ","+exp.split(":")[1]
           :
           exp.split(":")[0]=="education"
             ?education+=
@@ -620,15 +742,15 @@ class MainMessage extends Component {
             ?certificats+=
           ","+  exp.split(":")[1]
           :
-          exp.split(":")[0]=="Date-Debut-experience"
+          exp.split(":")[0]=="profil"
           ?
-            v.push(index)
-          
-          
-          :
-         ""
-          
-          
+          profile=
+           exp.split(":")[1]
+            :
+            exp.split(":")[0]=="Date-Debut-experience"
+          ?
+          posExp.push(index):
+             ""  
           )
 
           )
@@ -639,23 +761,53 @@ class MainMessage extends Component {
  <Button
  onClick={e=>{
    
-  console.log("certificats")
+  console.log("=======certificats")
   console.log(certificats)
-  console.log("project")
+  console.log("=======project")
   console.log(projet)
-  console.log("etud")
+  console.log("=======Etud")
   console.log(education)
-for (let index = 0; index < v.length; index++) {
+  console.log("=======Competence")
+  console.log(competence)
+  console.log("=======lang")
+  console.log(langues)
+  Experience =[];
+
+
+  console.log(posExp.length);
+
+for (let index = 0; index < posExp.length; index++) {
+
   for (let i = 0; i < data.length; i++) {
-      if(i==v[index]){
-  let a = data[i]+"+"+data[i+1]+"+"+data[i+2]+"+"+data[i+3]+"+"+data[i+4];
-        experience.push(a);
+
+      if(i==posExp[index]){
+        console.log(data[i]);
+        
+       Experience.push({
+        dateDebut:data[i].split(":")[1],
+        dateFin:data[i+1].split(":")[1],
+        duree:data[i+2].split(":")[1],
+        intitule:data[i+3].split(":")[1],
+        description:data[i+4].split(":")[1],
+       });
       }
   }
 }  
-console.log("Exper")
-console.log(experience)
+//console.log("Exper")
+//console.log(Experience)
+//this.updateProfes()
+console.log("+++++++++Experience")
+console.log(Experience)
+console.log("++++++++++++++++++++++++++++++++++++++++")
 
+this.ClaneExper();
+
+for (let index = 0; index < Experience.length; index++) {
+  this.insertExper(Experience[index]);
+  
+}
+
+//this.uploadProfs();
   }
  }
  >
