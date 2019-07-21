@@ -2,8 +2,8 @@
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jul 12, 2019 at 06:07 PM
+-- Host: 127.0.0.1
+-- Generation Time: Jul 21, 2019 at 04:16 AM
 -- Server version: 10.3.15-MariaDB
 -- PHP Version: 7.3.6
 
@@ -68,10 +68,10 @@ CREATE TABLE `client` (
 --
 
 INSERT INTO `client` (`id`, `representant`, `tel`, `societe`, `mail`, `pwd`, `active`) VALUES
-(1, 'Nadia Fassi Fehri', '0587896534', 'INWI', 'contact@inwi.com', 'INWI1MAROC', 'waiting'),
-(2, 'Stéphane Richardéé', '057896348511', 'WANA', 'contact@orange.ma', 'Orange1MAROCé', 'waiting'),
+(1, 'Nadia Fassi Fehri', '0587896534', 'INWI', 'contact@inwi.com', 'INWI1MAROC', 'active'),
+(2, 'Stéphane Richardéé', '057896348511', 'WANA', 'contact@orange.ma', 'Orange1MAROCé', 'active'),
 (3, 'Abou Bakr Saddik', '0554789638', 'Sofrecom Services Maroc', 'contact@sofercom.com', 'Sofrecom1MAROC', 'inactive'),
-(18, 'asouab abdelmjid', '0610573342', 'Maroc', 'cli@cli.cli', 'hhh', 'active');
+(28, 'DAHDBI Ahmed ', ' 2127456789', 'Orange', 'contact@orang.com', 'test', 'waiting');
 
 -- --------------------------------------------------------
 
@@ -106,31 +106,36 @@ CREATE TABLE `consultant` (
 --
 
 INSERT INTO `consultant` (`id`, `nom`, `prenom`, `email`, `pwd`, `tel`, `seniorite`, `disponibilite`, `Tjm`, `competence`, `experience`, `education`, `certificats`, `profile`, `projects`, `langues`, `contract`, `active`) VALUES
-(1, 'hanane', 'Saadi', 'h@h.com', 'aaa', '0185090003', 'Expert [ 10 years]', '1 month', 1500, 'java', 'Exp1,Exp2,Exp3,Exp4,Exp5,Exp6,Exp7,Exp00', 'Education 1,2?3,4,5', 'Certificats1,Certificats3,Certificats2,Certificats4,Certificats5,Certificats6', 'IT Profile', 'Projet1,Project2,Project 3 ', 'arabe ,fr ,Eng, Espa,tamazight', 'CDI', 'active'),
-(6, 'saadi', 'hanan', 'hanan@homtail.com', '11111', '0610573342', 'Expert [ 10 years]', ' 1 month', 1100, 'c  ,php', 'test,test2', 'a', 'b', '', 'c', 'arabic', 'Freelancer', 'inactive'),
-(7, 'hiha hiho', 'hiho hiho', 'h@h.fr', 'hhh', '0185090003', 'intermediate [3 to 5 years]', 'In 2 weeks', 0, 'sql,php', '', '', '', '', '', '0', 'Freelancer', 'inactive'),
-(31, 'asouab', 'abdelmjid', 'h@h.ma', 'hhh', '0610573342', 'Senior [5 to 10 years]', ' 1 month', NULL, 'javascript,php', '', '', '', '', '', '0', NULL, 'active'),
-(33, 'asouab', 'abdelmjid', 'abde.asouab@gmail.com', 'hhh', '0610573342', 'Expert [ 10 years]', 'immediate', NULL, 'reactjs,flutter', '', '', '', '', '', '0', NULL, 'active'),
-(35, 'hiha', 'hiho', 'h@h.mama', 'hhh', '0185090003', 'Senior [5 to 10 years]', 'In 2 weeks', NULL, 'Angular', '', '', '', '', '', '0', NULL, 'active'),
-(37, 'hiha', 'hiho', 'h@h.frq', 'hhh', '0185090003', 'Senior [5 to 10 years]', 'In 2 weeks', NULL, 'jee,java swing', '', '', '', '', '', '0', NULL, 'active'),
-(38, 'asouab', 'abdelmjid', 'h@h.bb', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', NULL, '.net,c#', '', '', '', '', '', '0', NULL, 'active'),
-(40, 'asouab', 'abdelmjid', 'h@h.frqqqqq', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', NULL, 'sql,mongodb', '', '', '', '', '', '0', NULL, 'active'),
-(42, 'haho', 'tata', 'h@h.c', 'hhh', '123456', 'intermediate [3 to 5 years]', ' 1 month', NULL, 'flutter,firebase', '', '', '', '', '', '0', NULL, 'active'),
-(43, 'asouab', 'abdelmjid', 'h@h.frqq', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', NULL, 'symfony,php,html,css', '', '', '', '', '', '0', NULL, 'active'),
-(45, 'asouab', 'abdelmjid', 'h@h.frss', 'hhh', '0610573342', 'Senior [5 to 10 years]', 'In 2 weeks', NULL, 'react native', '', '', '', '', '', '0', NULL, 'active'),
-(49, 'alah', 'alah', 'h@h.aaa', 'hhh', ' 212', 'Expert [ 10 years]', 'immediate', NULL, 'ios', '', '', '', '', '', '0', NULL, 'active'),
-(50, 'asouab', 'abdelmjid', 'con@con.con', 'hhh', '0610573342', 'Expert [ 10 years]', '1 month', NULL, 'networking', '', '', '', '', '', '0', NULL, 'active'),
-(52, 'ahmed', 'ahmed', 'ahmed@gmail.com', '0000', '05555555', 'Senior [5 to 10 years]', 'In 2 weeks', NULL, NULL, '', '', '', '', '', '0', NULL, 'active'),
-(53, 'hh', 'azert', 'aa@aa.aa', 'hhh', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', 1300, NULL, '', '', '', '', '', '0', 'Freelancer', 'active'),
-(54, 'ddd', 'zzz', 'seo.seo.2019@gmail.com', 'hhh', '1233', 'intermediate [3 to 5 years]', '  1 month', 1200, NULL, '', '', '', '', '', '0', 'Freelancer', 'active'),
-(55, 'hiha', 'hiho', 'seo.seo.2019@sgmail.com', 'hhh', 'h@h.coms', 'Senior [5 to 10 years]', 'In 2 weeks', 1000, NULL, '', '', '', '', '', '0', 'CDI', 'active'),
-(57, 'aaaaaaaaa', 'aaaaaaaaaaaaa', 'abde.asouab@gmail.comaaa', 'hhh', 'h@h.com', 'Senior [5 to 10 years]', '1 month', 1100, NULL, '', '', '', '', '', '0', 'CDI', 'active'),
-(59, 'asouabaa', 'abdelmjidaa', 'abde.aasouab@gmail.coma', 'hhh', 'h@h.com', 'beginner [0 to 5 years]', 'In 2 weeks', 1300, NULL, '', '', '', '', '', '0', 'CDI', 'active'),
-(60, 'ssasouab', 'abdelmjidss', 'ssabde.asouab@gmail.com', 'hhh', 'ssh@h.com', 'intermediate [3 to 5 years]', 'In 2 weeks', 1200, NULL, '', '', '', '', '', '0', 'CDI', 'active'),
-(61, 'aaaaa', 'aaaaa', 'abdea.asouaba@gmaila.coma', 'hhh', 'h@h.com', 'intermediate [3 to 5 years]', '1 month', 1200, NULL, '', '', '', '', '', '0', 'CDI', 'active'),
-(63, 'asouaba', 'abdelmjida', 'haa@haa.comaaa', 'hhh', '0610573342', 'Senior [5 to 10 years]', 'immediate', 1000, NULL, '', '', '', '', '', '0', 'CDI', 'active'),
-(69, 'aaa', 'aaa', 'aa.bb@bb.cc', 'hhh', '1111', 'beginner [0 to 5 years]', 'immediate', 2000, NULL, '', '', '', '', '', '0', 'Freelancer', 'active'),
-(70, 'aazz', 'aazz', 'az.az@az.az', 'undefined', 'h@h.comz', 'intermediate [3 to 5 years]', 'In 2 weeks', 2000, NULL, '', '', '', '', '', '0', 'Freelancer', 'active');
+(1, 'Saadi', 'hanane', 'h@h.com', 'aaa', '0185090003', 'Expert [ 10 years]', '1 month', 1500, ', Linux Ubuntu    \r, 2000 server\r, server/XP/Vista/7/8\r, XML/XSL, HTML/Javascript,Ajax, Servlet/JSP,Struts, JSF\r, Hibernate Spring JSTL HTTP  Php/MySQ\r, LDAP , Tomcat ,Glassfish,Websph?re\r, Java , C#,VB net,Php\r, UML, Merise, Rational Rose, PowerAMC, Design Patterns\r, J2EE, EJB, JPA, JMS,MDB, NET, WebServices\r, TCP/IP, Topologies R?seaux\r', '', ', Master en Management des Syst?mes d?Informations\r, Licence professionnelle Java/J2ee\r, BTS  option G?nie Informatique\r, Baccalaur?at sciences exp?rimentales\r', ', Certificat ISTQB ? niveau Foundation\r, IBM Certified specialist in FileNet Content Manager V5\r, IBM Certified specialist in FileNet Business Process Manager V5\r, IBM Datacap Taskmaster Capture Product Fundamentals Technical Professional\r, Certified ISO / IEC 2 0000 International Standard for IT Service Management\r, Certified COBIT Foundation V4\r, Training Project Management Professional\r, Training Resilia Cyber security resilience\r', ' Senior IT Manager\r', 'undefined', ', Arabe , Fran?ais , Anglais\r', 'CDI', 'active'),
+(31, 'abdelmjid', 'Saadi', 'abde.saadi@gmail.com', 'gmil', '0610573342', 'Senior [5 to 10 years]', ' 1 month', 0, 'java,php', '', '', '', '', '', '0', 'null', 'active'),
+(35, 'khalid', 'khaldon', 'khalid@khali.com', 'kaka', '0185090003', 'Senior [5 to 10 years]', 'In 2 weeks', 0, 'Angular', '', '', '', '', '', '0', 'null', 'active'),
+(37, 'Imane', 'Anwar', 'Imane@gmail.com', 'imane', '0185090003', 'Senior [5 to 10 years]', 'In 2 weeks', 1100, 'jee,java swing', '', '', '', '', '', '0', 'null', 'inactive'),
+(38, 'Hassane', 'Barakat', 'hasan@hotmail.com', 'hasanbarakat', '0610573342', 'intermediate [3 to 5 years]', 'In 2 weeks', 1300, '.net,c', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'undefined', 'null', 'active');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `experience`
+--
+
+DROP TABLE IF EXISTS `experience`;
+CREATE TABLE `experience` (
+  `id` int(11) NOT NULL,
+  `intitule` varchar(100) NOT NULL,
+  `description` varchar(200) NOT NULL,
+  `dateDebut` varchar(20) NOT NULL,
+  `dateFin` varchar(20) NOT NULL,
+  `duree` varchar(11) NOT NULL,
+  `email` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `experience`
+--
+
+INSERT INTO `experience` (`id`, `intitule`, `description`, `dateDebut`, `dateFin`, `duree`, `email`) VALUES
+(27, ' Ing?nieur Etudes et D?veloppement\r', ' Pilotage  des  projets , Optimiser l?usage de tous les composants de l?infrastructure , Mise en place de solution de haute disponibilit? , Gestion des fichiers de configuration de base de donn?es\r', ' Septembre  2003\r', ' Septembre  2009\r', ' 1 an\r', 'h@h.com'),
+(28, ' Consultant ?tudes et d?veloppement\r', ' Mise en place et configuration Peplink , WAN Internet Link Load Balancing Routers , Mise en place d?un serveur mail en haute disponibilit?\r', ' Janvier 2010\r', ' Octobre 2012\r', ' 2 ans\r', 'h@h.com');
 
 -- --------------------------------------------------------
 
@@ -152,38 +157,37 @@ CREATE TABLE `mission` (
 --
 
 INSERT INTO `mission` (`id`, `Titel`, `description`, `date`, `visible`) VALUES
-(1, 'Developer  Java', 'Developer  JavaDeveloper  JavaDeveloper  JavaDeveloper  Java', '2019-06-04', 0),
+(1, 'Developer  Java', 'Developer  JavaDeveloper  JavaDeveloper  JavaDeveloper  Java', '2019-06-19', 0),
 (2, 'Developer  Web', 'Developer  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  WebDeveloper  Web', '2019-06-12', 0),
 (3, 'networking ', 'networkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworkingnetworking', '2019-06-02', 0),
-(25, 'hackers', 'hackers hackers hackers hackers hackers hackers ', '2019-06-16', 0),
-(27, 'hanane', 'hanane ', '2019-06-24', 0),
-(28, 'java', 'html', '2019-07-02', 0),
-(33, 'test', 'test', '2019-07-09', 0);
+(48, 'Java Dev', 'We looking for java developer', '2019-07-19', 0),
+(49, 'ReactJs developer', 'looking for Reactjs developer', '2019-07-19', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Missionclient`
+-- Table structure for table `missionclient`
 --
 
-DROP TABLE IF EXISTS `Missionclient`;
-CREATE TABLE `Missionclient` (
+DROP TABLE IF EXISTS `missionclient`;
+CREATE TABLE `missionclient` (
   `id` int(11) NOT NULL,
   `client_email` varchar(50) NOT NULL,
   `mission_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `Missionclient`
+-- Dumping data for table `missionclient`
 --
 
-INSERT INTO `Missionclient` (`id`, `client_email`, `mission_id`) VALUES
+INSERT INTO `missionclient` (`id`, `client_email`, `mission_id`) VALUES
 (1, 'contact@inwi.com', 1),
 (2, 'contact@inwi.com', 2),
-(19, 'cli@cli.cli', 25),
-(21, 'cli@cli.cli', 27),
-(22, 'cli@cli.cli', 28),
-(27, 'cli@cli.cli', 33);
+(28, 'w@w.w', 34),
+(29, 'w@w.w', 35),
+(30, 'w@w.w', 36),
+(42, 'cli@cli.cli', 48),
+(43, 'cli@cli.cli', 49);
 
 --
 -- Indexes for dumped tables
@@ -211,15 +215,21 @@ ALTER TABLE `consultant`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indexes for table `experience`
+--
+ALTER TABLE `experience`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `mission`
 --
 ALTER TABLE `mission`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `Missionclient`
+-- Indexes for table `missionclient`
 --
-ALTER TABLE `Missionclient`
+ALTER TABLE `missionclient`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -236,25 +246,31 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `consultant`
 --
 ALTER TABLE `consultant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2467;
+
+--
+-- AUTO_INCREMENT for table `experience`
+--
+ALTER TABLE `experience`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `mission`
 --
 ALTER TABLE `mission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
--- AUTO_INCREMENT for table `Missionclient`
+-- AUTO_INCREMENT for table `missionclient`
 --
-ALTER TABLE `Missionclient`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+ALTER TABLE `missionclient`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
