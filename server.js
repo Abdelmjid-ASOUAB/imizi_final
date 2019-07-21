@@ -96,9 +96,8 @@ app.post("/upload", (req, res) => {
   const file = req.files.file;
   const email = req.body.Namefile;
 
-  console.log(name);
 
-  file.mv(`/opt/lampp/htdocs/${email}.pdf`, err => {
+  file.mv(`C:/xampp/htdocs/CVs/${email}.pdf`, err => {
     if (err) {
       console.error(err);
       return res.status(500).send(err);
@@ -882,7 +881,7 @@ app.post("/updateconsultantProfessionnelle", (req, res) => {
   const education =req.body.education;
   const certificats =req.body.certificats;
   const profile = req.body.profile;
-  const projects = req.body.projects;
+  const projet = req.body.projet;
 
 
   const vv =
@@ -897,7 +896,7 @@ app.post("/updateconsultantProfessionnelle", (req, res) => {
   '"  , `profile`= "' +
   profile +
   '"  , `projects`= "' +
-  projects +
+  projet +
   '"  , `langues`= "' +
   langues +
   '" ' +
