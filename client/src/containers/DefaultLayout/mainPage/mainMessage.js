@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Col, Table } from "reactstrap";
-import {Button, FormControl, Form,Card} from "react-bootstrap";
+import {  Modal, Button, FormControl, Form,Card} from "react-bootstrap";
 import Linear from './LinearProgress';
 //https://material-ui.com/components/progress/
 
@@ -54,7 +54,6 @@ class MainMessage extends Component {
     super(props);
 
     this.handleCloseEd = this.handleCloseEd.bind(this);
-    this.LinearIndeterminate = this.LinearIndeterminate.bind(this);
     this.getConsultant();
     this.getExperience();
     this.cmdExmpl()
@@ -242,7 +241,7 @@ class MainMessage extends Component {
   };
 
   
-
+  
 
 
 
@@ -369,7 +368,6 @@ class MainMessage extends Component {
             </div>
          
           </Form.Group>
-          < Linear/>
           <div className="input-group-prepend">
          
           <Form.Group
@@ -760,7 +758,11 @@ class MainMessage extends Component {
 
  <Button
  onClick={e=>{
-   
+  this.setState({ Edshow: true });
+
+  setTimeout(e=>{this.setState({ Edshow: false })},
+    3000
+);
   console.log("=======certificats")
   console.log(certificats)
   console.log("=======project")
@@ -813,6 +815,36 @@ for (let index = 0; index < Experience.length; index++) {
  >
  test</Button>
 
+
+        
+ <Modal
+          show={this.state.Edshow}
+          onHide={e => {
+            this.setState({ Edshow: false });
+          }}
+        >
+          <Modal.Header
+            style={{ backgroundColor: "#e23e57", color: "#ffffff" }}
+          >
+            <Modal.Title>Getting data from CV</Modal.Title>
+          </Modal.Header>
+          <Modal.Body style={{fontSize:"60"}}>
+
+          </Modal.Body>
+          < Linear/>
+
+          <Modal.Footer>
+            <Button
+              variant="success"
+              onClick={e => {
+                this.setState({ Edshow: false });
+              }}
+            >
+              OK
+            </Button>
+          </Modal.Footer>
+        </Modal>
+     
  
       </div>
  
